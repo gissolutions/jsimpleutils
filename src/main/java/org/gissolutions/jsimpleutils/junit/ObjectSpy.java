@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectSpy {
-	
+	static org.apache.log4j.Logger logger = org.apache.log4j.Logger
+			.getLogger(ObjectSpy.class);
 	public static List<Method> getGetters(Object obj) {
 		List<Method> lst = new ArrayList<Method>();
 		Class<?> c = obj.getClass();
@@ -16,8 +17,24 @@ public class ObjectSpy {
 		}
 		return lst;
 	}
-	
+	public static Method getSetterForProperty(Object obj, String propertyName, Class<?> parameterType) {
+		Class<?> c = obj.getClass();
+		String setterName ="set" + propertyName.substring(0,1).toUpperCase() +
+			propertyName.substring(1, propertyName.length());
 
+		Method method =null;
+		try {
+			 method = c.getMethod(setterName,parameterType);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return method;
+	}
+	
 	public static boolean isMethodGetter(Method m) {
 		if (m.getName().startsWith("get") || m.getName().startsWith("is")) {
 			if (m.getParameterTypes().length == 0) {

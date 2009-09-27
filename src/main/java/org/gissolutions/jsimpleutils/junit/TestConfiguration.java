@@ -1,6 +1,7 @@
 package org.gissolutions.jsimpleutils.junit;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 
 import org.apache.log4j.xml.DOMConfigurator;
@@ -18,12 +19,21 @@ public class TestConfiguration {
 	protected TestConfiguration() {
 		File out = new File("output");
 		File data = new File("test_data");
+		
 		this.outputPath = out.getAbsolutePath();
 		this.testDataPath = data.getAbsolutePath();
 		String configfile = "/log4jprops.xml";
 		log4jConfigUrl = this.getClass().getResource(configfile);
 		DOMConfigurator.configure(log4jConfigUrl);
 		logger.info("Log4j configured with " + log4jConfigUrl.getFile());
+		if(!out.exists()) {
+			out.mkdirs();
+			logger.info("Created output path " + this.outputPath);
+		}
+		if(!data.exists()) {
+			data.mkdirs();
+			logger.info("Created test data path " + this.testDataPath);
+		}
 		
 	}
 
@@ -57,6 +67,20 @@ public class TestConfiguration {
 		String fn = FilenameUtility.insertDate(f.getAbsolutePath());
 		
 		return fn;
+	}
+	
+	public static void writeAssertionsToFile(Object obj, String varName) {
+		String fnout = getOutputFilenameWithDate(varName + ".txt");
+		AssertionUtility au;
+		try {
+			au = new AssertionUtility(new File(fnout));
+			au.writeAssertions(obj, varName);
+		} catch (FileNotFoundException e) {
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
+		}
+		
 	}
 	public static void main(String[] args) {
 		System.out.println("Output path: " + TestConfiguration.getInstance().getOutputPath());
