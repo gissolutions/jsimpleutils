@@ -6,8 +6,7 @@ public class Artifact {
 	private String version;
 	public Artifact() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
+			}
 	public String getGroupId() {
 		return groupId;
 	}

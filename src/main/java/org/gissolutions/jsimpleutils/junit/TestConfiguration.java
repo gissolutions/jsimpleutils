@@ -82,6 +82,19 @@ public class TestConfiguration {
 		}
 		
 	}
+	
+	public static String calculateMD5Hash(String filename) {
+		String md5 =null;
+		try {
+			md5= FilenameUtility.md5Hash(filename);
+		} catch (FileNotFoundException e) {
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
+		}
+		
+		return md5;
+	}
 	public static void main(String[] args) {
 		System.out.println("Output path: " + TestConfiguration.getInstance().getOutputPath());
 		System.out.println("Test Data path: " + TestConfiguration.getInstance().getTestDataPath());
