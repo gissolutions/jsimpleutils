@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="load-arfifact" name="maven-faii-utils" >
+
+<target name="load-arfifact">
+<!--	<property name="group.id"  value="org.geotools"/>-->
+<!--	<property name="artifact.id"  value="gt-metadata"/>-->
+<!--	<property name="version"  value="2.5.5"/>-->
+	<property name="group.id"  value="c3p0"/>
+	<property name="artifact.id"  value="c3p0-oracle-thin-extras"/>
+	<property name="version"  value="0.9.1.2"/>
+	<property name="packaging"  value="jar"/>
+	<property name="file.dir"  value="C:/Java/Libs/c3p0-0.9.1.2/lib"/>
+	<property name="file"  value="${file.dir}/c3p0-oracle-thin-extras-0.9.1.2.jar"/>
+	<echo>mvn install:install-file -DgroupId=${group.id} -DartifactId=${artifact.id} -Dversion=${version} -Dpackaging=${packaging} -Dfile=${file} -DgeneratePom=true</echo>
+	<exec executable="cmd">
+    <arg value="/c"/>
+    <arg value="mvn install:install-file"/>
+    <arg value="-DgroupId=${group.id}"/>
+    <arg value="-DartifactId=${artifact.id}"/>
+    <arg value="-Dversion=${version}"/>
+    <arg value="-Dpackaging=${packaging}"/>
+    <arg value="-Dfile=${file}"/>
+    <arg value="-DgeneratePom=true"/>
+  </exec>
+	
+</target>
+</project>

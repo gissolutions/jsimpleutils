@@ -1,5 +1,6 @@
 package org.gissolutions.jsimpleutils.validation;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -7,7 +8,7 @@ public class SimpleValidator<T> implements IValidator<T> {
 	private Map<String, Pattern> patterns;
 	
 	public SimpleValidator() {
-		// TODO Auto-generated constructor stub
+		patterns = new HashMap<String, Pattern>();
 	}
 
 	@Override

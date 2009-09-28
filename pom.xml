@@ -21,12 +21,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				
+
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/appinfo.properties</include>
+				</includes>
+			</resource>
+		</resources>
 		<testResources>
 			<testResource>
-				<directory>tests</directory>
+				<directory>src/test/java</directory>
 				<includes>
 					<include>**/log4jprops.xml</include>
 				</includes>

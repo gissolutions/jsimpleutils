@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="svnInfo" name="svn-utils">
+	<property environment="env"/>
 	<property file="svn.properties" />
 	<path id="svnant.classpath">
-		<!--
-			<pathelement location="C:/Java/Libs/svnant-1.2.1/lib/svnant.jar"/>
-		-->
-		<!--
-			<pathelement
-			location="C:/Java/Libs/svnant-1.2.1/lib/svnClientAdapter.jar"/>
-		-->
-		<!--
-			<pathelement location="C:/Java/Libs/svnant-1.2.1/lib/svnjavahl.jar"/>
-		-->
-		<!--
-			<pathelement location="C:/Java/Libs/svnant-1.2.1/lib/svnkit.jar"/>
-		-->
 		<fileset dir="C:/Java/Libs/svnant-1.2.1/lib">
 			<include name="*.jar" />
 		</fileset>
 	</path>
-	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml"
-		classpathref="svnant.classpath" />
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
+	<target name="update-revision" depends="svnInfo">
+
+		<echo message="-pre-dist Application Properties version ${application.version}-r${src.revision}" />
+		<propertyfile file="src/main/java/org/gissolutions/jsimpleutils/appinfo.properties" comment="Everything can be manually updated except buildnum and builddate.">
+			<entry key="program.PROGNAME" default="${main.class}" />
+			<entry key="program.AUTHOR" value="Luis Carlos Berrocal" />
+			<entry key="program.COMPANY" default="GIS Solution" />
+			<entry key="program.COPYRIGHT" value="now" type="date" pattern="yyyy" />
+			<entry key="program.DESCRIPTION" default="" />
+			<entry key="program.VERSION" value="${application.version}" />
+			<entry key="program.BUILDNUM" value="${svn.prop.lastRev}" />
+			<entry key="program.BUILDDATE" type="date" value="now" pattern="yyyyMMdd-HHmmss" />
+			<entry key="program.BUILDHOST" value="${env.COMPUTERNAME}" />
+			<entry key="program.BUILDUSER" value="${user.name}" />
+		</propertyfile>		
+	</target>
 	<target name="svnInfo">
 		<svn username="${svn.username}" password="${svn.password}">
 			<info target="${svn.url}" propPrefix="svn.prop." />
 		</svn>
 
 		<echo message="Subversion repository url: ${svn.prop.url}" />
-		<echo message="Last Rev url: ${svn.prop.lastRev}" />
+		<echo message="Last Rev: ${svn.prop.lastRev}" />
+		<echo message="Last Rev date: ${svn.prop.lastDate}" />
 
 	</target>
 </project>

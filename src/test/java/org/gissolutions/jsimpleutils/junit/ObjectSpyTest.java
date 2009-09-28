@@ -26,30 +26,21 @@ public class ObjectSpyTest {
 	@Test
 	public void testGetGetters() {
 		List<Method> methods = ObjectSpy.getGetters(new Artifact());
-		Method met = methods.get(0);
+		//Method met = methods.get(0);
 		logger.debug("Methods count %s", methods.size() );
-		TestConfiguration.writeAssertionsToFile(met, "met");
+		assertEquals(4, methods.size());
+		//TestConfiguration.writeAssertionsToFile(met, "met");
 		
 	}
 
 	@Test
 	public void testGetSetterForProperty() {
-		fail("Not yet implemented");
+		Method met = ObjectSpy.getSetterForProperty(new Artifact(), "artifactId", String.class);
+		assertEquals("setArtifactId",met.getName());
+		
+		TestConfiguration.writeAssertionsToFile(met, "met");
 	}
 
-	@Test
-	public void testIsMethodGetter() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testIsMethodSetter() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPropertyName() {
-		fail("Not yet implemented");
-	}
+	
 
 }

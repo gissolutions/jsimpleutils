@@ -1,5 +1,5 @@
 package org.gissolutions.jsimpleutils.validation;
 
-public interface IValidator {
-
+public interface IValidator<T> {
+	public abstract void validate(T object);
 }
