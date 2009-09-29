@@ -48,10 +48,6 @@ public class SimpleValidator<T> implements IValidator<T> {
 		}
 	}
 	
-	public void validate2(Object obj) {
-		Field[] fields = obj.getClass().getFields();
-		
-		
-	}
+
 
 }
