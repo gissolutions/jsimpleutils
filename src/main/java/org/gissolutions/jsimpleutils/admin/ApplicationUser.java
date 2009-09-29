@@ -4,8 +4,9 @@ import org.gissolutions.jsimpleutils.validation.RuleRegExp;
 
 public class ApplicationUser<T> implements IApplicationUser<T> {
 	private T userId;
-	@RuleRegExp(regExpName="usernamePattern")
+	@RuleRegExp(regExpName="username-pattern")
 	private String username;
+	@RuleRegExp(regExpName="password-pattern")
 	private String password;
 	
 	@Override

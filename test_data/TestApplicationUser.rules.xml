@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules-config>
+	<rules>
+		<regexprule name="username-pattern" pattern=".*" />
+		<regexprule name="password-pattern"
+			pattern="(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$" />
+	</rules>
+</rules-config>

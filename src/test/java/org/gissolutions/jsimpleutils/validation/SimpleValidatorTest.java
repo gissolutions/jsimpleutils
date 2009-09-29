@@ -23,12 +23,12 @@ public class SimpleValidatorTest {
 
 	@Test
 	public void testValidate() {
-		IValidator<ApplicationUser<Integer>> validator = new SimpleValidator<ApplicationUser<Integer>>();
-		ApplicationUser<Integer> user = new ApplicationUser<Integer>();
-		user.setPassword("Conundrum09");
-		user.setUsername("lberrocal");
-		user.setUserId(30);
-		validator.validate(user);
+//		IValidator<ApplicationUser<Integer>> validator = new AbstractValidator<ApplicationUser<Integer>>();
+//		ApplicationUser<Integer> user = new ApplicationUser<Integer>();
+//		user.setPassword("Conundrum09");
+//		user.setUsername("lberrocal");
+//		user.setUserId(30);
+//		validator.validate(user);
 	}
 
 }
