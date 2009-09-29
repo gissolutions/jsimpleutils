@@ -3,10 +3,10 @@ package org.gissolutions.jsimpleutils.admin;
 import org.gissolutions.jsimpleutils.validation.RuleRegExp;
 
 public class ApplicationUser<T> implements IApplicationUser<T> {
-	T userId;
+	private T userId;
 	@RuleRegExp(regExpName="usernamePattern")
-	String username;
-	String password;
+	private String username;
+	private String password;
 	
 	@Override
 	public T getUserId() {

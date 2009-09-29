@@ -23,12 +23,26 @@ public class SimpleValidator<T> implements IValidator<T> {
 		Field[] fields = cls.getDeclaredFields();
 		for (Field field : fields) {
 			Annotation[] annotations = field.getAnnotations();
+//			logger.debug("field: %s", 
+//					field.getName());
 			for (Annotation annotation : annotations) {
 				if(annotation instanceof RuleRegExp) {
 					RuleRegExp rre = (RuleRegExp) annotation;
-					logger.debug("field: %s regexp: %s", 
-							field.getName(),
-							rre.regExpName());
+					try {
+						field.setAccessible(true);
+						String fieldValue = (String) field.get(object);
+						logger.debug("field: %s value: %s  regexp: %s", 
+								field.getName(), fieldValue,
+								rre.regExpName());
+						
+					} catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace(); 
+					} catch (IllegalAccessException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 				}
 			}
 		}
