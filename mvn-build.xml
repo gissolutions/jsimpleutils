@@ -1,27 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." default="load-arfifact" name="maven-faii-utils" >
+<project basedir="." default="load-arfifact" name="maven-faii-utils">
 
-<target name="load-arfifact">
-<!--	<property name="group.id"  value="org.geotools"/>-->
-<!--	<property name="artifact.id"  value="gt-metadata"/>-->
-<!--	<property name="version"  value="2.5.5"/>-->
-	<property name="group.id"  value="c3p0"/>
-	<property name="artifact.id"  value="c3p0-oracle-thin-extras"/>
-	<property name="version"  value="0.9.1.2"/>
-	<property name="packaging"  value="jar"/>
-	<property name="file.dir"  value="C:/Java/Libs/c3p0-0.9.1.2/lib"/>
-	<property name="file"  value="${file.dir}/c3p0-oracle-thin-extras-0.9.1.2.jar"/>
-	<echo>mvn install:install-file -DgroupId=${group.id} -DartifactId=${artifact.id} -Dversion=${version} -Dpackaging=${packaging} -Dfile=${file} -DgeneratePom=true</echo>
-	<exec executable="cmd">
-    <arg value="/c"/>
-    <arg value="mvn install:install-file"/>
-    <arg value="-DgroupId=${group.id}"/>
-    <arg value="-DartifactId=${artifact.id}"/>
-    <arg value="-Dversion=${version}"/>
-    <arg value="-Dpackaging=${packaging}"/>
-    <arg value="-Dfile=${file}"/>
-    <arg value="-DgeneratePom=true"/>
-  </exec>
-	
-</target>
+	<target name="load-arfifact">
+		<!--	<property name="group.id"  value="org.geotools"/>-->
+		<!--	<property name="artifact.id"  value="gt-metadata"/>-->
+		<!--	<property name="version"  value="2.5.5"/>-->
+		<property name="group.id" value="c3p0" />
+		<property name="artifact.id" value="c3p0-oracle-thin-extras" />
+		<property name="version" value="0.9.1.2" />
+		<property name="packaging" value="jar" />
+		<property name="file.dir" value="C:/Java/Libs/c3p0-0.9.1.2/lib" />
+		<property name="file" value="${file.dir}/c3p0-oracle-thin-extras-0.9.1.2.jar" />
+		<echo>mvn install:install-file -DgroupId=${group.id} -DartifactId=${artifact.id} -Dversion=${version} -Dpackaging=${packaging} -Dfile=${file} -DgeneratePom=true</echo>
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="mvn install:install-file" />
+			<arg value="-DgroupId=${group.id}" />
+			<arg value="-DartifactId=${artifact.id}" />
+			<arg value="-Dversion=${version}" />
+			<arg value="-Dpackaging=${packaging}" />
+			<arg value="-Dfile=${file}" />
+			<arg value="-DgeneratePom=true" />
+		</exec>
+
+	</target>
+	<target name="jar-tests">
+
+		<echo>jaring tests</echo>
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="mvn jar:test-jar" />
+			<arg value="-DfinalName=tests-jsimpleutils.jar" />
+			<arg value="-DoutputDirectory=target" />
+			<arg value="-DtestClassesDirectory=src/test/java" />
+
+		</exec>
+
+	</target>
+
+	<target name="annotation-processing">
+		<property name="apt.classpath" location="target/jsimpleutils-0.0.1-SNAPSHOT-tests.jar" />
+		<property name="apt.factory" value="org.gissolutions.jsimpleutils.ListClassApf" />
+		<property name="apt.src" location="src/main/java/org/gissolutions/jsimpleutils/admin/*.java" />
+		<exec executable="cmd">
+			<arg value="/c" />
+			<arg value="apt" />
+			<arg value="-classpath ${apt.classpath}" />
+			<arg value="-factory ${apt.factory}" />
+			<arg value="${apt.src}" />
+
+		</exec>
+
+	</target>
 </project>
