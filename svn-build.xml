@@ -28,10 +28,8 @@
 		<svn username="${svn.username}" password="${svn.password}">
 			<info target="${svn.url}" propPrefix="svn.prop." />
 		</svn>
-
 		<echo message="Subversion repository url: ${svn.prop.url}" />
 		<echo message="Last Rev: ${svn.prop.lastRev}" />
 		<echo message="Last Rev date: ${svn.prop.lastDate}" />
-
 	</target>
 </project>

@@ -1,0 +1,136 @@
+  <@file name="testBasicExample.properties">
+    <@forAllTypes var="type">
+
+<#--output each visited type.-->
+${type.qualifiedName}=visited
+${type.qualifiedName}.javadoc=${type.javaDoc}
+${type.qualifiedName}.javadoc.author=${type.javaDoc.author}
+
+<#--iterate through javadoc tags occuring multiple times.-->
+      <#list type.javaDoc.author as author>
+${type.qualifiedName}.javadoc.author${author_index}=${author}
+      </#list>
+
+<#--the modifiers of the type.-->
+${type.qualifiedName}.public=${type.public}
+${type.qualifiedName}.protected=${type.protected}
+${type.qualifiedName}.private=${type.private}
+${type.qualifiedName}.abstract=${type.abstract}
+${type.qualifiedName}.static=${type.static}
+${type.qualifiedName}.final=${type.final}
+${type.qualifiedName}.transient=${type.transient}
+${type.qualifiedName}.volatile=${type.volatile}
+${type.qualifiedName}.synchronized=${type.synchronized}
+${type.qualifiedName}.native=${type.native}
+${type.qualifiedName}.strictfp=${type.strictfp}
+
+<#--demonstrates another use of the modifier decorations in an if statement.-->
+      <#if type.isPublic()>
+${type.qualifiedName}.public.condition=met
+      </#if>
+
+<#--the "type" of types.-->
+${type.qualifiedName}.is.class=${type.isClass()}
+${type.qualifiedName}.is.interface=${type.isInterface()}
+${type.qualifiedName}.is.enum=${type.isEnum()}
+${type.qualifiedName}.is.annotatedType=${type.isAnnotatedType()}
+
+<#--listing out the enum constants of an enum.-->
+      <#if type.enum>
+        <#list type.enumConstants as enumConstant>
+${type.qualifiedName}.${enumConstant.simpleName}=visited
+${type.qualifiedName}.${enumConstant.simpleName}.javadoc=${enumConstant.javaDoc}
+        </#list>
+      </#if>
+
+<#--accessing the annotations of a declaration.-->
+      <@ifHasAnnotation var="annotation" annotation="net.sf.jelly.apt.samplesource.annotations.AnnotatedClassExample">
+${type.qualifiedName}.AnnotatedClassExample.name=${annotation.name}
+${type.qualifiedName}.AnnotatedClassExample.value=${annotation.value}
+${type.qualifiedName}.AnnotatedClassExample.description=${annotation.description}
+      </@ifHasAnnotation>
+      <@ifHasAnnotation var="annotation" annotation="net.sf.jelly.apt.samplesource.annotations.AnotherAnnotatedClassExample">
+${type.qualifiedName}.AnotherAnnotatedClassExample.name=${annotation.name}
+${type.qualifiedName}.AnotherAnnotatedClassExample.value=${annotation.value}
+${type.qualifiedName}.AnotherAnnotatedClassExample.description=${annotation.description}
+      </@ifHasAnnotation>
+
+<#--iterating through the methods.-->
+      <@forAllMethods var="method" returnTypeVar="returnType">
+${type.qualifiedName}.methods.${method.simpleName}=visited
+${type.qualifiedName}.methods.${method.simpleName}.javadoc=${method.javaDoc}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.toString=${returnType}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.javaDoc=${returnType.docComment}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.annotation=${returnType.isAnnotation()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.array=${returnType.isArray()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.collection=${returnType.isCollection()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.class=${returnType.isClass()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.declared=${returnType.isDeclared()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.enum=${returnType.isEnum()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.interface=${returnType.isInterface()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.primitive=${returnType.isPrimitive()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.referenceType=${returnType.isReferenceType()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.typeVariable=${returnType.isTypeVariable()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.void=${returnType.isVoid()}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.is.wildcard=${returnType.isWildcard()}
+
+<#--demonstrating the isInstanceOf method.  Note that if a type is an interface, type.isInstanceOf("java.lang.Object") will return false.-->
+${type.qualifiedName}.methods.${method.simpleName}.returnType.instanceof.Object=${returnType.isInstanceOf("java.lang.Object")}
+${type.qualifiedName}.methods.${method.simpleName}.returnType.instanceof.Family=${returnType.isInstanceOf("net.sf.jelly.apt.samplesource.Family")}
+
+<#--demonstrating primitive type-->
+        <#if returnType.primitive>
+${type.qualifiedName}.methods.${method.simpleName}.returnType=${returnType.keyword}
+        </#if>
+<#--demonstrating void type.-->
+        <#if returnType.void>
+${type.qualifiedName}.methods.${method.simpleName}.returnType=void
+        </#if>
+<#-- demonstrating how to get the declaration of the return type (which might not exist if it's not on the APT path.-->
+<#-- if the a type is primitive or void, it won't have a declaration. -->
+        <@ifHasDeclaration type=returnType declarationVar="returnTypeDeclaration">
+${type.qualifiedName}.methods.${method.simpleName}.returnType=${returnTypeDeclaration.qualifiedName}
+        </@ifHasDeclaration>
+<#--demonstrating the handling of an array type-->
+        <#if returnType.array>
+          <@ifHasDeclaration type=returnType.componentType declarationVar="componentType">
+${type.qualifiedName}.methods.${method.simpleName}.returnType=${componentType.qualifiedName}[]
+          </@ifHasDeclaration>
+        </#if>
+<#--demonstrating the handling of a collection type with a type argument that is declared.-->
+        <#if returnType.collection>
+          <@ifHasDeclaration type=returnType.actualTypeArguments[0] declarationVar="collectionTypeArgument">
+${type.qualifiedName}.methods.${method.simpleName}.returnType.collectionTypeArgument=${collectionTypeArgument.qualifiedName}
+          </@ifHasDeclaration>
+        </#if>
+
+<#--iterating through the parameters of a method.-->
+        <@forAllParameters var="param" indexVar="paramIndex">
+${type.qualifiedName}.methods.${method.simpleName}.param${paramIndex}.name=${param.simpleName}
+${type.qualifiedName}.methods.${method.simpleName}.param${paramIndex}.type.toString=${param.type}
+${type.qualifiedName}.methods.${method.simpleName}.param${paramIndex}.javadoc=${param.javaDoc}
+${type.qualifiedName}.methods.${method.simpleName}.param${paramIndex}.docComment=${param.docComment}
+          <#if param.type.primitive>
+${type.qualifiedName}.methods.${method.simpleName}.param${paramIndex}.type=${param.type.keyword}
+          </#if>
+<!--this is an alternative way to get the declaration of a return type, albeit more dangerous as 'type.declaration' could be null.-->
+          <#if param.type.declared>
+${type.qualifiedName}.methods.${method.simpleName}.param${paramIndex}.type=${param.type.declaration.qualifiedName}
+          </#if>
+        </@forAllParameters>
+
+<#--iteratring through all the exceptions of a method.-->
+        <@forAllThrownTypes var="exception" indexVar="exceptionIndex">
+${type.qualifiedName}.methods.${method.simpleName}.exception${exceptionIndex}.toString=${exception}
+${type.qualifiedName}.methods.${method.simpleName}.exception${exceptionIndex}.docComment=${exception.docComment}
+        </@forAllThrownTypes>
+      </@forAllMethods>
+
+<#--iterating through the fields.-->
+      <@forAllFields var="field">
+${type.qualifiedName}.fields.${field.simpleName}=visited
+${type.qualifiedName}.fields.${field.simpleName}.type=${field.type}
+      </@forAllFields>
+
+    </@forAllTypes>
+  </@file>
