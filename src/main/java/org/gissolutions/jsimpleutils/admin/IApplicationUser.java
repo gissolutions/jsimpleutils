@@ -1,5 +1,10 @@
 package org.gissolutions.jsimpleutils.admin;
-
+/**
+ * 
+ * @author luisberrocal
+ *
+ * @param <T>
+ */
 public interface IApplicationUser<T> {
 
 	/**

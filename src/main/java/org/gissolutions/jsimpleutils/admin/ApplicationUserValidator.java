@@ -1,13 +1,17 @@
 package org.gissolutions.jsimpleutils.admin;
 
-import java.io.File;
 import java.util.Collection;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.gissolutions.jsimpleutils.logging.FormattedLogger;
 import org.gissolutions.jsimpleutils.validation.AbstractValidator;
-
+/**
+ * 
+ * @author luisberrocal
+ *
+ * @param <T>
+ */
 public class ApplicationUserValidator<T> extends
 		AbstractValidator<ApplicationUser<T>> {
 	private static FormattedLogger logger = FormattedLogger

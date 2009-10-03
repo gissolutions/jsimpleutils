@@ -1,0 +1,19 @@
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:apt="jelly:net.sf.jelly.apt.tags.APTTagLibrary">
+
+  <apt:file name="testIfHasAnnotation.properties">
+    <apt:forAllTypes var="type" annotation="net.sf.jelly.apt.samplesource.annotations.AnnotatedClassExample">
+      <apt:ifHasAnnotation var="ann" annotation="net.sf.jelly.apt.samplesource.annotations.AnotherAnnotatedClassExample">
+<j:out value="${type.qualifiedName}"/>=visited
+<j:out value="${type.qualifiedName}"/>.annotation.name=<j:out value="${ann.name}"/>
+<j:out value="${type.qualifiedName}"/>.annotation.value=<j:out value="${ann.value}"/>
+<j:out value="${type.qualifiedName}"/>.annotation.description=<j:out value="${ann.description}"/>
+<j:out value="${type.qualifiedName}"/>.annotation.somethingWithDefault=<j:out value="${ann.somethingWithDefault}"/>
+with.annotation.value.tag.no.default=<apt:annotationValue annotation="net.sf.jelly.apt.samplesource.annotations.AnotherAnnotatedClassExample" element="somethingWithDefault"/>
+with.annotation.value.tag.with.default=<apt:annotationValue annotation="net.sf.jelly.apt.samplesource.annotations.AnotherAnnotatedClassExample" element="somethingWithDefault" default="nothing"/>
+with.annotation.value.tag.no.element=<apt:annotationValue annotation="net.sf.jelly.apt.samplesource.annotations.AnotherAnnotatedClassExample" element="noelement" default="no element here"/>
+with.annotation.value.tag.constant.ref=<apt:annotationValue annotation="net.sf.jelly.apt.samplesource.annotations.AnotherAnnotatedClassExample" element="constantValueReference"/>
+      </apt:ifHasAnnotation>
+    </apt:forAllTypes>
+  </apt:file>
+
+</j:jelly>

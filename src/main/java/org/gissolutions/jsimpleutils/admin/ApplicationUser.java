@@ -1,7 +1,12 @@
 package org.gissolutions.jsimpleutils.admin;
 
 import org.gissolutions.jsimpleutils.validation.RuleRegExp;
-
+/**
+ * 
+ * @author luisberrocal
+ *
+ * @param <T>
+ */
 public class ApplicationUser<T> implements IApplicationUser<T> {
 	private T userId;
 	@RuleRegExp(regExpName="username-pattern")
