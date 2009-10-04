@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." default="svnInfo" name="svn-utils">
+<project basedir="." default="svnInfo" name="svn-jsimpleutils">
 	<property environment="env"/>
 	<property file="svn.properties" />
 	<path id="svnant.classpath">
@@ -14,7 +14,7 @@
 		<propertyfile file="src/main/java/org/gissolutions/jsimpleutils/appinfo.properties" comment="Everything can be manually updated except buildnum and builddate.">
 			<entry key="program.PROGNAME" default="${main.class}" />
 			<entry key="program.AUTHOR" value="Luis Carlos Berrocal" />
-			<entry key="program.COMPANY" default="GIS Solution" />
+			<entry key="program.COMPANY" default="GIS Solutions" />
 			<entry key="program.COPYRIGHT" value="now" type="date" pattern="yyyy" />
 			<entry key="program.DESCRIPTION" default="" />
 			<entry key="program.VERSION" value="${application.version}" />

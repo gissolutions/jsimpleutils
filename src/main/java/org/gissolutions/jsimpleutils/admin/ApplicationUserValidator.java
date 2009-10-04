@@ -14,9 +14,9 @@ import org.gissolutions.jsimpleutils.validation.AbstractValidator;
  */
 public class ApplicationUserValidator<T> extends
 		AbstractValidator<ApplicationUser<T>> {
-	private static FormattedLogger logger = FormattedLogger
+	private static FormattedLogger logger = (FormattedLogger) FormattedLogger
 			.getLogger(ApplicationUserValidator.class);
-	private XMLConfiguration configuration;
+	//private XMLConfiguration configuration;
 	
 	public ApplicationUserValidator() {
 		super();
@@ -26,7 +26,7 @@ public class ApplicationUserValidator<T> extends
 		    XMLConfiguration.setDelimiter('~');
 			XMLConfiguration config = new XMLConfiguration("org/gissolutions/jsimpleutils/admin/ApplicationUser.rules.xml");
 			Object prop = config.getProperty("rules.regexprule[@name]");
-			int count = ((Collection) prop).size();
+			int count = ((Collection<?>) prop).size();
 			for (int i = 0; i < count; i++) {
 				String template ="rules.regexprule(%s)[@name]";
 				String propName = String.format(template, i);

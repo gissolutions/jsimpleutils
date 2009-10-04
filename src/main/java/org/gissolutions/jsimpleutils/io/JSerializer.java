@@ -18,12 +18,12 @@ import java.io.OutputStream;
 import org.gissolutions.jsimpleutils.logging.FormattedLogger;
 
 public class JSerializer<T> {
-	private static FormattedLogger logger = FormattedLogger
+	private static FormattedLogger logger = (FormattedLogger) FormattedLogger
 			.getLogger(JSerializer.class);
 
 	@SuppressWarnings("unchecked")
 	public T read(File file) {
-		T recoveredQuarks = null;
+		T recovered = null;
 		try {
 			// use buffering
 			InputStream ifile = new FileInputStream(file);
@@ -31,7 +31,7 @@ public class JSerializer<T> {
 			ObjectInput input = new ObjectInputStream(buffer);
 			try {
 				// deserialize the List
-				recoveredQuarks = (T) input.readObject();
+				recovered = (T) input.readObject();
 
 			} finally {
 				input.close();
@@ -45,7 +45,7 @@ public class JSerializer<T> {
 			msg = String.format(msg, e.getClass().getName(), e.getMessage());
 			logger.error(msg);
 		}
-		return recoveredQuarks;
+		return recovered;
 	}
 
 	public void write(T object, File file) {

@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 import org.gissolutions.jsimpleutils.logging.FormattedLogger;
 
 public abstract class AbstractValidator<T> implements IValidator<T> {
-	private static FormattedLogger logger =  FormattedLogger.getLogger(AbstractValidator.class);
+	private static FormattedLogger logger =  (FormattedLogger) FormattedLogger.getLogger(AbstractValidator.class);
 	private Map<String, Pattern> patterns;
 	private List<BusinessError<T>> errors;
 	

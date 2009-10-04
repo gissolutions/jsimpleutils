@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 import org.gissolutions.jsimpleutils.logging.FormattedLogger;
 
 public class JavaAssertionProcessor implements IAssertionProcessor {
-	private static FormattedLogger logger = FormattedLogger
+	private static FormattedLogger logger = (FormattedLogger) FormattedLogger
 			.getLogger(JavaAssertionProcessor.class);
 	PrintStream outputStream;
 
@@ -83,7 +83,7 @@ public class JavaAssertionProcessor implements IAssertionProcessor {
 				ParameterizedType type = (ParameterizedType) returnType;
 				Type[] typeArguments = type.getActualTypeArguments();
 				for (Type typeArgument : typeArguments) {
-					Class typeArgClass = (Class) typeArgument;
+					Class<?> typeArgClass = (Class<?>) typeArgument;
 					logger.debug("typeArgClass = %s", typeArgClass);
 				}
 			}
@@ -108,16 +108,16 @@ public class JavaAssertionProcessor implements IAssertionProcessor {
 				ParameterizedType aType = (ParameterizedType) genericFieldType;
 				Type[] fieldArgTypes = aType.getActualTypeArguments();
 				for (Type fieldArgType : fieldArgTypes) {
-					Class fieldArgClass = (Class) fieldArgType;
+					Class<?> fieldArgClass = (Class<?>) fieldArgType;
 					logger.debug("fieldArgClass = %s", fieldArgClass);
 				}
 			}
 
-			Class<?> btype = field.getType();
+			//Class<?> btype = field.getType();
 			Type gtype = field.getGenericType();
 			if (gtype instanceof ParameterizedType) {
 				ParameterizedType agType = (ParameterizedType) gtype;
-				logger.debug("XXXXXXXXXXXXXXXXX");
+				logger.debug("ParameterizedType " + agType.toString());
 			}
 
 		} catch (SecurityException e) {

@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CommonsConfigTest {
-	private static FormattedLogger logger = FormattedLogger
+	private static FormattedLogger logger = (FormattedLogger) FormattedLogger
 			.getLogger(CommonsConfigTest.class);
 
 	@Before

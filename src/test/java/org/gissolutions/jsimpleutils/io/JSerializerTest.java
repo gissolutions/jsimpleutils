@@ -27,7 +27,7 @@ public class JSerializerTest {
 	public void testRead() {
 		JSerializer<BusinessError<ApplicationUser<Integer>>> serializer =
 			new JSerializer<BusinessError<ApplicationUser<Integer>>>();
-		String fn =TestConfiguration.getExistingTestData("BusinessError.ser");
+		String fn =TestConfiguration.getExistingTestData("BusinessError.dat");
 		BusinessError<ApplicationUser<Integer>> be = serializer.read(new File(fn));
 		//TestConfiguration.writeAssertionsToFile(be, "be");
 		// Variable exception1 level 1
@@ -63,7 +63,7 @@ public class JSerializerTest {
 		serializer.write(be, new File(fn));
 		String md5 = TestConfiguration.calculateMD5Hash(fn);
 		logger.debug("md5: " + md5);
-		assertEquals("d5f5caeb469b204ceeda1ba95806dc8c", md5);
+		assertEquals(fn+ " md5 not equal", "d5f5caeb469b204ceeda1ba95806dc8c", md5);
 		
 	}
 

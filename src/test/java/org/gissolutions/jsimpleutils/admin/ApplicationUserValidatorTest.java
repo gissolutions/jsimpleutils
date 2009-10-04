@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ApplicationUserValidatorTest {
-	private static FormattedLogger logger = FormattedLogger
+	private static FormattedLogger logger = (FormattedLogger) FormattedLogger
 			.getLogger(ApplicationUserValidatorTest.class);
 	@Before
 	public void setUp() throws Exception {

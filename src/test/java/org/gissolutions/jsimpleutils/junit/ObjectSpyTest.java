@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 
@@ -18,18 +19,25 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ObjectSpyTest {
-	private static FormattedLogger logger =  FormattedLogger.getLogger(ObjectSpyTest.class);
+	private static FormattedLogger logger =  (FormattedLogger) FormattedLogger.getLogger(ObjectSpyTest.class);
 	private BusinessError<ApplicationUser<Integer>> be;
-	private String varName;
+	//private String varName;
 	@Before
 	public void setUp() throws Exception {
 		TestConfiguration.getInstance();
-		JSerializer<BusinessError<ApplicationUser<Integer>>> serializer =
-			new JSerializer<BusinessError<ApplicationUser<Integer>>>();
-		String fn =TestConfiguration.getExistingTestData("BusinessError.ser");
-		be = serializer.read(new File(fn));
+//		JSerializer<BusinessError<ApplicationUser<Integer>>> serializer =
+//			new JSerializer<BusinessError<ApplicationUser<Integer>>>();
+//		String fn =TestConfiguration.getExistingTestData("BusinessError.dat");
+//		be = serializer.read(new File(fn));
 		
-		varName = "be";
+		ApplicationUser<Integer> user = new ApplicationUser<Integer>();
+		user.setUserId(10);
+		user.setPassword("password");
+		user.setUsername("username");
+		
+		be = new BusinessError<ApplicationUser<Integer>>(user, "problem");
+		be.setException(new IOException("IO Exception"));
+		//varName = "be";
 	}
 
 	@After
@@ -51,7 +59,7 @@ public class ObjectSpyTest {
 		Method met = ObjectSpy.getSetterForProperty(new Artifact(), "artifactId", String.class);
 		assertEquals("setArtifactId",met.getName());
 		
-		TestConfiguration.writeAssertionsToFile(met, "met");
+		//TestConfiguration.writeAssertionsToFile(met, "met");
 	}
 
 	@Test
@@ -61,6 +69,9 @@ public class ObjectSpyTest {
 		try {
 			ospy = new ObjectSpy(new File(fnout));
 			ospy.listFields(this.be);
+			String md5 = TestConfiguration.calculateMD5Hash(fnout);
+			logger.debug("md5: " + md5);
+			//assertEquals("", md5);
 		} catch (FileNotFoundException e) {
 			String msg = "%s: %s";
 			msg = String.format(msg, e.getClass().getName(), e.getMessage());
