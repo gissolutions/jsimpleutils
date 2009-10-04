@@ -59,12 +59,14 @@ public class JSerializerTest {
 		
 		BusinessError<ApplicationUser<Integer>> be = new BusinessError<ApplicationUser<Integer>>(user, "problem");
 		be.setException(new IOException("IO Exception"));
-		String fn = TestConfiguration.getOutputFilenameWithDate("BusinessError.ser");
+		String fn = TestConfiguration.getOutputFilenameWithDate("BusinessError.dat");
 		serializer.write(be, new File(fn));
-		String md5 = TestConfiguration.calculateMD5Hash(fn);
-		logger.debug("md5: " + md5);
-		assertEquals(fn+ " md5 not equal", "d5f5caeb469b204ceeda1ba95806dc8c", md5);
-		
+		//String md5 = TestConfiguration.calculateMD5Hash(fn);
+		//logger.debug("md5: " + md5);
+		//assertEquals(fn+ " md5 not equal", "d5f5caeb469b204ceeda1ba95806dc8c", md5);
+		BusinessError<ApplicationUser<Integer>> beRecov = serializer.read(new File(fn));
+		//assertEquals(be.getException().getMessage(), beRecov.getException().getMessage());
+		assertEquals(be, beRecov);
 	}
 
 }
