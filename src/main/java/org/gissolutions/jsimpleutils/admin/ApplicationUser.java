@@ -1,5 +1,7 @@
 package org.gissolutions.jsimpleutils.admin;
 
+import java.io.Serializable;
+
 import org.gissolutions.jsimpleutils.validation.RuleRegExp;
 /**
  * 
@@ -7,7 +9,12 @@ import org.gissolutions.jsimpleutils.validation.RuleRegExp;
  *
  * @param <T>
  */
-public class ApplicationUser<T> implements IApplicationUser<T> {
+public class ApplicationUser<T> implements IApplicationUser<T>, Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7678536256810356854L;
 	private T userId;
 	@RuleRegExp(regExpName="username-pattern")
 	private String username;

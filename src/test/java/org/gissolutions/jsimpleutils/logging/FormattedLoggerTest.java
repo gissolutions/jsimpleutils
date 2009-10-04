@@ -1,7 +1,5 @@
 package org.gissolutions.jsimpleutils.logging;
 
-import static org.junit.Assert.*;
-
 import java.util.Date;
 
 import org.gissolutions.jsimpleutils.junit.TestConfiguration;

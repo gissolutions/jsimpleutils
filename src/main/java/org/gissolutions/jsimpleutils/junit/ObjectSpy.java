@@ -1,5 +1,10 @@
 package org.gissolutions.jsimpleutils.junit;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +12,30 @@ import java.util.List;
 public class ObjectSpy {
 	static org.apache.log4j.Logger logger = org.apache.log4j.Logger
 			.getLogger(ObjectSpy.class);
+	private PrintStream outputStream;
+	public ObjectSpy() {
+		outputStream = System.out;
+	}
+
+	public ObjectSpy(PrintStream psout) {
+		super();
+		this.outputStream = psout;
+	}
+	
+	public ObjectSpy(File outputFile) throws FileNotFoundException {
+		FileOutputStream fos = new FileOutputStream(outputFile);
+		this.outputStream =new PrintStream(fos);
+	}
+	public void listFields(Object obj) {
+		Class<?> c = obj.getClass();
+		Field[] fields = c.getDeclaredFields();
+		for (Field field : fields) {
+			String display ="%s %s %s";
+			display = String.format(display, field.getName(), field.getType().getName(),
+					field.getGenericType().toString());
+			outputStream.println(display);
+		}
+	}
 	public static List<Method> getGetters(Object obj) {
 		List<Method> lst = new ArrayList<Method>();
 		Class<?> c = obj.getClass();
@@ -17,6 +46,7 @@ public class ObjectSpy {
 		}
 		return lst;
 	}
+	
 	public static Method getSetterForProperty(Object obj, String propertyName, Class<?> parameterType) {
 		Class<?> c = obj.getClass();
 		String setterName ="set" + propertyName.substring(0,1).toUpperCase() +
