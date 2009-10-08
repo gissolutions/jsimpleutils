@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PasswordGeneratorTest {
+	
 	static org.apache.log4j.Logger logger = org.apache.log4j.Logger
 			.getLogger(PasswordGeneratorTest.class);
 	@Before
@@ -36,6 +37,17 @@ public class PasswordGeneratorTest {
 			msg = String.format(msg, e.getClass().getName(), e.getMessage());
 			logger.error(msg);
 			fail(msg);
+		}
+	}
+	
+	@Test
+	public void testDisplayOtherChars() {
+		for (int i = 0; i < 15; i++) {
+			char c =(char) (33 + i);
+			String msg ="Char(%s): '%s'";
+			msg = String.format(msg, i, c);
+			logger.debug(msg);
+			
 		}
 	}
 

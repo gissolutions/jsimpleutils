@@ -1,5 +1,6 @@
 package org.gissolutions.jsimpleutils.admin;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.InvalidPreferencesFormatException;
 import java.text.ParseException;
 /**
@@ -18,8 +19,8 @@ private int length;
 
 	private String password;
 	private String template;
-
-	PasswordGenerator() {
+	private char[] otherCharacters = new char[] {'#','$','%','&','(',')','=','|','@','!','*','-','+'}; 
+	public PasswordGenerator() {
 		// by default, invlude lowercase, uppercase, and numbers
 		// in the password, and make it 8 characters long.
 		password = "";
@@ -135,7 +136,7 @@ private int length;
 			// create an ArrayList to store the functions that we're allowed
 			// to call to generate the password, based on what the flags
 			// are set to.
-			ArrayList flags = new ArrayList();
+			List<randomCharacter> flags = new ArrayList<randomCharacter>(4);
 			if (lowercaseIncluded) {
 				flags.add(new randomLowercase());
 			}
@@ -270,8 +271,7 @@ private int length;
 				case 'N' :
 				case 'o' :
 				case 'O' :
-					break;
-					
+					break;					
 				default :
 					throw new ParseException("Password template contains an invalid character", i);
 			}
@@ -307,25 +307,29 @@ private int length;
  	----------------------------------------------------------*/
  	private static class randomLowercase implements randomCharacter {
 		public char execute() {
-			return PasswordGenerator.randomLowercase();
+			return (char) (97 + (int) (Math.random() * 26));
+			//return PasswordGenerator.randomLowercase();
 		}
 	}
 
 	private static class randomUppercase implements randomCharacter {
 		public char execute() {
-			return PasswordGenerator.randomUppercase();
+			return (char) (65 + (int) (Math.random() * 26));
+			//return PasswordGenerator.randomUppercase();
 		}
 	}
 
 	private static class randomOther implements randomCharacter {
 		public char execute() {
-			return PasswordGenerator.randomOther();
+			return (char) (33 + (int) (Math.random() * 15));
+			//return PasswordGenerator.randomOther();
 		}
 	}
 
 	private static class randomNumber implements randomCharacter {
 		public char execute() {
-			return PasswordGenerator.randomNumber();
+			return (char) (48 + (int) (Math.random() * 10));
+			//return PasswordGenerator.randomNumber();
 		}
 	}
 
