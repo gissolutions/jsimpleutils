@@ -144,7 +144,7 @@ private int length;
 				flags.add(new randomUppercase());	
 			}
 			if (othersIncluded) {
-				flags.add(new randomOther());	
+				flags.add(new randomOther(this.otherCharacters));	
 			}
 			if (numbersIncluded) {
 				flags.add(new randomNumber());	
@@ -320,8 +320,20 @@ private int length;
 	}
 
 	private static class randomOther implements randomCharacter {
+		private char[] otherCharacters;
+			
+		public randomOther(char[] otherCharacters) {
+			super();
+			this.otherCharacters = otherCharacters;
+		}
+
 		public char execute() {
-			return (char) (33 + (int) (Math.random() * 15));
+			if(this.otherCharacters.length >0) {
+				return this.otherCharacters[((int) (Math.random() * this.otherCharacters.length))];
+			}else {
+				return (char) (33 + (int) (Math.random() * 15));
+			}
+			
 			//return PasswordGenerator.randomOther();
 		}
 	}
