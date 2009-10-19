@@ -7,7 +7,23 @@ import java.net.URL;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.gissolutions.jsimpleutils.io.FilenameUtility;
 
-
+/**
+ * Edit the web.xml include the following snippet:
+ * <code>
+ * &lt;servlet&gt;<br/>
+ *      &lt;servlet-name&gt;LogServlet&lt;/servlet-name&gt;<br/>
+        &lt;servlet-class&gt;corg.gissolutions.jsimpleutils.logging.LogServlet&lt;/servlet-class&gt;<br/>
+        &lt;init-param&gt;<br/>
+            &lt;param-name&gt;setup&lt;/param-name&gt;<br/>
+            &lt;param-value&gt;WEB-INF/log4jprops.xml&lt;/param-value&gt;<br/>
+        &lt;/init-param&gt;<br/>
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;<br/>
+    &lt;/servlet&gt;<br/>
+ * </code>
+ * 
+ * @author LBerrocal
+ *
+ */
 public class TestConfiguration {
 	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger
 			.getLogger(TestConfiguration.class);
