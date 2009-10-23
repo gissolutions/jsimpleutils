@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import javax.swing.event.EventListenerList;
 
 
-public abstract class DirectoryParser {
+public class DirectoryParser {
 
 	protected List<Pattern> acceptPatterns;
 	protected List<Pattern> rejectPatterns;
@@ -46,9 +46,7 @@ public abstract class DirectoryParser {
 						fileList.addAll(ofiles);
 					}
 				} else {
-
 					matchFile(fileList, file);
-
 				}
 
 			}
@@ -71,8 +69,24 @@ public abstract class DirectoryParser {
 			if (matcher.matches()) {
 				fileList.add(file.getAbsolutePath());
 				this.processAcceptedFile(file);
+				return;
 			}
 		}
+		this.processIgnoredFile(file);
+	}
+
+	private void processIgnoredFile(File file) {
+		FileIgnoredEvent evt = new FileIgnoredEvent(this, file);
+		Object[] listeners = listenerList.getListenerList();
+		// Each listener occupies two elements - the first is the listener class
+		// and the second is the listener instance
+		for (int i = 0; i < listeners.length; i += 2) {
+			if (listeners[i] == IFileIgnoredListener.class) {
+				((IFileIgnoredListener) listeners[i + 1])
+						.fileIgnoredOcurred(evt);
+			}
+		}
+		
 	}
 
 	private void processRejectedFile(File file) {
@@ -117,5 +131,9 @@ public abstract class DirectoryParser {
 
 	public void addFileRejectedListener(IFileRejectedListener frListener) {
 		this.listenerList.add(IFileRejectedListener.class, frListener);
+	}
+	
+	public void addFileIgnoredListener(IFileIgnoredListener fiListener) {
+		this.listenerList.add(IFileIgnoredListener.class, fiListener);
 	}
 }
