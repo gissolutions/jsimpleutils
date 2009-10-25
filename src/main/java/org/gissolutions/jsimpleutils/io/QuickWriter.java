@@ -16,23 +16,24 @@ public class QuickWriter {
 	private final String encoding;
 	
 	public QuickWriter(File file) throws UnsupportedEncodingException, FileNotFoundException {
-		super();
-		this.file = file;
-		this.separator=',';
-		eol ='\n';
-		encoding = "UTF8";
-		writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),encoding));
+		this(file,"UTF-8",',','\n');
+//		this.file = file;
+//		this.separator=',';
+//		eol ='\n';
+//		encoding = "UTF8";
+		
 	}
 	
-	public QuickWriter(File file, String encoding, char separator, char eol) {
+	public QuickWriter(File file, String encoding, char separator, char eol) throws UnsupportedEncodingException, FileNotFoundException {
 		super();
 		this.file = file;
 		this.encoding = encoding;
 		this.separator = separator;
 		this.eol = eol;
+		writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),encoding));
 	}
 
-	public QuickWriter(File file, String encoding, char separator) {
+	public QuickWriter(File file, String encoding, char separator) throws UnsupportedEncodingException, FileNotFoundException {
 		this(file, encoding,separator,'\n');
 	}
 
@@ -52,5 +53,21 @@ public class QuickWriter {
 	}
 	public void close() throws IOException {
 		this.writer.close();
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public char getSeparator() {
+		return separator;
+	}
+
+	public char getEol() {
+		return eol;
+	}
+
+	public String getEncoding() {
+		return encoding;
 	}
 }
