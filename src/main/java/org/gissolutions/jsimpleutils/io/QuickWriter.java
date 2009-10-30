@@ -7,7 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-
+/**
+ * The class QuickWriter is used to quickly create a file and write a character
+ * separated values.  By default the enconding is UTF-8, the value separator is
+ * comma (',') and the end of file character is '\n'.
+ * @author lberrocal
+ *
+ */
 public class QuickWriter {
 	private final File file;
 	private BufferedWriter writer;

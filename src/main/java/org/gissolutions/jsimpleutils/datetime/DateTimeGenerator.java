@@ -5,9 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
-
+/**
+ * The class DateTimeGenerator generates random dates between a timpe period
+ * specified.
+ * @author lberrocal
+ *
+ */
 public class DateTimeGenerator {
-	
+	public static final int DATE = 0;
+	public static final int TIME = 1;
 	private Random random = null;
 	private BigDecimal minValue = new BigDecimal("0");
 	private BigDecimal maxValue = new BigDecimal("1423453127");
@@ -19,8 +25,7 @@ public class DateTimeGenerator {
 		super();
 		random = new Random();
 	}
-	public static final int DATE = 0;
-	 public static final int TIME = 1;
+	
 	 public Date generate() {
 		 return generate(DATE);
 	 }

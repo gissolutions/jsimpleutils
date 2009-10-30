@@ -16,7 +16,13 @@ import java.io.OutputStream;
 
 
 import org.gissolutions.jsimpleutils.logging.FormattedLogger;
-
+/**
+ * The class JSerializer is used to rapidly serialize and deserialize objects
+ * to and from files.
+ * @author lberrocal
+ *
+ * @param <T> Object Type to be Serialized
+ */
 public class JSerializer<T> {
 	private static FormattedLogger logger = (FormattedLogger) FormattedLogger
 			.getLogger(JSerializer.class);
