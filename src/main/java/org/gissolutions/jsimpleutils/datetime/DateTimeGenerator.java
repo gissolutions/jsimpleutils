@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Random;
 /**
- * The class DateTimeGenerator generates random dates between a timpe period
+ * The class DateTimeGenerator generates random dates between a time period
  * specified.
  * @author lberrocal
  *
