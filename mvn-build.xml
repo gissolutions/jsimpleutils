@@ -51,12 +51,12 @@
 		<!--	<property name="group.id"  value="org.geotools"/>-->
 		<!--	<property name="artifact.id"  value="gt-metadata"/>-->
 		<!--	<property name="version"  value="2.5.5"/>-->
-		<property name="group.id" value="org.freemarker" />
-		<property name="artifact.id" value="freemarker" />
-		<property name="version" value="2.3.15" />
+		<property name="group.id" value="org.ibex" />
+		<property name="artifact.id" value="sqlitejdbc" />
+		<property name="version" value="v056" />
 		<property name="packaging" value="jar" />
-		<property name="file.dir" value="C:\Java\Libs\freemarker-2.3.15\lib" />
-		<property name="file" value="${file.dir}/freemarker.jar" />
+		<property name="file.dir" value="C:\Java\Libs\sqlite_v056" />
+		<property name="file" value="${file.dir}/sqlitejdbc-v056.jar" />
 		<echo>mvn install:install-file -DgroupId=${group.id} -DartifactId=${artifact.id} -Dversion=${version} -Dpackaging=${packaging} -Dfile=${file} -DgeneratePom=true</echo>
 		<exec executable="cmd">
 			<arg value="/c" />
