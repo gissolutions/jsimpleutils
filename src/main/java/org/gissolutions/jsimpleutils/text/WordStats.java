@@ -14,7 +14,7 @@ public class WordStats {
 	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger
 			.getLogger(WordStats.class);
 	private File source;
-	private int wordCount;
+	//private int wordCount;
 	private final File statsDatabse;
 	private SqlLiteDB db;
 
@@ -29,11 +29,13 @@ public class WordStats {
 	}
 
 	public void run() {
+		int lineNum=1;
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(source));
 			String str;
 			while ((str = reader.readLine()) != null) {
 				process(str);
+				lineNum++;
 			}
 			reader.close();
 
@@ -46,8 +48,8 @@ public class WordStats {
 			msg = String.format(msg, e.getClass().getName(), e.getMessage());
 			logger.error(msg);
 		} catch (SQLException e) {
-			String msg = "%s: %s";
-			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			String msg = "Error on line %s for file %s:  %s";
+			msg = String.format(msg, lineNum, this.source.getName(),  e.getMessage());
 			logger.error(msg);
 		}
 

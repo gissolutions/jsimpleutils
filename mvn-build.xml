@@ -55,7 +55,7 @@
 		<property name="artifact.id" value="sqlitejdbc" />
 		<property name="version" value="v056" />
 		<property name="packaging" value="jar" />
-		<property name="file.dir" value="C:\Java\Libs\sqlite_v056" />
+		<property name="file.dir" value="C:\Java\Libs\sqllite" />
 		<property name="file" value="${file.dir}/sqlitejdbc-v056.jar" />
 		<echo>mvn install:install-file -DgroupId=${group.id} -DartifactId=${artifact.id} -Dversion=${version} -Dpackaging=${packaging} -Dfile=${file} -DgeneratePom=true</echo>
 		<exec executable="cmd">

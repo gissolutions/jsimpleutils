@@ -99,5 +99,6 @@
 			<artifactId>sqlitejdbc</artifactId>
 			<version>v056</version>
 		</dependency>
+		
 	</dependencies>
 </project>

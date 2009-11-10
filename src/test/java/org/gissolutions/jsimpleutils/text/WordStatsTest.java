@@ -25,7 +25,7 @@ public class WordStatsTest {
 
 	@Test
 	public void testRun() {
-		String fn = TestConfiguration.getExistingTestData("HSurface.txt");
+		String fn = TestConfiguration.getExistingTestData("test_scan2.txt");
 		String db = TestConfiguration.getOutputFilenameWithDate("HSurface.db");
 		try {
 			WordStats ws = new WordStats(new File(fn), new File(db));

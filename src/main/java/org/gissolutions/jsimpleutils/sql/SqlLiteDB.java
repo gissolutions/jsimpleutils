@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SqlLiteDB {
+	static org.apache.log4j.Logger logger = org.apache.log4j.Logger
+			.getLogger(SqlLiteDB.class);
 	public String sUrl; // for advertising and debug purposes
 	private String sDriverName = "org.sqlite.JDBC";
 	private String sDriver;
@@ -16,14 +18,7 @@ public class SqlLiteDB {
 	
 	public SqlLiteDB(String sDbFilename) {
 		sUrl = "jdbc:sqlite:" + sDbFilename;
-		// sDriverName = getDriverString(sDbUrl); // i.e. we will need a
-		// function to split the
-		// driver string from the
-		// passed URL
-		/*
-		 * which in itself suggests we may provide a constructor overload which
-		 * takes the full URL and the DriverName....
-		 */
+		
 		setConnection();
 	}
 
@@ -62,9 +57,10 @@ public class SqlLiteDB {
 		try {
 			rs = getStatement().executeQuery(instruction);
 		} catch (SQLException e) {
-			// query failed.
-			System.err.println(e);
-			return null;
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
+			throw e;
 		}
 		return rs;
 	} // end
@@ -73,8 +69,10 @@ public class SqlLiteDB {
 		try {
 			getStatement().executeUpdate(instruction);
 		} catch (SQLException e) {
-			// execution failed.
-			System.err.println(e);
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
+			throw e;
 		}
 	}
 
