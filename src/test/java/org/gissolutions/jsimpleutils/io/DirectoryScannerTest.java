@@ -16,16 +16,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DirectoryParserTest {
+public class DirectoryScannerTest {
 	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger
-			.getLogger(DirectoryParserTest.class);
-	private DirectoryParser dp;
+			.getLogger(DirectoryScannerTest.class);
+	private DirectoryScanner dp;
 	private int acceptedCount;
 	private int rejectedCount;
 	private List<File> ignored;
 	private BufferedWriter writer;
 	
-	public DirectoryParserTest() {
+	public DirectoryScannerTest() {
 		super();
 		TestConfiguration.getInstance();
 	}
@@ -35,12 +35,12 @@ public class DirectoryParserTest {
 		String filename = TestConfiguration.getOutputFilenameWithDate("dwg-scan-delta2-gissvrd.csv");
 		writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename),"UTF8"));
 		
-
+		
 		
 		ignored = new ArrayList<File>();
 		acceptedCount = 0;
 		rejectedCount = 0;
-		dp = new DirectoryParser();
+		dp = new DirectoryScanner();
 		dp.addAcceptPattern(Pattern.compile(".*\\.dwg$", Pattern.CASE_INSENSITIVE));
 		//dp.addAcceptPattern(Pattern.compile(".*\\.dwg$", Pattern.CASE_INSENSITIVE));
 		dp.addFileAcceptedListener(new IFileAcceptedListener() {

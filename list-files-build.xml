@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="list-shapes" name="list-files-jsimpleutils">
+	<import file="build.xml" />
+	<tstamp>
+		<format property="TODAY" pattern="yyyyMMdd_HHmmss" />
+	</tstamp>
+	<taskdef name="list-files" 
+		classname="org.gissolutions.jsimpleutils.io.FileListerTask"
+		classpathref="jsimpleutils.classpath" />
+	<target name="list-shapes">
+		<list-files directory="C:\Temp" 
+		outputFile="output\shape_list_${TODAY}.csv" 
+		 singleAcceptPattern=".*\.shp$"/>
+	</target>
+</project>

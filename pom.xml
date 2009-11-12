@@ -100,5 +100,11 @@
 			<version>v056</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.7.0</version>
+			<optional>false</optional>
+		</dependency>
 	</dependencies>
 </project>

@@ -9,20 +9,20 @@ import java.util.regex.Pattern;
 import javax.swing.event.EventListenerList;
 
 
-public class DirectoryParser {
+public class DirectoryScanner {
 
 	protected List<Pattern> acceptPatterns;
 	protected List<Pattern> rejectPatterns;
 	private EventListenerList listenerList;
 
-	public DirectoryParser() {
+	public DirectoryScanner() {
 		super();
 		this.acceptPatterns = new ArrayList<Pattern>();
 		this.rejectPatterns = new ArrayList<Pattern>();
 		this.listenerList = new EventListenerList();
 	}
 
-	public DirectoryParser(String singleAcceptPattern) {
+	public DirectoryScanner(String singleAcceptPattern) {
 		this();
 		addAcceptPattern(singleAcceptPattern);
 	}

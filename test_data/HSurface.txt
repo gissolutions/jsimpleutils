@@ -1,0 +1,152 @@
+
+
+Departamento de Administración y Finanzas
+División de Informática y Tecnología
+Sección de Ingeniería de Sistemas
+Unidad de Sistemas de Información Geográfica
+Resultados del Taller de Levantamiento de Requerimientos de la Base de Datos de Durezas de Materiales
+Revisión 1.0
+Octubre de 2009
+
+Tabla de Contenido
+Tabla de Contenido	ii
+Listado de Tablas	ii
+Lista de Figuras	ii
+Historial de Revisiones	iii
+1	Introducción	1
+2	Participantes	1
+3	Objetivos del Taller	1
+4	Entregables del Taller	2
+4.1	Identificación del Problema	2
+4.1.1	Causas	2
+4.1.2	Enunciado del Problema	2
+4.2	Características de Alto Nivel	4
+4.3	Casos de Uso	4
+4.3.1	Flujos de los Casos de Uso	6
+4.4	Reglas del Negocio	8
+5	Conclusiones y Recomendaciones	9
+Listado de Tablas
+Tabla 1 Causas del Problema Priorizadas	2
+Tabla 2 Características de Alto Nivel Priorizadas	4
+
+Lista de Figuras
+Figura 1 Actores del Sistema	5
+Figura 2 Casos de Uso identificados	6
+Figura 3 Caso de Uso: Extracción de Datos	7
+Figura 4 Reglas del Negocio	9
+
+
+Historial de Revisiones
+RevisiónFechaDescripción de la RevisiónAutor1.00 27/oct/2009Primer borrador. Luis Berrocal
+
+1 Introducción
+A solicitud del la Unidad de Perforación y Voladura (OPDV) la Sección de Ingeniería de Sistemas desarrolló un taller para levantar los requerimientos de una base de datos de información durezas de materiales.
+2 Participantes
+
+Nombre PosiciónOficinaCarlos A. ReyesGerente de de Perforación y VoladuraOPDVAlfonso ChuTécnico IngenieroOPDVRicardo PérezCapitán, Barcaza de PerforaciónOPDVAbigail PérezTécnico IngenieroOPDVOsvaldo OspinoTécnico IngenieroOPDVMartín ClarkSupervisor Ing. InterdisciplinarioOPDVMarcos GonzálezCapitán de Barcaza de PerforaciónOPDVAna CastilleroOficinistaOPDVJosé RichardsExplosivistaOPDVEduardo QuintanarOperador Equipo de PerforaciónOPDVJulio LizarragaExplosivistaOPDVLaurentino CortizoIng. CivilIAIGDiana ChungEspecialista en InformáticaFAIIRogelio GordónGerente Ejecutivo de DragadoOPD
+3 Objetivos del Taller
+Los objetivos el taller son:
+* Identificar el problema y los afectados
+* Identificar y priorizar las características de la solución
+* Explicar que son los caso de uso y su importancia.
+* Identificar los casos de uso
+* Identificar las reglas del negocio.
+4 Entregables del Taller
+4.1  Identificación del Problema
+El primer enunciado del problema fue:
+“No se conoce la distribución espacial de los materiales en el cauce”
+A partir de este enunciado se fueron identificando las causas y refinando el enunciado del problema.
+4.1.1 Causas
+Mediante una lluvia de ideas se identificaron las posibles causas del problema: Luego cada participante votó por las tres causas que en su opinión eran las más importantes.
+La Tabla 1 muestra las causas en orden de importancia.
+Tabla 1 Causas del Problema Priorizadas
+
+4.1.2 Enunciado del Problema
+Una vez refinado el enunciado del problema se identificaron los afectados, impactos y posibles soluciones. 
+El Problema• No se conoce la distribución espacial de los materiales en el cauce lo que impacta en los costos de las operaciones de dragadoafecta• Las dragas, barcazas de perforación, OPD, contratista,  equipo de ampliación, OPT, IAIG, diseñadores de voladuras Cuyo impacto es1. Impacto en los tránsitos debido a la definición de ventanas.
+2. Alcance, costos y duración de los proyectos.
+3. Reclamos de contratistas
+4. Imagen de la ACP
+5. Aumento en el grado de incertidumbre de los riesgos del proyecto
+6. Planificación no optima del equipo y personal
+7. Posible extra limitación de presupuesto.Una solución exitosa sería1. Adquisición de sensores para colección de datos automatizados
+2. Entrenamiento del personal
+3. Definición de los proceso de colección de datos
+4. Repositorio centralizado
+5. Integración de información geológica, geotécnica y geomecánica
+6. Generación de superficies interpoladas.
+
+4.2 Características de Alto Nivel
+Mediante lluvia de ideas se identificaron las características de alto nivel del sistema. Luego cada participante votó por las tres características que en su opinión eran las más importantes. 
+A continuación se listan las características del alto nivel en orden de importancia:
+Tabla 2 Características de Alto Nivel Priorizadas
+
+4.3 Casos de Uso
+Se identificaron 19 casos de uso y 8 actores para el sistema. Debido a restricciones de tiempo no se pudo terminar de modelar los casos de uso para el “Sistema de Administración de Compresión de Materiales”.
+Por la cantidad de actores definidos preliminarmente es probable que se requiera refinar las definiciones de los mismos.
+
+Figura 1 Actores del Sistema
+
+Figura 2 Casos de Uso identificados
+4.3.1 Flujos de los Casos de Uso
+Solo se desarrollo el flujo básico para un caso de uso debido a restricciones de tiempo.
+4.3.1.1 Caso de Uso: Extracción de Datos
+
+Figura 3 Caso de Uso: Extracción de Datos
+4.3.1.1.1 Flujo Básico
+1. Usuario digita la elevación en PLD,  selecciona las unidades del unidades de Pulldown
+2. El sistema calcula el Pulldown para cada barreno vertical para la elevación requerida.
+3. El sistema calcula la posición y Pulldown para barrenos no verticales
+4. El sistema genera un archivo de salida con los siguientes datos de los barrenos:
+4.1. Posición x, y, z
+4.2. Nombre del equipo que realizo el trabajo
+4.3. Fecha en que se realizo el trabajo
+4.4. Compresión en el material
+4.5. Nombre del proyecto
+4.6. Profundidad del barreno
+4.7. Velocidad de rotación
+4.8. Nombre del patrón
+4.9. Nombre del operador
+4.10. Diámetro del barreno
+4.11. Nombre de la bordada
+4.12. Tipo de broca
+4.13. Comentario cualitativo
+4.14. Profundidad del comentario
+4.15. Varianza (calculado, indicado o inferido)
+4.16. Elevación indicada
+4.17. Burden
+4.18. Spacing
+4.19. Banco
+
+4.4 Reglas del Negocio
+A partir de una lluvia de ideas se fueron generando algunas de las reglas del negocio. Se comenzó con definir los rangos validos para algunos de los parámetros que la aplicación utilizará.
+Probablemente el hallazgo más importante del taller fuel la definición de la ecuación que homologa los valores Pulldown para los diferentes equipo.
+
+
+Figura 4 Reglas del Negocio
+5 Conclusiones y Recomendaciones
+Las conclusiones y recomendaciones se listan a continuación
+* Levantamiento de azimut como parte del procedimiento de campo.
+* La adquisición de los data loggers.
+* Entrenamiento de personal en los impactos de la colección de datos
+* Estandarizar los datos levantados  en el sistema métrico
+* Homologar la información que se recoge en los equipos de perforación.
+* Prueba de concepto de los cálculos (posiblemente en Bas Obispo) enfocado a la solución de un problema. Verificando el límite fiable de la herramienta.
+* Refinar los casos de uso.
+* Completar el cronograma del proyecto.
+
+ii
+
+
+
+CONFIDENCIAL – PARA USO EXCLUSIVO DE LA ACP
+
+Resultados del Taller de Levantamiento de Requerimientos de la Base de Datos de Durezas de Materiales
+
+
+Resultados_del_Taller_de_Levantamiento_de_Req_HSurface.doc
+10
+CONFIDENCIAL – PARA USO EXCLUSIVO DE LA ACP
+
+
+
