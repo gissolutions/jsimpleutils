@@ -25,7 +25,7 @@ public class SqlLiteDBTest {
 	@Test
 	public void testExecuteQuery() {
 		String fn = TestConfiguration.getOutputFilenameWithDate("sqllite.db");
-		SqlLiteDB db = new SqlLiteDB(fn);
+		GenericDB db = new SqlLiteDB(fn);
 		String sMakeTable = "CREATE TABLE words (word text, count numeric)";
 		try {
 			db.execute(sMakeTable);
@@ -54,7 +54,7 @@ public class SqlLiteDBTest {
 	public void testExecuteQuery2() {
 		String fn = TestConfiguration
 				.getOutputFilenameWithDate("sqllite_words.db");
-		SqlLiteDB db = new SqlLiteDB(fn);
+		GenericDB db = new SqlLiteDB(fn);
 		String sMakeTable = "CREATE TABLE words (word text, count numeric)";
 		String source = "SQLite version 3 introduces the concept of manifest "
 				+ "typing, where the type of a value is associated with the "

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.gissolutions.jsimpleutils.sql.GenericDB;
 import org.gissolutions.jsimpleutils.sql.SqlLiteDB;
 
 public class WordStats {
@@ -16,7 +17,7 @@ public class WordStats {
 	private File source;
 	//private int wordCount;
 	private final File statsDatabse;
-	private SqlLiteDB db;
+	private GenericDB db;
 
 	public WordStats(File source, File statsDatabse) throws SQLException {
 		super();

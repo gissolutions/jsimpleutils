@@ -8,8 +8,8 @@
 		classname="org.gissolutions.jsimpleutils.io.FileListerTask"
 		classpathref="jsimpleutils.classpath" />
 	<target name="list-shapes">
-		<list-files directory="C:\Temp" 
-		outputFile="output\shape_list_${TODAY}.csv" 
-		 singleAcceptPattern=".*\.shp$"/>
+		<list-files directory="H:\" 
+		outputFile="output\drawings_list_${TODAY}.csv" 
+		 singleAcceptPattern=".*\.dwg$"/>
 	</target>
 </project>
