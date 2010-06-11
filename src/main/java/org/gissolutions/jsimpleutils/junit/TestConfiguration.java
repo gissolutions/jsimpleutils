@@ -8,18 +8,6 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.gissolutions.jsimpleutils.io.FilenameUtility;
 
 /**
- * Edit the web.xml include the following snippet:
- * <code>
- * &lt;servlet&gt;<br/>
- *      &lt;servlet-name&gt;LogServlet&lt;/servlet-name&gt;<br/>
-        &lt;servlet-class&gt;corg.gissolutions.jsimpleutils.logging.LogServlet&lt;/servlet-class&gt;<br/>
-        &lt;init-param&gt;<br/>
-            &lt;param-name&gt;setup&lt;/param-name&gt;<br/>
-            &lt;param-value&gt;WEB-INF/log4jprops.xml&lt;/param-value&gt;<br/>
-        &lt;/init-param&gt;<br/>
-        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;<br/>
-    &lt;/servlet&gt;<br/>
- * </code>
  * 
  * @author LBerrocal
  *
@@ -77,6 +65,14 @@ public class TestConfiguration {
 			throw new IllegalArgumentException(f.getAbsolutePath() + " no existe");
 		}
 	}
+	/**
+	 * Calculates a full path filename with a timestamp appended. The method appends
+	 * to the relativePath supplied the outputPath (from {@link #getOutputPath()}) in front 
+	 * and a timestamp at the end. The method uses the method {@link FilenameUtility#insertDate(String)}
+	 * to calculate the date.   
+	 * @param relativePath  relative path of the file
+	 * @return full path from outputPath with timestamp insert.
+	 */
 	public static String getOutputFilenameWithDate(String relativePath) {
 		String tpath = TestConfiguration.getInstance().getOutputPath();
 		File f = new File(tpath + File.separator + relativePath);

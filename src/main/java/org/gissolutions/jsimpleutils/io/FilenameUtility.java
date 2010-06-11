@@ -40,6 +40,13 @@ public class FilenameUtility {
 		}
 		return "";
 	}
+	/**
+	 * Inserts todays timestamp to a supplied filename with the format yyyyMMdd_HHmmss.
+	 * For a file like c:/temp/photo.gif the this method would return c:/temp/photo_20100611_090015.gif
+	 * if ranned on 6/jun/2010 a 9:00:15 am.
+	 * @param filename Filename to append the date
+	 * @return File with the date appended.
+	 */
 	public static String insertDate(String filename) {
 		File f = new File(filename);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
