@@ -16,6 +16,7 @@ public class DateTimeGenerator {
 	public static final int TIME = 1;
 	private Random random = null;
 	private BigDecimal minValue = new BigDecimal("0");
+	
 	private BigDecimal maxValue = new BigDecimal("1423453127");
 	public static final SimpleDateFormat DATE_FORMAT =
 		        new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S Z");
@@ -29,6 +30,7 @@ public class DateTimeGenerator {
 	 public Date generate() {
 		 return generate(DATE);
 	 }
+	 
 	public Date generate(int returnedType ) {
 
 		BigDecimal retValue = null;

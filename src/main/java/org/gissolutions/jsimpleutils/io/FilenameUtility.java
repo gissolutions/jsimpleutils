@@ -11,7 +11,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+/**
+ * The class {@link FilenameUtility} contains methods used to manipulate filename and file sizes.
+ * @author luisberrocal
+ *
+ */
 public class FilenameUtility {
 	static org.apache.log4j.Logger logger = org.apache.log4j.Logger
 			.getLogger(FilenameUtility.class);
@@ -26,11 +30,21 @@ public class FilenameUtility {
 		}
 		
 	}
+	/**
+	 * Returns the filename of the file without the path.
+	 * @param fileName supplied filename
+	 * @return filename of the file without the path
+	 */
 	public static String getFilename(String fileName) {
 		File tmpFile = new File(fileName);
 		return tmpFile.getName();
 		
 	}
+	/**
+	 * Returns the extension for the filename supplied without the dot.
+	 * @param filename name of the file supplied. Can be relative path
+	 * @return file extension without the dot.
+	 */
 	public static String getFileExtension(String filename) {
 		File tmpFile = new File(filename);
 		//tmpFile.getName();
@@ -43,7 +57,7 @@ public class FilenameUtility {
 	/**
 	 * Inserts todays timestamp to a supplied filename with the format yyyyMMdd_HHmmss.
 	 * For a file like c:/temp/photo.gif the this method would return c:/temp/photo_20100611_090015.gif
-	 * if ranned on 6/jun/2010 a 9:00:15 am.
+	 * if ranned on 6/jun/2010 at 9:00:15 am.
 	 * @param filename Filename to append the date
 	 * @return File with the date appended.
 	 */
@@ -57,6 +71,12 @@ public class FilenameUtility {
 		return t + "_" + sdf.format(new Date()) + "." + ext;
 		
 	}
+	/**
+	 * Replaces the extension of a file.
+	 * @param filename Filename to be changed
+	 * @param newExtension new extension without the dot.
+	 * @return Filename with the new extension.
+	 */
 	public static String replaceExtension(String filename, String newExtension) {
 		File tmpFile = new File(filename);
 		//tmpFile.getName();
@@ -65,6 +85,7 @@ public class FilenameUtility {
 		 "." + newExtension;
 		return n;
 	}
+	
 	public static double getFileSize(String filename, FileSizeFormat format) {
 		File tmpFile = new File(filename);;
 		String size = Long.toString(tmpFile.length());
