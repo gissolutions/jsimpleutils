@@ -28,6 +28,15 @@ public class TestConfiguration {
 		this.testDataPath = data.getAbsolutePath();
 		String configfile = "/log4jprops.xml";
 		log4jConfigUrl = this.getClass().getResource(configfile);
+		if(log4jConfigUrl == null){
+			URL url = this.getClass().getResource("/");
+			String msg ="%s file does not exist Log4j not initialized";		
+			msg= String.format(msg, url.getFile().substring(1, url.getFile().length()-1) +
+					configfile);
+			System.err.println(msg);
+			return;
+		}
+		
 		DOMConfigurator.configure(log4jConfigUrl);
 		logger.info("Log4j configured with " + log4jConfigUrl.getFile());
 		if(!out.exists()) {
@@ -55,7 +64,12 @@ public class TestConfiguration {
 	public String getTestDataPath() {
 		return testDataPath;
 	}
-	
+	/**
+	 * Gets the full path of a file from the test data directory ({@link #getTestDataPath()}), if
+	 * the file does not exist throws and {@link IllegalArgumentException}
+	 * @param relativePath Relative path to the file
+	 * @return Full path from the test data Directory;
+	 */
 	public static String getExistingTestData(String relativePath) {
 		String tpath = TestConfiguration.getInstance().getTestDataPath();
 		File f = new File(tpath + File.separator + relativePath);
@@ -115,4 +129,6 @@ public class TestConfiguration {
 	public URL getLog4jConfigUrl() {
 		return log4jConfigUrl;
 	}
+	
+	
 }
