@@ -8,32 +8,68 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
-import org.dbunit.database.search.TablesDependencyHelper;
 import org.dbunit.dataset.DataSetException;
-import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.util.search.SearchException;
 
 public class DatabaseExporter {
 	
 	
-	public void export(Properties dbprops, String filename) throws  SQLException, DataSetException, FileNotFoundException, IOException, SearchException {
+	private String dbUrl;
+	private String username;
+	private String password;
+	private String driverClassName;
+	
+	public DatabaseExporter(Properties dbprops) {
+		super();
+		dbUrl = dbprops.getProperty("dbUrl");
+		username = dbprops.getProperty("username");
+		password = dbprops.getProperty("password");
+		driverClassName = dbprops.getProperty("driverClassName");
+	}
+
+	public void exportTable(String filename, String table, String sql)  {
 		// database connection
-        loadDriver(dbprops.getProperty("driverClassName"));
-        String dbUrl = dbprops.getProperty("dbUrl");//"jdbc:hsqldb:sample";
-		String username = dbprops.getProperty("username");//"sa";
-		String password = dbprops.getProperty("password");//"";
+        loadDriver(driverClassName);
+        
 		IDatabaseConnection connection = buildConnection(dbUrl, username,
 				password);
-
+		DatabaseConfig config = connection.getConfig();
+		String id ="http://www.dbunit.org/features/qualifiedTableNames";
+		config.setFeature(id, true);
+		
         // partial database export
-        QueryDataSet partialDataSet = new QueryDataSet(connection);
-        partialDataSet.addTable("FOO", "SELECT * FROM TABLE WHERE COL='VALUE'");
-        partialDataSet.addTable("BAR");
-        FlatXmlDataSet.write(partialDataSet, new FileOutputStream(filename));
+        QueryDataSet partialDataSet = null;
+		try {
+			partialDataSet = new QueryDataSet(connection);
+			if(sql ==null) {
+	        	partialDataSet.addTable(table);
+	        }else {
+	        	partialDataSet.addTable(table, sql);
+	        }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        
+       // partialDataSet.addTable("BAR");
+        try {
+			FlatXmlDataSet.write(partialDataSet, new FileOutputStream(filename));
+		} catch (DataSetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 //        // full database export
 //        IDataSet fullDataSet = connection.createDataSet();

@@ -112,5 +112,12 @@
 			<version>2.2</version>
 			<optional>false</optional>
 		</dependency>
+		<dependency>
+			<groupId>oracle</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>JDK1.4-10.2.04</version>
+			<scope>test</scope>
+			<optional>false</optional>
+		</dependency>
 	</dependencies>
 </project>
