@@ -1,6 +1,12 @@
 package org.gissolutions.jsimpleutils.info;
+import java.io.File;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
+
+import org.apache.log4j.xml.DOMConfigurator;
+
 
 /**
  * La clase GenericAppInfo representa la información de la aplicación, como
@@ -68,6 +74,38 @@ public abstract class GenericAppInfo {
 	public String getBuildUser() {
 		return buildUser;
 	}
-    
-
+	public static void configureLog4J(Class<?> cls, String appHomeVariable, String configfile) {
+		
+		//String configfile = "/log4jprops.xml";
+		URL log4jConfigUrl =  cls.getClassLoader().getResource(configfile);//cmd.getClass().getResource(configfile);
+		if(log4jConfigUrl == null){
+			String path = getApplicationHome(appHomeVariable);
+			try {
+				log4jConfigUrl = new URL("file:/" +  path + configfile);
+			} catch (MalformedURLException e) {				
+				e.printStackTrace();
+			}
+		}		
+		DOMConfigurator.configure(log4jConfigUrl);
+		logger.info("Log4j configured with " + log4jConfigUrl.getFile());
+	}
+	/**
+	 * Reads the application home based on the Home Variable. The method will first try to read
+	 * the Home Variable as property supplied in the java invocation, the will try to read
+	 * the Home Variable as a enviroment variable, if none is found the application will try the
+	 * current path use the path of a new file constructed frome new File(".")
+	 */
+	public static String getApplicationHome(String appHomeVariable) {
+		String mapaminHome = null;
+		mapaminHome = System.getProperty(appHomeVariable);
+		if(mapaminHome == null) {
+			mapaminHome = System.getenv(appHomeVariable);
+		}
+		if(mapaminHome == null) {
+			File f = new File(".");
+			mapaminHome = f.getAbsolutePath();
+		}
+		return mapaminHome.substring(0, mapaminHome.length()-2);
+		
+	}
 }

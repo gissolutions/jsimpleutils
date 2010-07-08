@@ -38,6 +38,7 @@ public class TestConfiguration {
 		}
 		
 		DOMConfigurator.configure(log4jConfigUrl);
+		logger.info("Url: " + log4jConfigUrl.toString());
 		logger.info("Log4j configured with " + log4jConfigUrl.getFile());
 		if(!out.exists()) {
 			out.mkdirs();

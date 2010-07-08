@@ -19,8 +19,7 @@ public class Ping {
 	}
 
 	public Ping() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();		
 	}
 
 	/**

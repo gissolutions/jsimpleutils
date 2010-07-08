@@ -1,5 +1,11 @@
 package org.gissolutions.jsimpleutils.sql;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,8 +31,10 @@ public abstract class GenericDB {
 			// create a database connection
 			conn = DriverManager.getConnection(sUrl);
 		} catch (SQLException e) {
-			// connection failed.
-			System.err.println(e);
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
+			//System.err.println(e);
 		}
 	}
 
@@ -38,8 +46,11 @@ public abstract class GenericDB {
 			Class.forName(sDriverName);
 		} catch (Exception e) {
 			// connection failed.
-			System.out.println("DriverName: " + sDriverName + " was not available");
-			System.err.println(e);
+			System.out.println("DriverName: " + sDriverName + " was not available ");
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
+			//System.err.println(e);
 		}
 	}
 	protected void setConnection(String username, String password) {
@@ -48,8 +59,9 @@ public abstract class GenericDB {
 			// create a database connection
 			conn = DriverManager.getConnection(sUrl, username, password);
 		} catch (SQLException e) {
-			// connection failed.
-			System.err.println(e);
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
 		}
 	}
 	public void closeConnection() {
@@ -83,7 +95,24 @@ public abstract class GenericDB {
 			throw e;
 		}
 	}
+	public void execute(File sqlFile) throws SQLException, FileNotFoundException{
+		BufferedReader reader = new BufferedReader(new FileReader(sqlFile));
+		StringBuffer sb = new StringBuffer();
+		String str;
+	    try {
+			while ((str = reader.readLine()) != null) {
+			   sb.append(str);			   
+			}
+			 reader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	   String sql = sb.toString();
+	   this.execute(sql);
 
+
+	}
 	/**
 	 * @return the statement
 	 */
@@ -95,10 +124,15 @@ public abstract class GenericDB {
 			statement = conn.createStatement();
 			statement.setQueryTimeout(iTimeout); // set timeout to 30 sec.
 		} catch (Exception e) {
-			System.err.println(e);
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
 		}
 	
 		return statement;
 	}
-
+	
+	public Connection getConnection() {
+		return this.conn;
+	}
 }
