@@ -50,7 +50,10 @@ public class TestConfigurationTest {
 		logger.debug("md5: " + md5);
 		// assertEquals("c2827798eca02e9bc0ce6ac1bfeb44d1", md5);
 	}
-
+	public void testc() {
+		String o = TestConfiguration.getInstance().getOutputPath();
+		logger.debug("Output path: " +  o);
+	}
 	@Test
 	public void testSQLite() {
 		try {
