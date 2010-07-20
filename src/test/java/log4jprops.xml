@@ -13,6 +13,9 @@
 	<logger name="com.panaroll.payroll.TimeInterval">
 		<level value="warn"></level>
 	</logger>
+	<logger name="org.apache.http">
+		<level value="warn"></level>
+	</logger>
 	<!-- Otherwise we will only display ERROR messages -->
 	<root>
 		<priority value="DEBUG" />

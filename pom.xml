@@ -131,5 +131,11 @@
 			<version>2.1</version>
 			<optional>false</optional>
 		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.0</version>
+			<optional>false</optional>
+		</dependency>
 	</dependencies>
 </project>
