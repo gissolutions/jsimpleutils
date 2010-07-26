@@ -55,7 +55,7 @@ public class HTTPConnectorTest {
 			List<String> services = sa.getServicesNames();
 			for (String ser : services) {
 				double totalTime = 0;
-				for (int i = 0; i < 50; i++) {
+				for (int i = 0; i < 2; i++) {
 					StopWatch sw = new StopWatch();
 					String resp = connector.sendRequest(ser, axl);
 					sw.stop();
@@ -63,7 +63,7 @@ public class HTTPConnectorTest {
 					
 					logger.debug(i + "Service: " +ser + " time: " +  sw.getElapsedSeconds());
 				}
-				double average = totalTime /50;
+				
 			}
 		} catch (AIMSConnectionException e) {
 			String msg = "%s: %s";
@@ -83,6 +83,20 @@ public class HTTPConnectorTest {
 	@Test
 	public void testPing() {
 		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testGe() {
+		IAIMSConnector connector = new HTTPConnector("manzanillo");
+		try {
+			String axl =connector.getServiceInfo("AtlasCanal");
+			logger.debug("AXL: " +  axl);
+		} catch (AIMSConnectionException e) {
+			String msg = "%s: %s";
+			msg = String.format(msg, e.getClass().getName(), e.getMessage());
+			logger.error(msg);
+			fail(msg);
+		}
 	}
 
 }

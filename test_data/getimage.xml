@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ARCXML version="1.1">
+	<REQUEST>
+		<GET_IMAGE>
+			<PROPERTIES>
+				<IMAGESIZE height="142" width="329" />
+				<BACKGROUND color="51,153,255" />
+			</PROPERTIES>
+		</GET_IMAGE>
+	</REQUEST>
+</ARCXML>

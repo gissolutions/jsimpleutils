@@ -19,21 +19,20 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
-
 public class HTTPConnector implements IAIMSConnector {
 	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger
 			.getLogger(HTTPConnector.class);
 	private final String host;
-	private final int	port = 80;
+	private final int port = 80;
 	private final String encoding;
-	
+
 	public HTTPConnector(String host) {
 		super();
 		this.host = host;
-		//this.port=port;
+		// this.port=port;
 		encoding = "UTF-8";
 	}
-	
+
 	@Override
 	public String getClientServices() {
 		String serviceName = "catalog";
@@ -42,13 +41,13 @@ public class HTTPConnector implements IAIMSConnector {
 	}
 
 	@Override
-	public String getHost() {		
+	public String getHost() {
 		return host;
 	}
 
 	@Override
 	public int getPort() {
-		
+
 		return port;
 	}
 
@@ -61,23 +60,24 @@ public class HTTPConnector implements IAIMSConnector {
 		qparams.add(new BasicNameValuePair("Encode", "False"));
 
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-		formparams.add(new BasicNameValuePair("ArcXMLRequest",axl));
+		formparams.add(new BasicNameValuePair("ArcXMLRequest", axl));
 
 		URI uri;
 		HttpClient httpclient = new DefaultHttpClient();
-		
+
 		try {
-			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, encoding);
+			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams,
+					encoding);
 			uri = buildURI(qparams);
-			//HttpGet httpget = new HttpGet(uri);
+			// HttpGet httpget = new HttpGet(uri);
 			HttpPost httpPost = new HttpPost(uri);
 			httpPost.setEntity(entity);
-			//logger.debug(httpPost.getURI());
-			
-			 // Create a response handler
-	        ResponseHandler<String> responseHandler = new BasicResponseHandler();
-	        String responseBody = httpclient.execute(httpPost, responseHandler);
-	        return cleanResponse(responseBody);
+			// logger.debug(httpPost.getURI());
+
+			// Create a response handler
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			String responseBody = httpclient.execute(httpPost, responseHandler);
+			return cleanResponse(responseBody);
 		} catch (URISyntaxException e) {
 			String msg = "%s: %s";
 			msg = String.format(msg, e.getClass().getName(), e.getMessage());
@@ -91,7 +91,7 @@ public class HTTPConnector implements IAIMSConnector {
 			msg = String.format(msg, e.getClass().getName(), e.getMessage());
 			logger.error(msg);
 		}
-		
+
 		return null;
 	}
 
@@ -102,17 +102,19 @@ public class HTTPConnector implements IAIMSConnector {
 	 */
 	private URI buildURI(List<NameValuePair> qparams) throws URISyntaxException {
 		URI uri;
-		uri = URIUtils.createURI("http", this.host, -1, "/servlet/com.esri.esrimap.Esrimap", 
-		    URLEncodedUtils.format(qparams, encoding), null);
+		uri = URIUtils.createURI("http", this.host, -1,
+				"/servlet/com.esri.esrimap.Esrimap", URLEncodedUtils.format(
+						qparams, encoding), null);
 		return uri;
 	}
+
 	public static String cleanResponse(String axl) {
 		int st = axl.indexOf("<ARCXML version=\"1.1\">");
 		int e = axl.indexOf("</ARCXML>") + 9;
-		//logger.debug("Len: " + axl.length() +" st: " + st + " e: " +e);
+		// logger.debug("Len: " + axl.length() +" st: " + st + " e: " +e);
 		return axl.substring(st, e);
 	}
-	
+
 	public String ping(PingType pingType) {
 		String response = null;
 		List<NameValuePair> qparams = new ArrayList<NameValuePair>();
@@ -120,20 +122,19 @@ public class HTTPConnector implements IAIMSConnector {
 		URI uri;
 		try {
 			HttpClient httpclient = new DefaultHttpClient();
-			
-			uri = buildURI(qparams);
-			HttpGet httpget = new HttpGet(uri);			
-			
-			 // Create a response handler
-	        ResponseHandler<String> responseHandler = new BasicResponseHandler();
-	        response = httpclient.execute(httpget, responseHandler);
-	        
 
-	        // When HttpClient instance is no longer needed, 
-	        // shut down the connection manager to ensure
-	        // immediate deallocation of all system resources
-	        httpclient.getConnectionManager().shutdown();
-	        
+			uri = buildURI(qparams);
+			HttpGet httpget = new HttpGet(uri);
+
+			// Create a response handler
+			ResponseHandler<String> responseHandler = new BasicResponseHandler();
+			response = httpclient.execute(httpget, responseHandler);
+
+			// When HttpClient instance is no longer needed,
+			// shut down the connection manager to ensure
+			// immediate deallocation of all system resources
+			httpclient.getConnectionManager().shutdown();
+
 		} catch (URISyntaxException e) {
 			String msg = "%s: %s";
 			msg = String.format(msg, e.getClass().getName(), e.getMessage());
@@ -148,6 +149,30 @@ public class HTTPConnector implements IAIMSConnector {
 			logger.error(msg);
 		}
 		return response;
+
+	}
+
+	@Override
+	public String getServiceInfo(String serviceName)
+			throws AIMSConnectionException {
+//		String axl = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ARCXML version=\"1.1\">  "
+//				+ "<REQUEST>    "
+//				+ "<GET_SERVICE_INFO fields=\"true\" envelope=\"false\" renderer=\"false\" extensions=\"true\" />  "
+//				+ "</REQUEST></ARCXML>";
+//
+//		return sendRequest(serviceName, axl);
+		return getServiceInfo(serviceName, true, false, false, true);
+	}
+
+	public String getServiceInfo(String serviceName, boolean fields,
+			boolean envelope, boolean renderer, boolean extensions)
+			throws AIMSConnectionException {
+		String axl = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ARCXML version=\"1.1\">  "
+				+ "<REQUEST>    "
+				+ "<GET_SERVICE_INFO fields=\"%s\" envelope=\"%s\" renderer=\"%s\" extensions=\"%s\" />  "
+				+ "</REQUEST></ARCXML>";
+		axl = String.format(axl, fields, envelope, renderer, extensions);
 		
+		return sendRequest(serviceName, axl);
 	}
 }
