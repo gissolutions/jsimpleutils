@@ -34,6 +34,11 @@ public class DateTimeUtility {
 		gcal.set(year, month, day);
 		return gcal.getTime();
 	}
+	public static int[] calculateAge(int bYear, int bMonth, int bDay, int cYear, int cMonth, int cDay){
+		Calendar bd = new GregorianCalendar(bYear, bMonth+1, bDay);
+		Calendar cd = new GregorianCalendar(cYear, cMonth+1, cDay);
+		return calculateAge(bd.getTime(), cd.getTime());
+	}
 	/**
 	 * Calculates the age in years, month and days between two dates
 	 * @param bdate the date to calculate the age to. The birthday for example.

@@ -83,7 +83,14 @@ public class DateTimeUtilityTest {
 		logger.debug("Date Trimmed :" + str);
 		assertEquals("19-Jul-2010 00:00:00", str);
 	}
-
+	@Test
+	public void testCalculateAge2() {
+		int[] res = DateTimeUtility.calculateAge(1966, 9, 8, 2010, 7, 22);
+		String msg = "%s years %s months %s days";
+		msg = String.format(msg, res[0], res[1], res[2]);
+		logger.debug("Age: " + msg);
+		assertEquals("43 years 9 months 11 days", msg);
+	}
 	@Test
 	public void testCalculateAge() {
 		List<DTUData> testData = new ArrayList<DTUData>();

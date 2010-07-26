@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="load-arfifact" name="maven-jsimpleutils">
-	<property environment="env"/>
-	<property name="JAVA_HOME" value="${env.JAVA_HOME}"/> 
-	<property name="maven.repository.path" location="../.."/>
+	<property environment="env" />
+	<property name="JAVA_HOME" value="${env.JAVA_HOME}" />
+	<property name="maven.repository.path" location="../.." />
 
 	<path id="Maven Classpath Container.libraryclasspath">
 		<pathelement location="${maven.repository.path}/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar" />
@@ -38,8 +38,8 @@
 		<pathelement location="${maven.repository.path}/.m2/repository/saxpath/saxpath/1.0-FCS/saxpath-1.0-FCS.jar" />
 		<pathelement location="${maven.repository.path}/.m2/repository/javax/servlet/jstl/1.0.6/jstl-1.0.6.jar" />
 		<pathelement location="${maven.repository.path}/.m2/repository/javax/servlet/servlet-api/2.3/servlet-api-2.3.jar" />
-		<pathelement location="${maven.repository.path}/.m2/repository/org/freemarker/freemarker/2.3.15/freemarker-2.3.15.jar"/>
-		 <pathelement location="${maven.repository.path}/.m2/repository/net/sf/apt-jelly/apt-jelly-freemarker/2.6/apt-jelly-freemarker-2.6.jar"/>
+		<pathelement location="${maven.repository.path}/.m2/repository/org/freemarker/freemarker/2.3.15/freemarker-2.3.15.jar" />
+		<pathelement location="${maven.repository.path}/.m2/repository/net/sf/apt-jelly/apt-jelly-freemarker/2.6/apt-jelly-freemarker-2.6.jar" />
 	</path>
 	<path id="jsimpleutils.classpath">
 		<pathelement location="target/classes" />
@@ -47,6 +47,26 @@
 		<path refid="Maven Classpath Container.libraryclasspath" />
 		<pathelement location="${JAVA_HOME}/lib/tools.jar" />
 	</path>
+	<target name="load-arfifact-mac">
+		<property name="group.id" value="commons-httpclient" />
+		<property name="artifact.id" value="httpcore" />
+		<property name="version" value="4.0.1" />
+		<property name="packaging" value="jar" />
+		<property name="file.dir" value="/Users/luisberrocal/Downloads/httpcomponents-client-4.0.1/lib" />
+		<property name="file" value="${file.dir}/httpcore-4.0.1.jar" />
+		<echo>mvn install:install-file -DgroupId=${group.id} -DartifactId=${artifact.id} -Dversion=${version} -Dpackaging=${packaging} -Dfile=${file} -DgeneratePom=true</echo>
+
+		<exec executable="Terminal" spawn="true">
+			<arg value="mvn install:install-file" />
+			<arg value="-DgroupId=${group.id}" />
+			<arg value="-DartifactId=${artifact.id}" />
+			<arg value="-Dversion=${version}" />
+			<arg value="-Dpackaging=${packaging}" />
+			<arg value="-Dfile=${file}" />
+			<arg value="-DgeneratePom=true" />
+		</exec>
+	</target>
+
 	<target name="load-arfifact">
 		<!--	<property name="group.id"  value="org.geotools"/>-->
 		<!--	<property name="artifact.id"  value="gt-metadata"/>-->
@@ -98,31 +118,28 @@
 	<target name="apt-jelly">
 		<property name="apt.factory" value="org.gissolutions.jsimpleutils.NoteAnnotationProcessorFactory" />
 		<property name="apt.src" location="src/main/java/org/gissolutions/jsimpleutils" />
-		<apt srcdir="${apt.src}" debug="true" compile="false"
-			factory="${apt.factory}" preprocessdir="target">
+		<apt srcdir="${apt.src}" debug="true" compile="false" factory="${apt.factory}" preprocessdir="target">
 			<classpath refid="jsimpleutils.classpath" />
 		</apt>
 	</target>
 	<target name="apt-freemarker-template">
-			<property name="japt.template.file" location="test_data/apt-freemarker-examples.fmt"/>
+		<property name="japt.template.file" location="test_data/apt-freemarker-examples.fmt" />
 
-			<property name="japt.factory" value="net.sf.jelly.apt.freemarker.FreemarkerProcessorFactory" />
-			<property name="japt.src" location="src/main/java/org/gissolutions/jsimpleutils/admin" />
-			<apt srcdir="${japt.src}" debug="true" compile="false"
-				factory="${japt.factory}" preprocessdir="target/gen">
-				<classpath refid="jsimpleutils.classpath" />
-				<compilerarg value="-Atemplate=${japt.template.file}"/>
-			</apt>
-		</target>
+		<property name="japt.factory" value="net.sf.jelly.apt.freemarker.FreemarkerProcessorFactory" />
+		<property name="japt.src" location="src/main/java/org/gissolutions/jsimpleutils/admin" />
+		<apt srcdir="${japt.src}" debug="true" compile="false" factory="${japt.factory}" preprocessdir="target/gen">
+			<classpath refid="jsimpleutils.classpath" />
+			<compilerarg value="-Atemplate=${japt.template.file}" />
+		</apt>
+	</target>
 	<target name="apt-jelly-template">
-				<property name="japt.template.file" location="test_data/testIfHasAnnotation.jelly"/>
+		<property name="japt.template.file" location="test_data/testIfHasAnnotation.jelly" />
 
-				<property name="japt.factory" value="net.sf.jelly.apt.APTJellyProcessorFactory" />
-				<property name="japt.src" location="src/main/java/org/gissolutions/jsimpleutils/admin" />
-				<apt srcdir="${japt.src}" debug="true" compile="false"
-					factory="${japt.factory}" preprocessdir="target/gen">
-					<classpath refid="jsimpleutils.classpath" />
-					<compilerarg value="-Atemplate=${japt.template.file}"/>
-				</apt>
-			</target>
+		<property name="japt.factory" value="net.sf.jelly.apt.APTJellyProcessorFactory" />
+		<property name="japt.src" location="src/main/java/org/gissolutions/jsimpleutils/admin" />
+		<apt srcdir="${japt.src}" debug="true" compile="false" factory="${japt.factory}" preprocessdir="target/gen">
+			<classpath refid="jsimpleutils.classpath" />
+			<compilerarg value="-Atemplate=${japt.template.file}" />
+		</apt>
+	</target>
 </project>

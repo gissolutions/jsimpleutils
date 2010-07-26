@@ -25,9 +25,9 @@ public class PasswordUtil {
 		return this.regExp.matches(pwd);
 	}
 	/**
-	 * Retorna la edad de la fecha de la contraseña suministrada.
-	 * @param passwordDate Fecha de último cambio de la contraseña
-	 * @return Edad en días de la contraseña-
+	 * Retorna la edad de la fecha de la contraseï¿½a suministrada.
+	 * @param passwordDate Fecha de ï¿½ltimo cambio de la contraseï¿½a
+	 * @return Edad en dï¿½as de la contraseï¿½a-
 	 */
 	public static int getAge(Date passwordDate) {
 
@@ -48,7 +48,7 @@ public class PasswordUtil {
 	}
 	/**
 	 * Crea un hash a partrir de la fuente suministrada usando el algoritmo
-	 * MD5 y un text encoding en UTF-8. Este método
+	 * MD5 y un text encoding en UTF-8. Este mï¿½todo
 	 * permite encriptar passwords que Tomcat pude leee.
 	 * @param source fuente de texto del que se quiere obtener el hash.
 	 * @param charsetName TODO
@@ -119,12 +119,12 @@ public class PasswordUtil {
 		return rslt.toLowerCase();
 	}
 	/**
-	 * Retorna el patron de expresión regular que comple con:
+	 * Retorna el patron de expresiï¿½n regular que comple con:
 	 * <ol>
-	 * <li>La contraseña debe contener al menos una letra en mayúscula</li>
-	 * <li>La contraseña debe contener al menos una letra en minúscula</li>
-	 * <li>La contraseña debe contener al menos un número o caracter especial</li>
-	 * <li>La contraseña debe tener una longitud no menor de 8 caracteres</li>
+	 * <li>La contraseï¿½a debe contener al menos una letra en mayï¿½scula</li>
+	 * <li>La contraseï¿½a debe contener al menos una letra en minï¿½scula</li>
+	 * <li>La contraseï¿½a debe contener al menos un nï¿½mero o caracter especial</li>
+	 * <li>La contraseï¿½a debe tener una longitud no menor de 8 caracteres</li>
 	 * </ol>
 	 * @return
 	 */
