@@ -173,4 +173,30 @@ public class FilenameUtility {
 		return output;
 
 	}
+	public static String getFilenameWithoutExtension(String filename) {
+		String ext = FilenameUtility.getFileExtension(filename);
+		File tmpFile = new File(filename);
+		int whereExt = tmpFile.getName().lastIndexOf(ext);
+
+		if (0 < whereExt && whereExt <= tmpFile.getName().length() - 2) {
+			return tmpFile.getName().substring(0, whereExt - 1);
+		}
+		return "";
+	}
+	public static String buildFilenameFrom(String dir, String sourceFile,
+			String newExtension) {
+		File directory = new File(dir);
+		String path = null;
+		String name = FilenameUtility.getFilenameWithoutExtension(sourceFile);
+		if (directory.isDirectory()) {
+			path = directory.getAbsolutePath();
+		} else {
+			throw new IllegalArgumentException(
+					"El directorio suministrado no es un directorio");
+		}
+		if (newExtension == null) {
+			newExtension = FilenameUtility.getFileExtension(sourceFile);
+		}
+		return path + File.separator + name + "." + newExtension;
+	}
 }
