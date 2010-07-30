@@ -30,8 +30,11 @@ public class PasswordGeneratorTest {
 		passGen.setLength(12);
 		try {
 			passGen.setTemplate("oAAannaonn");
-			passGen.generatePassword();
-			logger.debug("Password template: "+ passGen.getPassword());
+			for (int i = 0; i < 10; i++) {
+				passGen.generatePassword();
+				logger.debug("Password " + i + ":"+ passGen.getPassword());
+			}
+			
 		} catch (ParseException e) {
 			String msg = "%s: %s";
 			msg = String.format(msg, e.getClass().getName(), e.getMessage());
@@ -40,15 +43,15 @@ public class PasswordGeneratorTest {
 		}
 	}
 	
-	@Test
-	public void testDisplayOtherChars() {
-		for (int i = 0; i < 15; i++) {
-			char c =(char) (33 + i);
-			String msg ="Char(%s): '%s'";
-			msg = String.format(msg, i, c);
-			logger.debug(msg);
-			
-		}
-	}
+//	@Test
+//	public void testDisplayOtherChars() {
+//		for (int i = 0; i < 15; i++) {
+//			char c =(char) (33 + i);
+//			String msg ="Char(%s): '%s'";
+//			msg = String.format(msg, i, c);
+//			logger.debug(msg);
+//			
+//		}
+//	}
 
 }

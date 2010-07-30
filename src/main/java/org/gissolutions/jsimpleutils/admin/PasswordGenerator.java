@@ -19,7 +19,11 @@ private int length;
 
 	private String password;
 	private String template;
-	private char[] otherCharacters = new char[] {'#','$','%','&','(',')','=','|','@','!','*','-','+'}; 
+	private char[] otherCharacters = new char[] {'#','$','%','&','(',')','=','|','@','!','*','-','+'};
+	
+	private static char[] safeCharacters = new char[] {'#','$','(',')','=','-','_'};
+	private boolean useSafeCharacters = true;
+	
 	public PasswordGenerator() {
 		// by default, invlude lowercase, uppercase, and numbers
 		// in the password, and make it 8 characters long.
@@ -30,6 +34,9 @@ private int length;
 		uppercaseIncluded = true;
 		numbersIncluded = true;
 		othersIncluded = false;
+		if(useSafeCharacters){
+			this.otherCharacters = safeCharacters;
+		}
 		
 		// start the ball rolling by generating a password so that
 		// we keep our data integrity 
@@ -66,7 +73,8 @@ private int length;
 	 * @return a random character in this list: !"#$%&'()*+,-./
 	 */
 	private static char randomOther() {
-		return (char) (33 + (int) (Math.random() * 15));
+		return (new randomOther(safeCharacters)).execute();
+		//return (char) (33 + (int) (Math.random() * 15));
 	}
 
 	
@@ -319,7 +327,7 @@ private int length;
 		}
 	}
 
-	private static class randomOther implements randomCharacter {
+	static class randomOther implements randomCharacter {
 		private char[] otherCharacters;
 			
 		public randomOther(char[] otherCharacters) {
