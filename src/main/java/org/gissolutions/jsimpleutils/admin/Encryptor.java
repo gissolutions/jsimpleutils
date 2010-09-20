@@ -253,7 +253,12 @@ public class Encryptor {
 		return Base64.encodeBase64URLSafeString(keybytes);
 
 	}
-
+    /**
+     * Para encriptar MAPGIS01 con el SecretKey MAPDAMIN102
+     * org.gissolutions.jsimpleutils.admin.Encryptor -s MAPDAMIN102 -e MAPGIS01
+     * @param args
+     * @throws NoSuchAlgorithmException
+     */
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		JSAPResult config = processArguments(args);
 		String data = config.getString("data");
