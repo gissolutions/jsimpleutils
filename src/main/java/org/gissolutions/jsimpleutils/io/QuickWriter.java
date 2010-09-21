@@ -23,13 +23,11 @@ public class QuickWriter {
 	
 	public QuickWriter(File file) throws UnsupportedEncodingException, FileNotFoundException {
 		this(file,"UTF-8",',','\n');
-//		this.file = file;
-//		this.separator=',';
-//		eol ='\n';
-//		encoding = "UTF8";
-		
-	}
 	
+	}
+	public QuickWriter(File file, String encoding) throws UnsupportedEncodingException, FileNotFoundException {
+		this(file,encoding,',','\n');		
+	}
 	public QuickWriter(File file, String encoding, char separator, char eol) throws UnsupportedEncodingException, FileNotFoundException {
 		super();
 		this.file = file;
