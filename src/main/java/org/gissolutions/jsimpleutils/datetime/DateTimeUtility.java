@@ -16,6 +16,9 @@ public class DateTimeUtility {
 	public static final SimpleDateFormat DATETIME_FORMAT =
         new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 	
+	public static final SimpleDateFormat TIME_FORMAT =
+        new SimpleDateFormat("HH:mm:ss");
+	
 	/**
 	 * Drops the time portion of a date. If the date is 1957-01-14 04:12:37.441
 	 * the method will return a date value for 1957-01-14 00:00:00.000

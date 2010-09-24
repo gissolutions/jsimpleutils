@@ -66,7 +66,9 @@ public abstract class GenericAppInfo {
     {
         return buildDate;
     }
-
+    /**
+	
+	 */
 	public String getBuildHost() {
 		return buildHost;
 	}
@@ -74,6 +76,15 @@ public abstract class GenericAppInfo {
 	public String getBuildUser() {
 		return buildUser;
 	}
+	
+	/**
+	 * Configures log4J configuration using DOMConfigurator. First tries to find the the configFile as
+	 * a resource, so it will load it from inside a jar. Then will use the appHomeVariable to get the path
+	 * to the configfile.
+	 * @param cls Class of the runnign clas
+	 * @param appHomeVariable Name of the aplication home variable
+	 * @param configfile relative path to the configuration file.
+	 */
 	public static void configureLog4J(Class<?> cls, String appHomeVariable, String configfile) {
 		
 		//String configfile = "/log4jprops.xml";
@@ -90,10 +101,12 @@ public abstract class GenericAppInfo {
 		logger.info("Log4j configured with " + log4jConfigUrl.getFile());
 	}
 	/**
-	 * Reads the application home based on the Home Variable. The method will first try to read
-	 * the Home Variable as property supplied in the java invocation, the will try to read
-	 * the Home Variable as a enviroment variable, if none is found the application will try the
-	 * current path use the path of a new file constructed frome new File(".")
+	 * Reads the application home path based on the Home Variable. The method will first try to read
+	 * the Home Variable as property supplied in the java invocation, then will try to read
+	 * the Home Variable as a environment variable, if none is found the application will try the
+	 * current path use the path of a new file constructed frome new File(".") 
+	 * @param appHomeVariable Home variable name
+	 * @return Application home path
 	 */
 	public static String getApplicationHome(String appHomeVariable) {
 		String mapaminHome = null;
