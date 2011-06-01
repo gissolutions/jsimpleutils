@@ -67,7 +67,7 @@ public class BusinessError<T> implements Serializable{
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof BusinessError))
+		if (!(obj instanceof BusinessError<?>))
 			return false;
 		BusinessError<?> other = (BusinessError<?>) obj;
 		if (description == null) {
