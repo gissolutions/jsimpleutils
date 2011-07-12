@@ -42,6 +42,9 @@ public abstract class GenericAppInfo {
         } catch (Exception ex)
         {
             logger.error(ex.getMessage());
+            if(ex.getMessage().length() ==0){
+            	ex.printStackTrace();
+            }
         }
     }
 
@@ -90,6 +93,7 @@ public abstract class GenericAppInfo {
 		//String configfile = "/log4jprops.xml";
 		URL log4jConfigUrl =  cls.getClassLoader().getResource(configfile);//cmd.getClass().getResource(configfile);
 		if(log4jConfigUrl == null){
+			System.out.println("Aplication Home Variable:" + appHomeVariable);
 			String path = getApplicationHome(appHomeVariable);
 			try {
 				log4jConfigUrl = new URL("file:/" +  path + configfile);
@@ -110,15 +114,17 @@ public abstract class GenericAppInfo {
 	 */
 	public static String getApplicationHome(String appHomeVariable) {
 		String mapaminHome = null;
-		mapaminHome = System.getProperty(appHomeVariable);
+		mapaminHome = System.getenv(appHomeVariable);
+		System.out.println(appHomeVariable +" : " + mapaminHome);
+		
 		if(mapaminHome == null) {
-			mapaminHome = System.getenv(appHomeVariable);
+			mapaminHome = System.getProperty(appHomeVariable);
 		}
 		if(mapaminHome == null) {
 			File f = new File(".");
 			mapaminHome = f.getAbsolutePath();
 		}
-		return mapaminHome.substring(0, mapaminHome.length()-2);
+		return mapaminHome;//.substring(0, mapaminHome.length()-2);
 		
 	}
 }
