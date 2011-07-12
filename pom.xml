@@ -102,11 +102,11 @@
 			<artifactId>apt-jelly-freemarker</artifactId>
 			<version>2.6</version>
 		</dependency>
-		<dependency>
-			<groupId>org.ibex</groupId>
-			<artifactId>sqlitejdbc</artifactId>
-			<version>v056</version>
-		</dependency>
+	<dependency>
+    <groupId>org.xerial</groupId>
+    <artifactId>sqlite-jdbc</artifactId>
+    <version>3.7.2</version>
+</dependency>
 		<!--  -->
 		<dependency>
 			<groupId>ant</groupId>
@@ -138,17 +138,6 @@
 			<version>2.1</version>
 			<optional>false</optional>
 		</dependency>
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.0.1</version>
-			<optional>false</optional>
-		</dependency>
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>httpcore</artifactId>
-			<version>4.0.1</version>
-			<optional>false</optional>
-		</dependency>
+		
 	</dependencies>
 </project>
