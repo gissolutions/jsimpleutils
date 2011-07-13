@@ -12,12 +12,14 @@ public class Table extends SQLObject {
 	private Map<String, Column> columns;
 	private List<Column> primaryKeys;
 	private List<ForeignKey> foreignKeys;
+	private String alias;
 	
 	private boolean isTemporary;
 	private boolean ifNotExists;
 	
 	public Table(String name) {
 		super(name, SQLObjectType.TABLE);
+		this.alias = name.substring(0, 1);
 		this.columns = new HashMap<String, Column>();
 		this.primaryKeys = new ArrayList<Column>();
 		this.foreignKeys = new ArrayList<ForeignKey>();
@@ -100,5 +102,14 @@ public class Table extends SQLObject {
 	public void addForeignKey(ForeignKey fk){
 		this.foreignKeys.add(fk);
 	}
+
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+	
 	
 }

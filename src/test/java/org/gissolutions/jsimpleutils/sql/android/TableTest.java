@@ -18,88 +18,88 @@ public class TableTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		eventTable = new Table("events");
-		//id 1
-		Column col = new Column("_id", ColumnType.INTEGER);
-		col.setPrimary(true);
-		col.setAutoIncrement(true);
-		eventTable.addColumn(col);
-		//name 2
-		col = new Column("name", ColumnType.TEXT);
-		col.setUnique(true);
-		eventTable.addColumn(col);
-		//date 3
-		col = new Column("date", ColumnType.TEXT);
-		col.setNotNull(true);
-		eventTable.addColumn(col);
-		//location 4
-		col = new Column("location", ColumnType.TEXT);		
-		eventTable.addColumn(col);
-		//rating 5
-		col = new Column("rating", ColumnType.REAL);		
-		eventTable.addColumn(col);
-		//comment 6
-		col = new Column("comment", ColumnType.TEXT);		
-		eventTable.addColumn(col); 
-		//image_uri 7
-		col = new Column("image_uri", ColumnType.TEXT);		
-		col.setNotNull(true);
-		eventTable.addColumn(col);
-		//rotation 8
-		col = new Column("rotation", ColumnType.INTEGER);		
-		col.setDefaultValue(0);
-		eventTable.addColumn(col);
-		//created_on 9
-		col = new Column("created_on", ColumnType.TEXT);		
-		col.setNotNull(true);
-		eventTable.addColumn(col);
-		//updated_on 10
-		col = new Column("updated_on", ColumnType.TEXT);		
-		col.setNotNull(true);
-		eventTable.addColumn(col);
+		eventTable = TestData.EventTable.getInstance(); //new Table("events");
+//		//id 1
+//		Column col = new Column("_id", ColumnType.INTEGER);
+//		col.setPrimary(true);
+//		col.setAutoIncrement(true);
+//		eventTable.addColumn(col);
+//		//name 2
+//		col = new Column("name", ColumnType.TEXT);
+//		col.setUnique(true);
+//		eventTable.addColumn(col);
+//		//date 3
+//		col = new Column("date", ColumnType.TEXT);
+//		col.setNotNull(true);
+//		eventTable.addColumn(col);
+//		//location 4
+//		col = new Column("location", ColumnType.TEXT);		
+//		eventTable.addColumn(col);
+//		//rating 5
+//		col = new Column("rating", ColumnType.REAL);		
+//		eventTable.addColumn(col);
+//		//comment 6
+//		col = new Column("comment", ColumnType.TEXT);		
+//		eventTable.addColumn(col); 
+//		//image_uri 7
+//		col = new Column("image_uri", ColumnType.TEXT);		
+//		col.setNotNull(true);
+//		eventTable.addColumn(col);
+//		//rotation 8
+//		col = new Column("rotation", ColumnType.INTEGER);		
+//		col.setDefaultValue(0);
+//		eventTable.addColumn(col);
+//		//created_on 9
+//		col = new Column("created_on", ColumnType.TEXT);		
+//		col.setNotNull(true);
+//		eventTable.addColumn(col);
+//		//updated_on 10
+//		col = new Column("updated_on", ColumnType.TEXT);		
+//		col.setNotNull(true);
+//		eventTable.addColumn(col);
 		//********************************************************
-		tagTable = new Table("tags");
-		//id 1
-		Column tcol = new Column("_id", ColumnType.INTEGER);
-		tcol.setPrimary(true);
-		tcol.setAutoIncrement(true);
-		tagTable.addColumn(tcol);
-		//name 2
-		tcol = new Column("name", ColumnType.TEXT);
-		tagTable.addColumn(tcol);
-		//is_triple 3
-		tcol = new Column("is_triple", ColumnType.INTEGER);
-		tagTable.addColumn(tcol);
-		//triple_namespace 4
-		tcol = new Column("triple_namespace", ColumnType.TEXT);
-		tagTable.addColumn(tcol);
-		//triple_key 5
-		tcol = new Column("triple_key", ColumnType.TEXT);
-		tagTable.addColumn(tcol);
-		//triple_value 6
-		tcol = new Column("triple_value", ColumnType.TEXT);
-		tagTable.addColumn(tcol);
+		tagTable = TestData.TagTable.getInstance(); //new Table("tags");
+//		//id 1
+//		Column tcol = new Column("_id", ColumnType.INTEGER);
+//		tcol.setPrimary(true);
+//		tcol.setAutoIncrement(true);
+//		tagTable.addColumn(tcol);
+//		//name 2
+//		tcol = new Column("name", ColumnType.TEXT);
+//		tagTable.addColumn(tcol);
+//		//is_triple 3
+//		tcol = new Column("is_triple", ColumnType.INTEGER);
+//		tagTable.addColumn(tcol);
+//		//triple_namespace 4
+//		tcol = new Column("triple_namespace", ColumnType.TEXT);
+//		tagTable.addColumn(tcol);
+//		//triple_key 5
+//		tcol = new Column("triple_key", ColumnType.TEXT);
+//		tagTable.addColumn(tcol);
+//		//triple_value 6
+//		tcol = new Column("triple_value", ColumnType.TEXT);
+//		tagTable.addColumn(tcol);
 		//********************************************************
-		taggingTable = new Table("tagging");
-		//id 1
-		Column tgcol = new Column("_id", ColumnType.INTEGER);
-		tgcol.setPrimary(true);
-		tgcol.setAutoIncrement(true);
-		taggingTable.addColumn(tgcol);
-		//tag_id 2
-		tgcol = new Column("tag_id", ColumnType.INTEGER);
-		taggingTable.addColumn(tgcol);
-		//event_id 3
-		tgcol = new Column("event_id", ColumnType.INTEGER);
-		taggingTable.addColumn(tgcol);
-		//Foreing Ke1 tag_id
-		ForeignKey fk1 = new ForeignKey("tag_id", tagTable);
-		fk1.setOnDelete(Behavior.CASCADE);
-		taggingTable.addForeignKey(fk1);
-		//Foreing Ke1 tag_id
-		ForeignKey fk2 = new ForeignKey("event_id", eventTable);
-		fk1.setOnDelete(Behavior.CASCADE);
-		taggingTable.addForeignKey(fk2);
+		taggingTable = TestData.TaggingTable.getInstance();//new Table("tagging");
+//		//id 1
+//		Column tgcol = new Column("_id", ColumnType.INTEGER);
+//		tgcol.setPrimary(true);
+//		tgcol.setAutoIncrement(true);
+//		taggingTable.addColumn(tgcol);
+//		//tag_id 2
+//		tgcol = new Column("tag_id", ColumnType.INTEGER);
+//		taggingTable.addColumn(tgcol);
+//		//event_id 3
+//		tgcol = new Column("event_id", ColumnType.INTEGER);
+//		taggingTable.addColumn(tgcol);
+//		//Foreing Ke1 tag_id
+//		ForeignKey fk1 = new ForeignKey("tag_id", tagTable);
+//		fk1.setOnDelete(Behavior.CASCADE);
+//		taggingTable.addForeignKey(fk1);
+//		//Foreing Ke1 tag_id
+//		ForeignKey fk2 = new ForeignKey("event_id", eventTable);
+//		fk1.setOnDelete(Behavior.CASCADE);
+//		taggingTable.addForeignKey(fk2);
 
 		
 		
