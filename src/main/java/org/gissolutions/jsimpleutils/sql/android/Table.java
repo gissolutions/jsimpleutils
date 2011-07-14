@@ -12,14 +12,14 @@ public class Table extends SQLObject {
 	private Map<String, Column> columns;
 	private List<Column> primaryKeys;
 	private List<ForeignKey> foreignKeys;
-	private String alias;
+	private final String alias;
 	
 	private boolean isTemporary;
 	private boolean ifNotExists;
 	
-	public Table(String name) {
+	public Table(String name, String alias) {
 		super(name, SQLObjectType.TABLE);
-		this.alias = name.substring(0, 1);
+		this.alias = alias;
 		this.columns = new HashMap<String, Column>();
 		this.primaryKeys = new ArrayList<Column>();
 		this.foreignKeys = new ArrayList<ForeignKey>();
@@ -69,6 +69,7 @@ public class Table extends SQLObject {
 		int pos = columns.size() +1;
 		String name = col.getName();// "";//((SQLObject) col).getName();
 		col.setPosition(pos);
+		col.setTablePrefix(this.alias);
 		if(col.isPrimary() && !columns.containsKey(name)){
 			this.primaryKeys.add(col);
 		}
@@ -89,7 +90,9 @@ public class Table extends SQLObject {
 			i++;
 		}
 		return names;
-		
+	}
+	public Column getColumn(String columnName){
+		return this.columns.get(columnName);
 	}
 	public boolean columnExists(String name){
 		return this.columns.containsKey(name);
@@ -107,9 +110,7 @@ public class Table extends SQLObject {
 		return alias;
 	}
 
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
+	
 	
 	
 }

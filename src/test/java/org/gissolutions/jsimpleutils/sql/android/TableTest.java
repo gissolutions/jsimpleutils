@@ -18,7 +18,7 @@ public class TableTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		eventTable = TestData.EventTable.getInstance(); //new Table("events");
+		eventTable = TestData.EVENT_TABLE; //new Table("events");
 //		//id 1
 //		Column col = new Column("_id", ColumnType.INTEGER);
 //		col.setPrimary(true);
@@ -58,7 +58,7 @@ public class TableTest {
 //		col.setNotNull(true);
 //		eventTable.addColumn(col);
 		//********************************************************
-		tagTable = TestData.TagTable.getInstance(); //new Table("tags");
+		tagTable = TestData.TAG_TABLE; //.getInstance(); //new Table("tags");
 //		//id 1
 //		Column tcol = new Column("_id", ColumnType.INTEGER);
 //		tcol.setPrimary(true);
@@ -80,7 +80,7 @@ public class TableTest {
 //		tcol = new Column("triple_value", ColumnType.TEXT);
 //		tagTable.addColumn(tcol);
 		//********************************************************
-		taggingTable = TestData.TaggingTable.getInstance();//new Table("tagging");
+		taggingTable = TestData.TAGGING_TABLE;//new Table("tagging");
 //		//id 1
 //		Column tgcol = new Column("_id", ColumnType.INTEGER);
 //		tgcol.setPrimary(true);
@@ -159,6 +159,15 @@ public class TableTest {
 			//System.out.println(String.format("Column : %s pos: %s", name, p));			
 			p++;
 		}
+				
+	}
+	
+	@Test
+	public void testDropSQLStatement() {
+		System.out.println("**** testDropSQLStatement");
+		String sql = this.eventTable.getDropSQLStatement();
+		System.out.println("SQL: " +  sql);
+		assertEquals("DROP TABLE IF EXISTS events;", sql);
 				
 	}
 }

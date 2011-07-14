@@ -11,7 +11,7 @@ public class IndexTest {
 	private Table eventTable;
 	@Before
 	public void setUp() throws Exception {
-		eventTable = TestData.EventTable.getInstance();
+		eventTable = TestData.EVENT_TABLE;
 		
 	}
 

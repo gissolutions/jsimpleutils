@@ -2,16 +2,34 @@ package org.gissolutions.jsimpleutils.sql.android;
 
 import org.gissolutions.jsimpleutils.sql.android.Column.ColumnType;
 import org.gissolutions.jsimpleutils.sql.android.ForeignKey.Behavior;
+import org.gissolutions.jsimpleutils.sql.android.Trigger.TriggerAction;
+import org.gissolutions.jsimpleutils.sql.android.Trigger.TriggerType;
 
 public class TestData {
-	public static class EventTable extends Table{
+	public static EventTable EVENT_TABLE = EventTable.getInstance();
+	public static SearchableEventsTable SEARCHABLE_EVENT_TABLE = SearchableEventsTable.getInstance();
+	public static TagTable TAG_TABLE = TagTable.getInstance();
+	public static TaggingTable TAGGING_TABLE = TaggingTable.getInstance();
+	
+	private static class EventTable extends Table{
 		private  static EventTable events;
-		
-		EventTable(String name) {
-			super(name);
+		public static final String EVENT_ID = "_id";
+        public static final String EVENT_IMAGE_URI = "image_uri";
+        public static final String EVENT_DATE = "date";
+        public static final String EVENT_LOCATION = "location";
+        public static final String EVENT_RATING = "rating";
+        public static final String EVENT_COMMENT = "comment";
+        public static final String EVENT_NAME = "name";
+        public static final String EVENT_ROTATION = "rotation";
+        public static final String EVENT_CREATED_ON = "created_on";
+        public static final String EVENT_UPDATED_ON = "updated_on";
+
+		EventTable(String name, String alias) {
+			super(name, alias);
 		}
-		public EventTable() {
-			this("events");
+		
+		EventTable() {
+			this("events", "ev");
 			//eventTable = new Table("events");
 			//id 1
 			Column col = new Column("_id", ColumnType.INTEGER);
@@ -61,14 +79,14 @@ public class TestData {
 		
 	}
 	
-	public static class TagTable extends Table{
+	private static class TagTable extends Table{
 		private static TagTable tags;
-		 TagTable(String name) {
-			super(name);
+		 TagTable(String name, String alias) {
+			super(name, alias);
 		
 		}
 		 public TagTable() {
-			this("tags");
+			this("tags", "tg");
 			//tagTable = new Table("tags");
 			//id 1
 			Column tcol = new Column("_id", ColumnType.INTEGER);
@@ -100,31 +118,35 @@ public class TestData {
 		
 	}
 
-	public static class TaggingTable extends Table{
+	private static class TaggingTable extends Table{
+		public static final String TAGGING_ID = "_id";
+        public static final String TAGGING_TAG_ID = "tag_id";
+        public static final String TAGGING_EVENT_ID = "event_id";
+
 		private static TaggingTable instance;
-		 TaggingTable(String name) {
-			super(name);
+		 TaggingTable(String name, String alias) {
+			super(name, alias);
 
 		}
 		 public TaggingTable() {
-			this("tagging");
+			this("tagging", "tgg");
 			//id 1
-			Column tgcol = new Column("_id", ColumnType.INTEGER);
+			Column tgcol = new Column(TAGGING_ID, ColumnType.INTEGER);
 			tgcol.setPrimary(true);
 			tgcol.setAutoIncrement(true);
 			this.addColumn(tgcol);
 			//tag_id 2
-			tgcol = new Column("tag_id", ColumnType.INTEGER);
+			tgcol = new Column(TAGGING_ID, ColumnType.INTEGER);
 			this.addColumn(tgcol);
 			//event_id 3
-			tgcol = new Column("event_id", ColumnType.INTEGER);
+			tgcol = new Column(TAGGING_EVENT_ID, ColumnType.INTEGER);
 			this.addColumn(tgcol);
 			//Foreing Ke1 tag_id
-			ForeignKey fk1 = new ForeignKey("tag_id", TestData.TagTable.getInstance());
+			ForeignKey fk1 = new ForeignKey(TAGGING_TAG_ID, TestData.TagTable.getInstance());
 			fk1.setOnDelete(Behavior.CASCADE);
 			this.addForeignKey(fk1);
 			//Foreing Ke1 tag_id
-			ForeignKey fk2 = new ForeignKey("event_id", TestData.EventTable.getInstance());
+			ForeignKey fk2 = new ForeignKey(TAGGING_EVENT_ID, TestData.EventTable.getInstance());
 			fk1.setOnDelete(Behavior.CASCADE);
 			this.addForeignKey(fk2);
 		}
@@ -135,5 +157,58 @@ public class TestData {
 				}
 				return instance;
 			}
+	}
+	
+	public static class SearchableEventsTable extends FTSTable{
+		public static final String SEARCHABLE_EVENT_KEY = "eventId";
+		public static final String SEARCHABLE_EVENT_LOCATION = "location";
+        public static final String SEARCHABLE_EVENT_COMMENT = "comment";
+        public static final String SEARCHABLE_EVENT_NAME = "name";
+        
+        
+
+		private static SearchableEventsTable instance;
+
+		SearchableEventsTable(String name, String alias) {
+			super(name, alias);
+			
+		}
+		SearchableEventsTable() {
+			this("searchable_events", "sev");
+			this.addColumn(new Column(SEARCHABLE_EVENT_KEY));
+			this.addColumn(new Column(SEARCHABLE_EVENT_LOCATION));
+			this.addColumn(new Column(SEARCHABLE_EVENT_COMMENT));
+			this.addColumn(new Column(SEARCHABLE_EVENT_NAME));
+		}
+		
+		public static SearchableEventsTable getInstance(){
+			if(instance == null){
+				instance = new SearchableEventsTable();
+			}
+			return instance;
+		}
+	}
+	private static class InsertEventTrigger extends Trigger{
+		private static InsertEventTrigger instance;
+		InsertEventTrigger(String name, TriggerType triggerType,
+				TriggerAction action, Table table) {
+			super(name, triggerType, action, table);
+			// TODO Auto-generated constructor stub
+		}
+		public InsertEventTrigger() {
+			this("insert_event_trigger", TriggerType.AFTER, TriggerAction.INSERT, TestData.EVENT_TABLE);
+			String sql = "INSERT INTO " + TestData.SEARCHABLE_EVENT_TABLE.getName()
+            + " (eventId, name, location, comment) VALUES" + " (new."
+            + TestData.EVENT_TABLE.EVENT_ID + ", new." + EVENT_TABLE.EVENT_NAME
+            + ", new." + EVENT_TABLE.EVENT_LOCATION + ", new."
+            + EVENT_TABLE.EVENT_COMMENT + ");" ;
+
+		}
+		public static InsertEventTrigger getInstance(){
+			if(instance == null){
+				instance = new InsertEventTrigger();
+			}
+			return instance;
+		}
 	}
 }

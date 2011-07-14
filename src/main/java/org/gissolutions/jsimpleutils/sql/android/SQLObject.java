@@ -16,7 +16,7 @@ public abstract  class SQLObject {
 	public abstract String getCreateSQLStatement();
 	
 	public String getDropSQLStatement(){
-		return String.format("DROP %S IF EXISTS %s", this.objectType, this.name);
+		return String.format("DROP %s IF EXISTS %s;", this.objectType, this.name);
 	}
 	public String getName() {
 		return name;

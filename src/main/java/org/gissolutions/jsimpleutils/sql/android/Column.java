@@ -1,7 +1,7 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
 
-public class Column extends SQLObject implements Comparable<Column>{
+public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 	public enum ColumnType{
 		NONE, TEXT, NUMERIC, INTEGER, REAL;
 	}
@@ -11,7 +11,8 @@ public class Column extends SQLObject implements Comparable<Column>{
 	private boolean isUnique;
 	private boolean isCheck;
 	private boolean autoIncrement;
-	//private boolean isForeignKey;
+	private String alias;
+	private String tablePrefix;
 	private boolean isNotNull;
 	private String defaultValue;
 	
@@ -121,6 +122,18 @@ public class Column extends SQLObject implements Comparable<Column>{
 			this.setPrimary(true);
 		}
 	}
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+	public String getTablePrefix() {
+		return tablePrefix;
+	}
+	public void setTablePrefix(String tablePrefix) {
+		this.tablePrefix = tablePrefix;
+	}
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer(15);
@@ -147,10 +160,36 @@ public class Column extends SQLObject implements Comparable<Column>{
 		}
 		return sb.toString();
 	}
+	public String getQualifiedName(){
+		String pr = this.tablePrefix == null ? "": this.tablePrefix;
+		String qn = null;
+		if(this.alias != null){
+			qn = pr +"." + this.alias;
+		}else{
+			qn = pr +"." + this.name;
+		}
+		return qn;
+	}
+	
+	public String getSelectName(){
+		String pr = this.tablePrefix == null ? "": this.tablePrefix;
+		String qn = null;
+		if(this.alias == null){
+			qn = pr +"." + this.name;
+		}else{
+			qn = String.format("%s.%s AS %s%s%s", pr ,this.name, STRING_QUOTE, this.alias, STRING_QUOTE);
+		}
+		return qn;
+	}
 	@Override
 	public int compareTo(Column o) {
 		
 		return this.getPosition() - o.getPosition();
+	}
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 
 }
