@@ -1,8 +1,7 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
-import org.gissolutions.jsimpleutils.sql.android.Column.ColumnType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,5 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
-import static org.junit.Assert.*;
-
 import org.gissolutions.jsimpleutils.sql.android.SelectStatement.SelectType;
 import org.junit.After;
 import org.junit.Before;

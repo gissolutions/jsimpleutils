@@ -2,8 +2,6 @@ package org.gissolutions.jsimpleutils.sql.android;
 
 import org.gissolutions.jsimpleutils.sql.android.Column.ColumnType;
 import org.gissolutions.jsimpleutils.sql.android.ForeignKey.Behavior;
-import org.gissolutions.jsimpleutils.sql.android.Trigger.TriggerAction;
-import org.gissolutions.jsimpleutils.sql.android.Trigger.TriggerType;
 
 public class TestData {
 	public static EventTable EVENT_TABLE = EventTable.getInstance();
@@ -13,16 +11,16 @@ public class TestData {
 	
 	private static class EventTable extends Table{
 		private  static EventTable events;
-		public static final String EVENT_ID = "_id";
-        public static final String EVENT_IMAGE_URI = "image_uri";
-        public static final String EVENT_DATE = "date";
-        public static final String EVENT_LOCATION = "location";
-        public static final String EVENT_RATING = "rating";
-        public static final String EVENT_COMMENT = "comment";
-        public static final String EVENT_NAME = "name";
-        public static final String EVENT_ROTATION = "rotation";
-        public static final String EVENT_CREATED_ON = "created_on";
-        public static final String EVENT_UPDATED_ON = "updated_on";
+		public  final String EVENT_ID = "_id";
+        public  final String EVENT_IMAGE_URI = "image_uri";
+        public  final String EVENT_DATE = "date";
+        public  final String EVENT_LOCATION = "location";
+        public  final String EVENT_RATING = "rating";
+        public  final String EVENT_COMMENT = "comment";
+        public  final String EVENT_NAME = "name";
+        public  final String EVENT_ROTATION = "rotation";
+        public  final String EVENT_CREATED_ON = "created_on";
+        public  final String EVENT_UPDATED_ON = "updated_on";
 
 		EventTable(String name, String alias) {
 			super(name, alias);
@@ -32,41 +30,41 @@ public class TestData {
 			this("events", "ev");
 			//eventTable = new Table("events");
 			//id 1
-			Column col = new Column("_id", ColumnType.INTEGER);
+			Column col = new Column(EVENT_ID, ColumnType.INTEGER);
 			col.setPrimary(true);
 			col.setAutoIncrement(true);
 			this.addColumn(col);
 			//name 2
-			col = new Column("name", ColumnType.TEXT);
+			col = new Column(EVENT_NAME, ColumnType.TEXT);
 			col.setUnique(true);
 			this.addColumn(col);
 			//date 3
-			col = new Column("date", ColumnType.TEXT);
+			col = new Column(EVENT_DATE, ColumnType.TEXT);
 			col.setNotNull(true);
 			this.addColumn(col);
 			//location 4
-			col = new Column("location", ColumnType.TEXT);		
+			col = new Column(EVENT_LOCATION, ColumnType.TEXT);		
 			this.addColumn(col);
 			//rating 5
-			col = new Column("rating", ColumnType.REAL);		
+			col = new Column(EVENT_RATING, ColumnType.REAL);		
 			this.addColumn(col);
 			//comment 6
-			col = new Column("comment", ColumnType.TEXT);		
+			col = new Column(EVENT_COMMENT, ColumnType.TEXT);		
 			this.addColumn(col); 
 			//image_uri 7
-			col = new Column("image_uri", ColumnType.TEXT);		
+			col = new Column(EVENT_IMAGE_URI, ColumnType.TEXT);		
 			col.setNotNull(true);
 			this.addColumn(col);
 			//rotation 8
-			col = new Column("rotation", ColumnType.INTEGER);		
+			col = new Column(EVENT_ROTATION, ColumnType.INTEGER);		
 			col.setDefaultValue(0);
 			this.addColumn(col);
 			//created_on 9
-			col = new Column("created_on", ColumnType.TEXT);		
+			col = new Column(EVENT_CREATED_ON, ColumnType.TEXT);		
 			col.setNotNull(true);
 			this.addColumn(col);
 			//updated_on 10
-			col = new Column("updated_on", ColumnType.TEXT);		
+			col = new Column(EVENT_UPDATED_ON, ColumnType.TEXT);		
 			col.setNotNull(true);
 			this.addColumn(col);
 		}

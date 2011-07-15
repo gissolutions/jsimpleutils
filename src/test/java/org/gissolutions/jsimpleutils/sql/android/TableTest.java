@@ -1,11 +1,9 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.gissolutions.jsimpleutils.sql.android.Column.ColumnType;
-import org.gissolutions.jsimpleutils.sql.android.ForeignKey.Behavior;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
