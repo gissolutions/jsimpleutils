@@ -8,6 +8,7 @@ import java.util.Map;
 public class SelectStatement {
 	public enum SelectType {
 		FROM, INNER_JOIN;
+		//select e.*,  t.* from events e left join tagging tg on tg.event_id = e._id inner join tags t on tg.tag_id = t._id
 	}
 
 	Map<String, SelectableTable> tables;
