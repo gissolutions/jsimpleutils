@@ -24,9 +24,8 @@ public class StopWatchTest {
 			sw.stop();
 			System.out.println(sw.getElapsedFormatted());
 			System.out.println(sw.getElapsedTime());
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (InterruptedException e) {			
+			fail(e.getMessage());
 		}
 		
 	}

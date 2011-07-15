@@ -1,14 +1,17 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
 import org.gissolutions.jsimpleutils.sql.android.SelectStatement.SelectType;
+import org.gissolutions.jsimpleutils.sql.android.TestData.EventTable;
+import org.gissolutions.jsimpleutils.sql.android.TestData.TagTable;
+import org.gissolutions.jsimpleutils.sql.android.TestData.TaggingTable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class SelectStatementTest {
-	private Table eventTable;
-	private Table tagTable;
-	private Table taggingTable;
+	private EventTable eventTable;
+	private TagTable tagTable;
+	private TaggingTable taggingTable;
 	@Before
 	public void setUp() throws Exception {
 		eventTable = TestData.EVENT_TABLE;
@@ -33,7 +36,7 @@ public class SelectStatementTest {
 		sel.addColumn(tagTable, "_id", "tag_id");
 		sel.addColumn(tagTable, "is_triple", null);
 		//Joins
-		sel.addInnerJoin(taggingTable.getAlias(), "event_id", eventTable.getAlias(), "_id");
+		sel.addInnerJoin(taggingTable.getAlias(), taggingTable.TAGGING_EVENT_ID, eventTable.getAlias(), "_id");
 		sel.addInnerJoin(tagTable.getAlias(), "_id", taggingTable.getAlias(), "tag_id");
 		System.out.println("SQL: " + sel.toString());
 	}

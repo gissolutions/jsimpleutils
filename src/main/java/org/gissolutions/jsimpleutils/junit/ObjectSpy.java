@@ -121,11 +121,13 @@ public class ObjectSpy {
 		try {
 			method = c.getMethod(setterName, parameterType);
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			logger.error(e.getMessage());
+			throw new RuntimeException(e);			
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+					//e.printStackTrace();
+			logger.error(e.getMessage());
+			throw new RuntimeException(e);
 		}
 		return method;
 	}

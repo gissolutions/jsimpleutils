@@ -14,7 +14,6 @@ public class BusinessError<T> implements Serializable{
 	
 	public BusinessError() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

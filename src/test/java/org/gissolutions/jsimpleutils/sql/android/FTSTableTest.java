@@ -21,7 +21,7 @@ public class FTSTableTest {
 		System.out.println("**** testGetCreateSQLStatement");
 		String sql = TestData.SEARCHABLE_EVENT_TABLE.getCreateSQLStatement();
 		System.out.println("SQL: " +  sql);
-		assertEquals("CREATE VIRTUAL TABLE searchable_events USING fts3(eventId, location, comment, name);", sql);
+		assertEquals("CREATE VIRTUAL TABLE searchable_events USING fts3(eventId, name, location, comment);", sql);
 	}
 
 }

@@ -121,19 +121,19 @@ public class TableTest {
 	@Test
 	public void testGetCreateSQLStatement_Tags() {
 		System.out.println("**** testGetCreateSQLStatement_Tags");
-		String expectedSQL = "CREATE TABLE events (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, date TEXT NOT NULL, location TEXT, rating REAL, comment TEXT, image_uri TEXT NOT NULL, rotation INTEGER DEFAULT 0, created_on TEXT NOT NULL, updated_on TEXT NOT NULL);";
+		String expectedSQL = "CREATE TABLE tags (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, is_triple INTEGER, triple_namespace TEXT, triple_key TEXT, triple_value TEXT);";
 		String sql = tagTable.getCreateSQLStatement();
 		System.out.println("SQL : " + sql);
-		//assertEquals(expectedSQL, sql);
+		assertEquals(expectedSQL, sql);
 		
 	}
 	@Test
 	public void testGetCreateSQLStatement_Tagging() {
 		System.out.println("**** testGetCreateSQLStatement_Tagging");
-		String expectedSQL = "CREATE TABLE events (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, date TEXT NOT NULL, location TEXT, rating REAL, comment TEXT, image_uri TEXT NOT NULL, rotation INTEGER DEFAULT 0, created_on TEXT NOT NULL, updated_on TEXT NOT NULL);";
+		String expectedSQL = "CREATE TABLE tagging (_id INTEGER, event_id INTEGER, FOREIGN KEY (tag_id) REFERENCES tags (_id) ON DELETE CASCADE, FOREIGN KEY (event_id) REFERENCES events (_id));";
 		String sql = taggingTable.getCreateSQLStatement();
 		System.out.println("SQL : " + sql);
-		//assertEquals(expectedSQL, sql);
+		assertEquals(expectedSQL, sql);
 		
 	}
 	@Test
@@ -152,10 +152,12 @@ public class TableTest {
 	public void testGetColumnNames() {
 		System.out.println("**** testGetColumnNames");
 		String[] columns = this.eventTable.getColumnNames();
-		int p =1;
+		List<Column> cols = this.eventTable.getColumns();
+		int i =0;
 		for (String name : columns) {
+			assertEquals(cols.get(i).getName(), name);
 			//System.out.println(String.format("Column : %s pos: %s", name, p));			
-			p++;
+			i++;
 		}
 				
 	}

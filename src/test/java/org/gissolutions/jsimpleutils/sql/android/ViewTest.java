@@ -8,8 +8,11 @@ import org.junit.Test;
 
 public class ViewTest {
 
+	private View taggedEvents;
+
 	@Before
 	public void setUp() throws Exception {
+		taggedEvents = new View("tagged_events");
 	}
 
 	@After
@@ -18,7 +21,7 @@ public class ViewTest {
 
 	@Test
 	public void testGetCreateSQLStatement() {
-		View taggedEvents  = new View("tagged_events");
+		
 		String select = "SELECT " +
 				"e._id as 'event_id',  t._id as 'tag_id', " +
 			    "t.name, t.is_triple, t.triple_namespace," +

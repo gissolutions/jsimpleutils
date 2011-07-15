@@ -22,8 +22,7 @@ public class FileListerTask extends Task {
 	private QuickWriter writer;
 	private String singleAcceptPattern;
 
-	public FileListerTask() {
-		// TODO Auto-generated constructor stub
+	public FileListerTask() {		
 	}
 
 	/*

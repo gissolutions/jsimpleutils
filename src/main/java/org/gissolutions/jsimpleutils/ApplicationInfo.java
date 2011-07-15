@@ -8,12 +8,6 @@ public final class ApplicationInfo extends GenericAppInfo {
 		super();
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

@@ -8,8 +8,11 @@ public class TestData {
 	public static SearchableEventsTable SEARCHABLE_EVENT_TABLE = SearchableEventsTable.getInstance();
 	public static TagTable TAG_TABLE = TagTable.getInstance();
 	public static TaggingTable TAGGING_TABLE = TaggingTable.getInstance();
+	public static InsertEventTrigger INSERT_EVENT_TRIGGER = InsertEventTrigger.getInstance();
+	public static DeleteEventTrigger DELETE_EVENT_TRIGGER = DeleteEventTrigger.getInstance();
+	public static UpdateEventTrigger UPDATE_EVENT_TRIGGER = UpdateEventTrigger.getInstance();
 	
-	private static class EventTable extends Table{
+	static class EventTable extends Table{
 		private  static EventTable events;
 		public  final String EVENT_ID = "_id";
         public  final String EVENT_IMAGE_URI = "image_uri";
@@ -77,7 +80,15 @@ public class TestData {
 		
 	}
 	
-	private static class TagTable extends Table{
+	static class TagTable extends Table{
+        public  final String TAG_ID = "_id";
+        public  final String TAG_NAME = "name";
+        public  final String TAG_IS_TRIPLE = "is_triple";
+        public  final String TAG_TRIPLE_NAMESPACE = "triple_namespace";
+        public  final String TAG_TRIPLE_KEY = "triple_key";
+        public  final String TAG_TRIPLE_VALUE = "triple_value";
+
+
 		private static TagTable tags;
 		 TagTable(String name, String alias) {
 			super(name, alias);
@@ -87,24 +98,24 @@ public class TestData {
 			this("tags", "tg");
 			//tagTable = new Table("tags");
 			//id 1
-			Column tcol = new Column("_id", ColumnType.INTEGER);
+			Column tcol = new Column(TAG_ID, ColumnType.INTEGER);
 			tcol.setPrimary(true);
 			tcol.setAutoIncrement(true);
 			this.addColumn(tcol);
 			//name 2
-			tcol = new Column("name", ColumnType.TEXT);
+			tcol = new Column(TAG_NAME, ColumnType.TEXT);
 			this.addColumn(tcol);
 			//is_triple 3
-			tcol = new Column("is_triple", ColumnType.INTEGER);
+			tcol = new Column(TAG_IS_TRIPLE, ColumnType.INTEGER);
 			this.addColumn(tcol);
 			//triple_namespace 4
-			tcol = new Column("triple_namespace", ColumnType.TEXT);
+			tcol = new Column(TAG_TRIPLE_NAMESPACE, ColumnType.TEXT);
 			this.addColumn(tcol);
 			//triple_key 5
-			tcol = new Column("triple_key", ColumnType.TEXT);
+			tcol = new Column(TAG_TRIPLE_KEY, ColumnType.TEXT);
 			this.addColumn(tcol);
 			//triple_value 6
-			tcol = new Column("triple_value", ColumnType.TEXT);
+			tcol = new Column(TAG_TRIPLE_VALUE, ColumnType.TEXT);
 			this.addColumn(tcol);
 		}
 		 public static TagTable getInstance(){
@@ -116,10 +127,10 @@ public class TestData {
 		
 	}
 
-	private static class TaggingTable extends Table{
-		public static final String TAGGING_ID = "_id";
-        public static final String TAGGING_TAG_ID = "tag_id";
-        public static final String TAGGING_EVENT_ID = "event_id";
+	static class TaggingTable extends Table{
+		public  final String TAGGING_ID = "_id";
+        public  final String TAGGING_TAG_ID = "tag_id";
+        public  final String TAGGING_EVENT_ID = "event_id";
 
 		private static TaggingTable instance;
 		 TaggingTable(String name, String alias) {
@@ -157,14 +168,12 @@ public class TestData {
 			}
 	}
 	
-	public static class SearchableEventsTable extends FTSTable{
-		public static final String SEARCHABLE_EVENT_KEY = "eventId";
-		public static final String SEARCHABLE_EVENT_LOCATION = "location";
-        public static final String SEARCHABLE_EVENT_COMMENT = "comment";
-        public static final String SEARCHABLE_EVENT_NAME = "name";
+	static class SearchableEventsTable extends FTSTable{
+		public final String SEARCHABLE_EVENT_KEY = "eventId";
+		public final String SEARCHABLE_EVENT_LOCATION = "location";
+        public final String SEARCHABLE_EVENT_COMMENT = "comment";
+        public final String SEARCHABLE_EVENT_NAME = "name";
         
-        
-
 		private static SearchableEventsTable instance;
 
 		SearchableEventsTable(String name, String alias) {
@@ -174,9 +183,10 @@ public class TestData {
 		SearchableEventsTable() {
 			this("searchable_events", "sev");
 			this.addColumn(new Column(SEARCHABLE_EVENT_KEY));
+			this.addColumn(new Column(SEARCHABLE_EVENT_NAME));
 			this.addColumn(new Column(SEARCHABLE_EVENT_LOCATION));
 			this.addColumn(new Column(SEARCHABLE_EVENT_COMMENT));
-			this.addColumn(new Column(SEARCHABLE_EVENT_NAME));
+			
 		}
 		
 		public static SearchableEventsTable getInstance(){
@@ -186,21 +196,32 @@ public class TestData {
 			return instance;
 		}
 	}
-	private static class InsertEventTrigger extends Trigger{
+	
+	 static class InsertEventTrigger extends Trigger{
 		private static InsertEventTrigger instance;
+		
 		InsertEventTrigger(String name, TriggerType triggerType,
 				TriggerAction action, Table table) {
 			super(name, triggerType, action, table);
-			// TODO Auto-generated constructor stub
 		}
 		public InsertEventTrigger() {
 			this("insert_event_trigger", TriggerType.AFTER, TriggerAction.INSERT, TestData.EVENT_TABLE);
-			String sql = "INSERT INTO " + TestData.SEARCHABLE_EVENT_TABLE.getName()
-            + " (eventId, name, location, comment) VALUES" + " (new."
-            + TestData.EVENT_TABLE.EVENT_ID + ", new." + EVENT_TABLE.EVENT_NAME
-            + ", new." + EVENT_TABLE.EVENT_LOCATION + ", new."
-            + EVENT_TABLE.EVENT_COMMENT + ");" ;
-
+			String sqlTemplate ="INSERT INTO %s (%s) VALUES (%s);";
+			//Columns
+			String[] columns = TestData.SEARCHABLE_EVENT_TABLE.getColumnNames();
+			String colList = (new Exploder<String>()).explode(columns);
+			//Values
+			String[] values = new String[columns.length];
+			values[0] = "new." + TestData.EVENT_TABLE.EVENT_ID;
+			values[1] = "new." + TestData.EVENT_TABLE.EVENT_NAME;
+			values[2] = "new." + TestData.EVENT_TABLE.EVENT_LOCATION;
+			values[3] = "new." + TestData.EVENT_TABLE.EVENT_COMMENT;
+			String valueList = (new Exploder<String>()).explode(values);
+			//SQL
+			String sql = String.format(sqlTemplate, TestData.SEARCHABLE_EVENT_TABLE.getName(),
+					colList, valueList);
+			
+			this.setSqlStatement(sql);
 		}
 		public static InsertEventTrigger getInstance(){
 			if(instance == null){
@@ -208,5 +229,72 @@ public class TestData {
 			}
 			return instance;
 		}
+	}
+	static class DeleteEventTrigger extends Trigger{
+
+		private static DeleteEventTrigger instance;
+
+
+		DeleteEventTrigger(String name, TriggerType triggerType,
+				TriggerAction action, Table table) {
+			super(name, triggerType, action, table);			
+		}
+		
+		DeleteEventTrigger() {
+			this("delete_event_trigger", TriggerType.NONE, TriggerAction.DELETE, TestData.EVENT_TABLE);
+			String sqlTemplate ="DELETE FROM %s WHERE %s = old.%s;";
+			String sql = String.format(sqlTemplate, TestData.SEARCHABLE_EVENT_TABLE.getName(), 
+					TestData.SEARCHABLE_EVENT_TABLE.SEARCHABLE_EVENT_KEY,
+					TestData.EVENT_TABLE.EVENT_ID);
+			this.setSqlStatement(sql);
+		}
+		public static DeleteEventTrigger getInstance(){
+			if(instance == null){
+				instance = new DeleteEventTrigger();
+			}
+			return instance;
+		}
+		
+	}
+	
+	static class UpdateEventTrigger extends Trigger{
+
+		private static UpdateEventTrigger instance;
+
+
+		UpdateEventTrigger(String name, TriggerType triggerType,
+				TriggerAction action, Table table) {
+			super(name, triggerType, action, table);			
+		}
+		
+		UpdateEventTrigger() {
+			this("update_event_trigger", TriggerType.NONE, TriggerAction.UPDATE, TestData.EVENT_TABLE);
+			
+			String sqlTemplate ="UPDATE %s SET %s WHERE %s = old.%s;";
+			String[] values = new String[3];
+			values[0] = String.format("%s = new.%s", 
+					TestData.SEARCHABLE_EVENT_TABLE.SEARCHABLE_EVENT_NAME,
+					TestData.EVENT_TABLE.EVENT_NAME);
+			values[1] = String.format("%s = new.%s", 
+					TestData.SEARCHABLE_EVENT_TABLE.SEARCHABLE_EVENT_LOCATION,
+					TestData.EVENT_TABLE.EVENT_LOCATION);
+			values[2] = String.format("%s = new.%s", 
+					TestData.SEARCHABLE_EVENT_TABLE.SEARCHABLE_EVENT_COMMENT,
+					TestData.EVENT_TABLE.EVENT_COMMENT);
+			String valuesToUpdate = (new Exploder<String>()).explode(values);
+			String sql = String.format(sqlTemplate, TestData.SEARCHABLE_EVENT_TABLE.getName(), 
+					valuesToUpdate,
+					TestData.SEARCHABLE_EVENT_TABLE.SEARCHABLE_EVENT_KEY,
+					TestData.EVENT_TABLE.EVENT_ID);
+			this.setSqlStatement(sql);
+		}
+		
+		public static UpdateEventTrigger getInstance(){
+			if(instance == null){
+				instance = new UpdateEventTrigger();
+			}
+			return instance;
+		}
+		
 	}
 }

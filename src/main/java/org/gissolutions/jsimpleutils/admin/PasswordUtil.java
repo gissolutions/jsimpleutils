@@ -6,8 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PasswordUtil {
 	
@@ -15,19 +15,21 @@ public class PasswordUtil {
 	
 	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger
 			.getLogger(PasswordUtil.class);
-	private RegularExpression regExp;
+	private Pattern regExp;
 	
 	public PasswordUtil() {
-		this.regExp = new RegularExpression(this.passwordPattern);
+		this.regExp = Pattern.compile(passwordPattern);
 	}
 	
 	public boolean isPasswordValid(String pwd){
-		return this.regExp.matches(pwd);
+		Matcher mt = regExp.matcher(pwd);
+		
+		return mt.matches();
 	}
 	/**
-	 * Retorna la edad de la fecha de la contrase�a suministrada.
-	 * @param passwordDate Fecha de �ltimo cambio de la contrase�a
-	 * @return Edad en d�as de la contrase�a-
+	 * Retorna la edad de la fecha de la contraseña suministrada. 
+	 * @param passwordDate Fecha de último cambio de la contrase�a
+	 * @return Edad en días de la contraseña
 	 */
 	public static int getAge(Date passwordDate) {
 
@@ -51,7 +53,7 @@ public class PasswordUtil {
 	 * MD5 y un text encoding en UTF-8. Este m�todo
 	 * permite encriptar passwords que Tomcat pude leee.
 	 * @param source fuente de texto del que se quiere obtener el hash.
-	 * @param charsetName TODO
+	 * @param charsetName Encoding (UTF-8 por ejemplo)
 	 * @return hash de la fuente
 	 */
 	public static String MD5Digest(String source, String charsetName) {

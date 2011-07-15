@@ -187,8 +187,7 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 		return this.getPosition() - o.getPosition();
 	}
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
+	protected Object clone() throws CloneNotSupportedException {		
 		return super.clone();
 	}
 
