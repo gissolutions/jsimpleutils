@@ -72,7 +72,7 @@ public class SelectStatement {
 			sb.append(tbl.getName());
 			sb.append(" ");
 			sb.append(tbl.getAlias());
-			if (c != columns.size()) {
+			if (c != getFromTables().size()) {
 				sb.append(",");
 			}
 			c++;
@@ -88,7 +88,7 @@ public class SelectStatement {
 		return sb.toString();
 	}
 
-	private List<Table> getFromTables() {
+	public List<Table> getFromTables() {
 		List<Table> ftables = new ArrayList<Table>();
 		for (SelectableTable tbl : this.tables.values()) {
 			if (tbl.getSelectType() == SelectType.FROM) {
