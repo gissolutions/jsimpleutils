@@ -13,7 +13,7 @@ public class ViewTest {
 
 	@Before
 	public void setUp() throws Exception {
-		taggedEvents = new View("tagged_events");
+		taggedEvents = TestData.TAGGED_EVENTS_VIEW;
 	}
 
 	@After
@@ -45,8 +45,11 @@ public class ViewTest {
 		TaggedEventsView tev = TestData.TAGGED_EVENTS_VIEW;
 		String sql = tev.getCreateSQLStatement();
 		System.out.println("SQL: " + sql);
-		String esql = "CREATE VIEW tagged_events AS SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
+		//String esql = "CREATE VIEW tagged_events AS SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
+		String esql = "CREATE VIEW \"tagged_events\" AS select e._id as 'event_id', t._id as 'tag_id', t.name, t.is_triple, t.triple_namespace,  t.triple_key, t.triple_value from events e inner join tagging tg on tg.event_id = e._id inner join tags t on tg.tag_id = t._id;";
 		assertEquals(esql, sql);
+		//07-17 10:11:10.659: INFO/System.out(769): ESQL: CREATE VIEW "tagged_events" AS select e._id as 'event_id', t._id as 'tag_id', t.name, t.is_triple, t.triple_namespace,  t.triple_key, t.triple_value from events e inner join tagging tg on tg.event_id = e._id inner join tags t on tg.tag_id = t._id;
+
 		
 	}
 }

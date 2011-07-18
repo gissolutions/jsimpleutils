@@ -1,8 +1,7 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.apache.commons.jexl.junit.Asserter;
 import org.gissolutions.jsimpleutils.sql.android.SelectStatement.SelectType;
 import org.gissolutions.jsimpleutils.sql.android.TestData.EventTable;
 import org.gissolutions.jsimpleutils.sql.android.TestData.TagTable;

@@ -15,6 +15,7 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 	private String tablePrefix;
 	private boolean isNotNull;
 	private String defaultValue;
+	private int attributes;
 	
 	public Column(String name) {
 		super(name, SQLObjectType.COLUMN);
@@ -24,26 +25,39 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 		super(name, SQLObjectType.COLUMN);		
 		this.columnType = columnType;
 	}
+	
+	public Column(String name, ColumnType columnType, ColumnAttribute... columnAttributes) {
+		super(name, SQLObjectType.COLUMN);		
+		this.columnType = columnType;
+		for (ColumnAttribute columnAttribute : columnAttributes) {
+			this.addAttribute(columnAttribute);
+		}
+	}
+	
 	@Override
 	public String getCreateSQLStatement() {		
 		return null;
 	}
+	
+	public void setAttribute(ColumnAttribute columnAttribute) {
+		this.attributes = columnAttribute.getValue();// | this.attributes;
+	}
+	public void unSetAttribute(ColumnAttribute columnAttribute) {
+		this.attributes = columnAttribute.getValue() ^ this.attributes;
+	}
+	public void addAttribute(ColumnAttribute columnAttribute) {
+		this.attributes = columnAttribute.getValue() | this.attributes;
+	}
 	public void setDefaultValue(Integer defaultValue){
 		this.defaultValue = defaultValue.toString();
 		if(this.defaultValue != null){
-			this.isCheck=false;
-			this.isPrimary=false;
-			this.isUnique =false;
-			this.isNotNull =false;
+			this.setAttribute(ColumnAttribute.CHECK);
 		}
 	}
 	public void setDefaultValue(String defaultValue){
 		this.defaultValue = STRING_QUOTE + defaultValue + STRING_QUOTE;
 		if(this.defaultValue != null){
-			this.isCheck=false;
-			this.isPrimary=false;
-			this.isUnique =false;
-			this.isNotNull =false;
+			this.setAttribute(ColumnAttribute.CHECK);
 		}
 	}
 	public int getPosition() {
@@ -55,18 +69,14 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 	}
 
 	public boolean isPrimary() {
-		return isPrimary;
+		return ColumnAttribute.PRIMARY_KEY.is(this.attributes);
 	}
 
 	public void setPrimary(boolean isPrimary) {
-		this.isPrimary = isPrimary;
-		if(this.isPrimary){
-			this.isCheck=false;
-			//this.isForeignKey=false;
-			this.isUnique =false;
-			this.isNotNull =false;
-		}else{
-			this.autoIncrement =false;
+		if(isPrimary) {
+			
+		}else {
+			
 		}
 	}
 

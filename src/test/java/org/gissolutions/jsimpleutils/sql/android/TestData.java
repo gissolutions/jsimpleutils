@@ -335,9 +335,11 @@ public class TestData {
 			sel.addTable(TAG_TABLE, SelectType.INNER_JOIN);
 			//Defining Columns
 			sel.addColumn(EVENT_TABLE, "_id", "event_id");
-			sel.addColumn(EVENT_TABLE, "name",null);
 			sel.addColumn(TAG_TABLE, "_id", "tag_id");
 			sel.addColumn(TAG_TABLE, "is_triple", null);
+			sel.addColumn(TAG_TABLE, TAG_TABLE.TAG_TRIPLE_NAMESPACE, null);
+			sel.addColumn(TAG_TABLE, TAG_TABLE.TAG_TRIPLE_KEY, null);
+			sel.addColumn(TAG_TABLE, TAG_TABLE.TAG_TRIPLE_VALUE, null);
 			//Joins
 			sel.addInnerJoin(TAGGING_TABLE.getAlias(), TAGGING_TABLE.TAGGING_EVENT_ID, EVENT_TABLE.getAlias(), "_id");
 			sel.addInnerJoin(TAG_TABLE.getAlias(), "_id", TAGGING_TABLE.getAlias(), "tag_id");
