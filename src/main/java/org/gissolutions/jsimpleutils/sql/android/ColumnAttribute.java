@@ -1,6 +1,5 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
-import java.math.BigInteger;
 
 public enum ColumnAttribute {
 		PRIMARY_KEY(1),
@@ -9,18 +8,18 @@ public enum ColumnAttribute {
 		CHECK(16),
 		NOT_NULL(32);
 		
-		private final byte value;
+		private final int value;
 		
 		private ColumnAttribute(int flag) {
-			this.value = (byte) flag;
+			this.value = flag;
 		}
 
 		public int getValue() {
 			return value;
 		}
 		public String toBinary(){
-			BigInteger bi = new BigInteger(new byte[]{value});
-			return bi.toString(2);	
+			String binaryStr = Long.toString(value,2);
+			return String.format("%8s", binaryStr).replace(' ', '0');	
 		}
 		public boolean is(int attribute){
 			return (this.value & attribute) == this.value;

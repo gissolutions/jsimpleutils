@@ -7,13 +7,15 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 	}
 	private final ColumnType columnType;
 	private int position;
-	private boolean isPrimary;
-	private boolean isUnique;
-	private boolean isCheck;
-	private boolean autoIncrement;
+//	private boolean isPrimary;
+//	private boolean isUnique;
+//	private boolean isCheck;
+//	private boolean autoIncrement;
+//	private boolean isNotNull;
+	
 	private String alias;
 	private String tablePrefix;
-	private boolean isNotNull;
+	
 	private String defaultValue;
 	private int attributes;
 	
@@ -43,21 +45,28 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 		this.attributes = columnAttribute.getValue();// | this.attributes;
 	}
 	public void unSetAttribute(ColumnAttribute columnAttribute) {
-		this.attributes = columnAttribute.getValue() ^ this.attributes;
+		this.attributes = this.attributes ^ columnAttribute.getValue();
 	}
 	public void addAttribute(ColumnAttribute columnAttribute) {
 		this.attributes = columnAttribute.getValue() | this.attributes;
 	}
 	public void setDefaultValue(Integer defaultValue){
-		this.defaultValue = defaultValue.toString();
-		if(this.defaultValue != null){
-			this.setAttribute(ColumnAttribute.CHECK);
-		}
+		this.setDefaultValue(defaultValue.toString(), true);
 	}
 	public void setDefaultValue(String defaultValue){
-		this.defaultValue = STRING_QUOTE + defaultValue + STRING_QUOTE;
-		if(this.defaultValue != null){
-			this.setAttribute(ColumnAttribute.CHECK);
+		this.setDefaultValue(defaultValue, false);
+	}
+	
+	private void setDefaultValue(String defaultValue, boolean isNumeric){
+		if(isNumeric) {
+			this.defaultValue = defaultValue;
+		}else {
+			this.defaultValue = defaultValue == null? null : STRING_QUOTE + defaultValue + STRING_QUOTE;
+		}
+		if(defaultValue == null){
+			this.unSetAttribute(ColumnAttribute.CHECK);
+		}else {
+			this.addAttribute(ColumnAttribute.CHECK);
 		}
 	}
 	public int getPosition() {
@@ -74,62 +83,57 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 
 	public void setPrimary(boolean isPrimary) {
 		if(isPrimary) {
-			
+			this.setAttribute(ColumnAttribute.PRIMARY_KEY);
 		}else {
-			
+			this.unSetAttribute(ColumnAttribute.PRIMARY_KEY);
 		}
 	}
 
 	public boolean isUnique() {
-		return isUnique;
+		return ColumnAttribute.UNIQUE.is(this.attributes);
 		
 	}
 
 	public void setUnique(boolean isUnique) {
-		this.isUnique = isUnique;
-		if(this.isUnique){
-			this.isCheck=false;
-			//this.isForeignKey=false;
-			this.isPrimary =false;
-			this.isNotNull =false;
+		if(isUnique) {
+			this.setAttribute(ColumnAttribute.UNIQUE);
+		}else {
+			this.unSetAttribute(ColumnAttribute.UNIQUE);
 		}
 	}
 
 	public boolean isCheck() {
-		return isCheck;
+		return ColumnAttribute.CHECK.is(this.attributes);
 	}
 
 	public void setCheck(boolean isCheck) {
-		this.isCheck = isCheck;
-		if(this.isCheck){
-			this.isUnique=false;
-			//this.isForeignKey=false;
-			this.isPrimary =false;
-			this.isNotNull =false;
+		if(isCheck) {
+			this.setAttribute(ColumnAttribute.CHECK);
+		}else {
+			this.unSetAttribute(ColumnAttribute.CHECK);
 		}
 	}
 	
 	public boolean isNotNull() {
-		return isNotNull;
+		return ColumnAttribute.NOT_NULL.is(this.attributes);
 	}
 	public void setNotNull(boolean isNotNull) {
-		this.isNotNull = isNotNull;
-		if(this.isNotNull){
-			this.isUnique=false;
-			this.isCheck=false;
-			this.isPrimary =false;
-			//this.isForeignKey =false;
+		if(isNotNull) {
+			this.setAttribute(ColumnAttribute.NOT_NULL);
+		}else {
+			this.unSetAttribute(ColumnAttribute.NOT_NULL);
 		}
 	}
 	
 	
 	public boolean isAutoIncrement() {
-		return autoIncrement;
+		return ColumnAttribute.AUTO_INCREMENT.is(this.attributes);
 	}
 	public void setAutoIncrement(boolean autoIncrement) {
-		this.autoIncrement = autoIncrement;
-		if(autoIncrement){
-			this.setPrimary(true);
+		if(autoIncrement) {
+			this.setAttribute(ColumnAttribute.AUTO_INCREMENT);
+		}else {
+			this.unSetAttribute(ColumnAttribute.AUTO_INCREMENT);
 		}
 	}
 	public String getAlias() {
@@ -152,16 +156,16 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 			sb.append(" ");
 			sb.append(this.columnType);			
 		}
-		if(isPrimary){
+		if(isPrimary()){
 			sb.append(" PRIMARY KEY");
-			if(autoIncrement){
+			if(isAutoIncrement()){
 				sb.append(" AUTOINCREMENT");
 			}
 		}
-		if(isNotNull){
+		if(isNotNull()){
 			sb.append(" NOT NULL");
 		}
-		if(isUnique){
+		if(isUnique()){
 			sb.append(" UNIQUE");
 		}
 		if(defaultValue != null){

@@ -55,9 +55,32 @@ public class ColumnTest {
 	}
 	
 	@Test
+	public void testContructor_PrimaryKey() {
+		Column tgcol = new Column("_id", ColumnType.INTEGER, ColumnAttribute.PRIMARY_KEY);
+		//tgcol.setPrimary(true);
+		assertTrue(tgcol.isPrimary());
+		assertFalse(tgcol.isAutoIncrement());
+		assertFalse(tgcol.isCheck());
+		assertFalse(tgcol.isNotNull());
+		assertFalse(tgcol.isUnique());
+		
+	}
+	
+	@Test
 	public void testSetAutoIncrement() {
 		Column tgcol = new Column("_id", ColumnType.INTEGER);
 		tgcol.setAutoIncrement(true);
+		assertTrue(tgcol.isPrimary());
+		assertTrue(tgcol.isAutoIncrement());
+		assertFalse(tgcol.isCheck());
+		assertFalse(tgcol.isNotNull());
+		assertFalse(tgcol.isUnique());		
+	}
+
+	@Test
+	public void testContructor_AutoIncrement() {
+		Column tgcol = new Column("_id", ColumnType.INTEGER, ColumnAttribute.AUTO_INCREMENT);
+		//tgcol.setAutoIncrement(true);
 		assertTrue(tgcol.isPrimary());
 		assertTrue(tgcol.isAutoIncrement());
 		assertFalse(tgcol.isCheck());
@@ -77,9 +100,31 @@ public class ColumnTest {
 	}
 	
 	@Test
+	public void testContructor_Check() {
+		Column tgcol = new Column("_id", ColumnType.INTEGER, ColumnAttribute.CHECK);
+		//tgcol.setCheck(true);
+		assertTrue(tgcol.isCheck());
+		assertFalse(tgcol.isAutoIncrement());
+		assertFalse(tgcol.isPrimary());
+		assertFalse(tgcol.isNotNull());
+		assertFalse(tgcol.isUnique());
+	}
+	
+	@Test
 	public void testSetNotNull() {
 		Column tgcol = new Column("_id", ColumnType.INTEGER);
 		tgcol.setNotNull(true);
+		assertTrue(tgcol.isNotNull());
+		assertFalse(tgcol.isAutoIncrement());
+		assertFalse(tgcol.isPrimary());
+		assertFalse(tgcol.isCheck());
+		assertFalse(tgcol.isUnique());
+	}
+	
+	@Test
+	public void testContructor_NotNull() {
+		Column tgcol = new Column("_id", ColumnType.INTEGER, ColumnAttribute.NOT_NULL);
+		//tgcol.setNotNull(true);
 		assertTrue(tgcol.isNotNull());
 		assertFalse(tgcol.isAutoIncrement());
 		assertFalse(tgcol.isPrimary());

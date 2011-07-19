@@ -19,7 +19,7 @@ public class ColumnAttributeTest {
 	@Test
 	public void testToBinary() {
 		for (ColumnAttribute ca : ColumnAttribute.values()) {
-			System.out.println(ca.toString() + ": " + ca.toBinary());
+			System.out.println(String.format("%-15s : %10s" ,ca.toString() ,ca.toBinary()));
 		}
 		int permission = ColumnAttribute.PRIMARY_KEY.getValue();
 		boolean isPK = (permission & ColumnAttribute.PRIMARY_KEY.getValue()) == ColumnAttribute.PRIMARY_KEY
