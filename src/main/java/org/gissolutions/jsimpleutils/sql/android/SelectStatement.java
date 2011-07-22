@@ -1,7 +1,9 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -97,7 +99,26 @@ public class SelectStatement {
 		}
 		return ftables;
 	}
-
+	public List<Column> getColumns(){
+		//List<Column> orderedColumns = new LinkedList<Column>(this.columns.values());
+		Collections.sort(columns);
+		return columns;
+	}
+	public String[] getColumnNames(){
+		List<Column> orderedColumns = this.getColumns();
+		String[] names = new String[orderedColumns.size()];
+		int i=0;
+		for (Column column : orderedColumns) {
+			if(column.getAlias() == null) {
+				names[i] =column.getName();
+			}else {
+				names[i] =column.getAlias();
+			}
+			
+			i++;
+		}
+		return names;
+	}
 	public class SelectableTable {
 		private SelectType selectType;
 		private final Table table;

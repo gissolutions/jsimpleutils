@@ -31,6 +31,9 @@ public class SelectStatementTest {
 		sel.addColumn(eventTable, "name",null);
 		sel.addColumn(tagTable, "_id", "tag_id");
 		sel.addColumn(tagTable, "is_triple", null);
+		sel.addColumn(tagTable, "triple_namespace", null);
+		sel.addColumn(tagTable, "triple_key", null);
+		sel.addColumn(tagTable, "triple_value", null);
 		//Joins
 		sel.addInnerJoin(taggingTable.getAlias(), taggingTable.TAGGING_EVENT_ID, eventTable.getAlias(), "_id");
 		sel.addInnerJoin(tagTable.getAlias(), "_id", taggingTable.getAlias(), "tag_id");
@@ -44,7 +47,8 @@ public class SelectStatementTest {
 	public void testToString() {
 	
 		System.out.println("SQL: " + sel.toString());
-		String esql ="SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
+		//String esql ="SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
+		String esql ="SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple, tg.triple_namespace, tg.triple_key, tg.triple_value FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
 		assertEquals(esql, sel.toString());
 		
 	}
@@ -57,5 +61,15 @@ public class SelectStatementTest {
 		assertEquals(ec, c);
 		
 	}
-
+	@Test
+	public void testGetColumNames() {
+		String[] cn = sel.getColumnNames();
+		String cns = (new Exploder<String>()).explode(cn);
+		System.out.println("Column Names: " + cns);
+		String ecns = "event_id, name, tag_id, is_triple, triple_namespace, triple_key, triple_value";
+		assertEquals(ecns, cns);
+//		int ec=1;
+//		assertEquals(ec, c);
+		
+	}
 }
