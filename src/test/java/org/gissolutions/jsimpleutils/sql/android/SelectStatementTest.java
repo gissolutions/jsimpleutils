@@ -49,6 +49,7 @@ public class SelectStatementTest {
 		System.out.println("SQL: " + sel.toString());
 		//String esql ="SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
 		String esql ="SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple, tg.triple_namespace, tg.triple_key, tg.triple_value FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
+		//String esql ="SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple, tg.triple_namespace, tg.triple_key, tg.triple_value FROM events ev INNER_JOIN JOIN tagging tgg ON tgg.event_id = ev._id INNER_JOIN JOIN tags tg ON tg._id = tgg.tag_id;";
 		assertEquals(esql, sel.toString());
 		
 	}

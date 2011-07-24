@@ -9,17 +9,17 @@ import java.util.Map;
 
 public class SelectStatement {
 	public enum SelectType {
-		FROM, INNER_JOIN;
+		FROM, INNER_JOIN, LEFT_JOIN;
 		//select e.*,  t.* from events e left join tagging tg on tg.event_id = e._id inner join tags t on tg.tag_id = t._id
 	}
 
 	Map<String, SelectableTable> tables;
-	List<InnerJoin> innerJoins;
+	List<Join> innerJoins;
 	List<Column> columns;
 
 	public SelectStatement() {
 		this.tables = new HashMap<String, SelectableTable>();
-		this.innerJoins = new ArrayList<InnerJoin>();
+		this.innerJoins = new ArrayList<Join>();
 		this.columns = new ArrayList<Column>();
 	}
 
@@ -81,7 +81,7 @@ public class SelectStatement {
 
 		}
 		if (this.innerJoins.size() > 0) {
-			for (InnerJoin ij : this.innerJoins) {
+			for (Join ij : this.innerJoins) {
 				sb.append(" ");
 				sb.append(ij.toString());
 			}
@@ -141,21 +141,20 @@ public class SelectStatement {
 		}
 
 	}
-
-	class InnerJoin {
-		private final Table joinedTable;
-		private final Column joinedTableColumn;
-		private final Column tableToJoinColumn;
-
+	class Join {
+		protected final Table joinedTable;
+		protected final Column joinedTableColumn;
+		protected final Column tableToJoinColumn;
+		protected final SelectType joinType;
 		// private final Table tableToJoin;
 
-		public InnerJoin(Table joinedTable, Column joinedTableColumn,
-				Column tableToJoinColumn) {
+		public Join(Table joinedTable, Column joinedTableColumn,
+				Column tableToJoinColumn, SelectType joinType) {
 			super();
 			this.joinedTable = joinedTable;
 			this.joinedTableColumn = joinedTableColumn;
 			this.tableToJoinColumn = tableToJoinColumn;
-			// this.tableToJoin = tableToJoin;
+			this.joinType = joinType;
 		}
 
 		public Table getJoinedTable() {
@@ -164,13 +163,30 @@ public class SelectStatement {
 
 		@Override
 		public String toString() {
-			String template = "INNER JOIN %s %s ON %s = %s";
+			String strjointype=null;
+			if(this.joinType == SelectType.INNER_JOIN) {
+				strjointype ="INNER";
+			}else if(this.joinType == SelectType.LEFT_JOIN){
+				strjointype ="LEFT";
+			}else {
+				throw new RuntimeException("JOIN type is not defined");
+			}
+			String template = "%s JOIN %s %s ON %s = %s";
 
-			return String.format(template, this.joinedTable.getName(),
+			return String.format(template, strjointype,
+					this.joinedTable.getName(),
 					this.joinedTable.getAlias(), this.joinedTableColumn
 							.getQualifiedName(), this.tableToJoinColumn
 							.getQualifiedName());
 		}
 
+	}
+	class InnerJoin extends Join{
+		
+		public InnerJoin(Table joinedTable, Column joinedTableColumn,
+				Column tableToJoinColumn) {
+			super(joinedTable, joinedTableColumn, tableToJoinColumn, SelectType.INNER_JOIN);
+
+		}
 	}
 }
