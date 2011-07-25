@@ -36,7 +36,7 @@ public class ExploderTest {
 		Exploder<Column> exp = new Exploder<Column>();
 		String res = exp.explode(columns);
 		System.out.println("Res: " + res);
-		String eres="_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, date TEXT NOT NULL, location TEXT, rating REAL, comment TEXT, image_uri TEXT NOT NULL, rotation INTEGER DEFAULT 0, created_on TEXT NOT NULL, updated_on TEXT NOT NULL";
+		String eres="_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, date TEXT NOT NULL, location TEXT, rating REAL, comment TEXT, image_uri TEXT NOT NULL, rotation INTEGER DEFAULT 0, created_on TEXT NOT NULL, updated_on TEXT NOT NULL";
 		assertEquals(eres, res);
 	}
 	
@@ -47,7 +47,7 @@ public class ExploderTest {
 		Exploder<Column> exp = new Exploder<Column>();
 		String res = exp.explode(columns, "getName");
 		System.out.println("Res: " + res);
-		String eres="_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, date TEXT NOT NULL, location TEXT, rating REAL, comment TEXT, image_uri TEXT NOT NULL, rotation INTEGER DEFAULT 0, created_on TEXT NOT NULL, updated_on TEXT NOT NULL";
+		String eres="_id, name, date, location, rating, comment, image_uri, rotation, created_on, updated_on";
 		assertEquals(eres, res);
 	}
 

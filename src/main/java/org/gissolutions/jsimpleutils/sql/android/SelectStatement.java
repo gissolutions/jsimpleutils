@@ -3,7 +3,6 @@ package org.gissolutions.jsimpleutils.sql.android;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,12 +13,12 @@ public class SelectStatement {
 	}
 
 	Map<String, SelectableTable> tables;
-	List<Join> innerJoins;
+	List<Join> joins;
 	List<Column> columns;
 
 	public SelectStatement() {
 		this.tables = new HashMap<String, SelectableTable>();
-		this.innerJoins = new ArrayList<Join>();
+		this.joins = new ArrayList<Join>();
 		this.columns = new ArrayList<Column>();
 	}
 
@@ -44,12 +43,24 @@ public class SelectStatement {
 
 	public void addInnerJoin(String joinedTableAlias, String joinedTableColumn,
 			String tableToJoinAlias, String tableToJoinColumn) {
+		
 		SelectableTable jtstbl = this.tables.get(joinedTableAlias);
 		Column jtCol = jtstbl.getTable().getColumn(joinedTableColumn);
 		SelectableTable ttjstbl = this.tables.get(tableToJoinAlias);
 		Column ttjCol = ttjstbl.getTable().getColumn(tableToJoinColumn);
 		InnerJoin ij = new InnerJoin(jtstbl.getTable(), jtCol, ttjCol);
-		this.innerJoins.add(ij);
+		this.joins.add(ij);
+	}
+	
+	public void addLeftJoin(String joinedTableAlias, String joinedTableColumn,
+			String tableToJoinAlias, String tableToJoinColumn) {
+		
+		SelectableTable jtstbl = this.tables.get(joinedTableAlias);
+		Column jtCol = jtstbl.getTable().getColumn(joinedTableColumn);
+		SelectableTable ttjstbl = this.tables.get(tableToJoinAlias);
+		Column ttjCol = ttjstbl.getTable().getColumn(tableToJoinColumn);
+		InnerJoin leftJoin = new InnerJoin(jtstbl.getTable(), jtCol, ttjCol);
+		this.joins.add(leftJoin);
 	}
 
 	@Override
@@ -80,8 +91,8 @@ public class SelectStatement {
 			c++;
 
 		}
-		if (this.innerJoins.size() > 0) {
-			for (Join ij : this.innerJoins) {
+		if (this.joins.size() > 0) {
+			for (Join ij : this.joins) {
 				sb.append(" ");
 				sb.append(ij.toString());
 			}
@@ -186,6 +197,14 @@ public class SelectStatement {
 		public InnerJoin(Table joinedTable, Column joinedTableColumn,
 				Column tableToJoinColumn) {
 			super(joinedTable, joinedTableColumn, tableToJoinColumn, SelectType.INNER_JOIN);
+
+		}
+	}
+	
+   class LeftJoin extends Join{		
+		public LeftJoin(Table joinedTable, Column joinedTableColumn,
+				Column tableToJoinColumn) {
+			super(joinedTable, joinedTableColumn, tableToJoinColumn, SelectType.LEFT_JOIN);
 
 		}
 	}

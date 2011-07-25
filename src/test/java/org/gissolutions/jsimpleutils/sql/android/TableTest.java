@@ -110,8 +110,9 @@ public class TableTest {
 
 	@Test
 	public void testGetCreateSQLStatement_Events() {
+		System.out.println("Method: testGetCreateSQLStatement_Events");
 		System.out.println("**** testGetCreateSQLStatement_Events");
-		String expectedSQL = "CREATE TABLE events (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, date TEXT NOT NULL, location TEXT, rating REAL, comment TEXT, image_uri TEXT NOT NULL, rotation INTEGER DEFAULT 0, created_on TEXT NOT NULL, updated_on TEXT NOT NULL);";
+		String expectedSQL = "CREATE TABLE events (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, date TEXT NOT NULL, location TEXT, rating REAL, comment TEXT, image_uri TEXT NOT NULL, rotation INTEGER DEFAULT 0, created_on TEXT NOT NULL, updated_on TEXT NOT NULL);";
 		String sql = eventTable.getCreateSQLStatement();
 		System.out.println("SQL : " + sql);
 		assertEquals(expectedSQL, sql);
@@ -130,7 +131,7 @@ public class TableTest {
 	@Test
 	public void testGetCreateSQLStatement_Tagging() {
 		System.out.println("**** testGetCreateSQLStatement_Tagging");
-		String expectedSQL = "CREATE TABLE tagging (_id INTEGER, event_id INTEGER, FOREIGN KEY (tag_id) REFERENCES tags (_id) ON DELETE CASCADE, FOREIGN KEY (event_id) REFERENCES events (_id));";
+		String expectedSQL = "CREATE TABLE tagging (_id INTEGER PRIMARY KEY AUTOINCREMENT, tag_id INTEGER, event_id INTEGER, FOREIGN KEY (tag_id) REFERENCES tags (_id) ON DELETE CASCADE, FOREIGN KEY (event_id) REFERENCES events (_id));";
 		String sql = taggingTable.getCreateSQLStatement();
 		System.out.println("SQL : " + sql);
 		assertEquals(expectedSQL, sql);
