@@ -15,6 +15,8 @@ public class SelectStatementTest {
 	private TagTable tagTable;
 	private TaggingTable taggingTable;
 	private SelectStatement sel;
+	private SelectStatement selectStmt;
+	
 	@Before
 	public void setUp() throws Exception {
 		eventTable = TestData.EVENT_TABLE;
@@ -37,6 +39,39 @@ public class SelectStatementTest {
 		//Joins
 		sel.addInnerJoin(taggingTable.getAlias(), taggingTable.TAGGING_EVENT_ID, eventTable.getAlias(), "_id");
 		sel.addInnerJoin(tagTable.getAlias(), "_id", taggingTable.getAlias(), "tag_id");
+		
+		//SELECT ev._id, ev.name, ev.date, ev.location, ev.rating, ev.comment, ev.image_uri, ev.rotation, ev.created_on, 
+		//ev.updated_on, tgg.tag_id, tg.name, tg.is_triple, tg.triple_namespace, tg.triple_key, tg.triple_value
+		//FROM events ev
+		//LEFT JOIN tagging tgg ON ev._id = tgg.event_id
+		//INNER JOIN tags tg ON tgg.tag_id = tg._id
+		selectStmt = new SelectStatement();
+		//Defining tables
+		selectStmt.addTable(eventTable, SelectType.FROM);
+		selectStmt.addTable(taggingTable, SelectType.LEFT_JOIN);
+		selectStmt.addTable(tagTable, SelectType.INNER_JOIN);
+		//Defining Columns
+		selectStmt.addColumn(eventTable, "_id", null);
+		selectStmt.addColumn(eventTable, "name",null);
+		selectStmt.addColumn(eventTable, "date",null);
+		selectStmt.addColumn(eventTable, "location",null);
+		selectStmt.addColumn(eventTable, "rating",null);
+		selectStmt.addColumn(eventTable, "comment",null);
+		selectStmt.addColumn(eventTable, "image_uri",null);
+		selectStmt.addColumn(eventTable, "rotation",null);
+		selectStmt.addColumn(eventTable, "created_on",null);
+		selectStmt.addColumn(eventTable, "updated_on",null);
+		selectStmt.addColumn(taggingTable, "tag_id",null);
+		selectStmt.addColumn(tagTable, "name", null);
+		selectStmt.addColumn(tagTable, "is_triple", null);
+		selectStmt.addColumn(tagTable, "triple_namespace", null);
+		selectStmt.addColumn(tagTable, "triple_key", null);
+		selectStmt.addColumn(tagTable, "triple_value", null);
+		//joins
+		selectStmt.addLeftJoin(taggingTable.getAlias(), taggingTable.TAGGING_EVENT_ID, eventTable.getAlias(), "_id");
+		selectStmt.addInnerJoin(tagTable.getAlias(), "_id", taggingTable.getAlias(), "tag_id");
+		
+		
 	}
 
 	@After
@@ -45,7 +80,7 @@ public class SelectStatementTest {
 
 	@Test
 	public void testToString() {
-	
+		System.out.println("Method: testToString");
 		System.out.println("SQL: " + sel.toString());
 		//String esql ="SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
 		String esql ="SELECT ev._id AS 'event_id', ev.name, tg._id AS 'tag_id', tg.is_triple, tg.triple_namespace, tg.triple_key, tg.triple_value FROM events ev INNER JOIN tagging tgg ON tgg.event_id = ev._id INNER JOIN tags tg ON tg._id = tgg.tag_id;";
@@ -53,9 +88,22 @@ public class SelectStatementTest {
 		assertEquals(esql, sel.toString());
 		
 	}
-	
+	@Test
+	public void testToString2() {
+		System.out.println("Method: testToString2");
+		System.out.println("SQL: " + selectStmt.toString());
+		String esql = "SELECT ev._id, ev.name, ev.date, ev.location, ev.rating, ev.comment, ev.image_uri, ev.rotation, ev.created_on, "+
+		"ev.updated_on, tgg.tag_id, tg.name, tg.is_triple, tg.triple_namespace, tg.triple_key, tg.triple_value " +
+		"FROM events ev "+
+		"LEFT JOIN tagging tgg ON tgg.event_id = ev._id "+
+		"INNER JOIN tags tg ON tg._id = tgg.tag_id;";
+		
+		assertEquals(esql, selectStmt.toString());
+		
+	}
 	@Test
 	public void testGetFromTables() {
+		System.out.println("Method: testGetFromTables");
 		int c = sel.getFromTables().size();
 		System.out.println("From count: " + c);
 		int ec=1;
@@ -64,6 +112,7 @@ public class SelectStatementTest {
 	}
 	@Test
 	public void testGetColumNames() {
+		System.out.println("Method: testGetColumNames");
 		String[] cn = sel.getColumnNames();
 		String cns = (new Exploder<String>()).explode(cn);
 		System.out.println("Column Names: " + cns);

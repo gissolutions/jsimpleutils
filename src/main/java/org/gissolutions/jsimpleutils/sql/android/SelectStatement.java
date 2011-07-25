@@ -59,7 +59,7 @@ public class SelectStatement {
 		Column jtCol = jtstbl.getTable().getColumn(joinedTableColumn);
 		SelectableTable ttjstbl = this.tables.get(tableToJoinAlias);
 		Column ttjCol = ttjstbl.getTable().getColumn(tableToJoinColumn);
-		InnerJoin leftJoin = new InnerJoin(jtstbl.getTable(), jtCol, ttjCol);
+		LeftJoin leftJoin = new LeftJoin(jtstbl.getTable(), jtCol, ttjCol);
 		this.joins.add(leftJoin);
 	}
 
