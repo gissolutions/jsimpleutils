@@ -48,7 +48,7 @@ public class TestConfigurationTest {
 		String fn = TestConfiguration.getExistingTestData("pom.xml");
 		String md5 = TestConfiguration.calculateMD5Hash(fn);
 		logger.debug("md5: " + md5);
-		// assertEquals("c2827798eca02e9bc0ce6ac1bfeb44d1", md5);
+		assertEquals("c2827798eca02e9bc0ce6ac1bfeb44d1", md5);
 	}
 	public void testc() {
 		String o = TestConfiguration.getInstance().getOutputPath();
@@ -87,12 +87,12 @@ public class TestConfigurationTest {
 			}
 			rs.close();
 			conn.close();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException e) {			
 			e.printStackTrace();
+			fail(e.getMessage());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail(e.getMessage());
 		}
 
 	}

@@ -7,12 +7,6 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 	}
 	private final ColumnType columnType;
 	private int position;
-//	private boolean isPrimary;
-//	private boolean isUnique;
-//	private boolean isCheck;
-//	private boolean autoIncrement;
-//	private boolean isNotNull;
-	
 	private String alias;
 	private String tablePrefix;
 	
