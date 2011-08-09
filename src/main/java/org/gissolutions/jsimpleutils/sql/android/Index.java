@@ -29,7 +29,9 @@ public class Index extends SQLObject {
 	public String getCreateSQLStatement() {
 		StringBuffer sb = new StringBuffer(30);
 		sb.append("CREATE");
-		
+		if(isUnique) {
+			sb.append(" UNIQUE");
+		}
 		sb.append(" INDEX");
 		if(ifNotExists){
 			sb.append(" IF NOT EXISTS");
@@ -49,8 +51,7 @@ public class Index extends SQLObject {
 			}
 			count++;
 		}
-		sb.append(")");
-		
+		sb.append(")");		
 		sb.append(";");
 		return sb.toString();
 	}
