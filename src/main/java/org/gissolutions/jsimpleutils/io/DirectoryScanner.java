@@ -8,7 +8,11 @@ import java.util.regex.Pattern;
 
 import javax.swing.event.EventListenerList;
 
-
+/**
+ * The class DirectoryScanner is used to find files and directories based on regular expressions patterns.
+ * @author LBerrocal
+ *
+ */
 public class DirectoryScanner {
 
 	protected List<Pattern> acceptPatterns;
