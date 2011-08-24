@@ -1,6 +1,10 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
-
+/**
+ * The class Column represents a column on a Table or View.
+ * @author LBerrocal
+ *
+ */
 public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 	public enum ColumnType{
 		NONE, TEXT, NUMERIC, INTEGER, REAL;
