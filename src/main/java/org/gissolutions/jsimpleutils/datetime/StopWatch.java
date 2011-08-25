@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The class StopWatch is a convience class to benchmark processes.
+ * The class StopWatch is a convenience class to benchmark processes.
  * 
  * @author luisberrocal
  * 
@@ -115,8 +115,6 @@ public class StopWatch {
 	 * <pre>
 	 * h:mm:ss
 	 * </pre>
-	 * 
-	 * .
 	 */
 	public static String timeAsStringShort(long milliSecs) {
 		DecimalFormat iFormatter = new DecimalFormat("00");
