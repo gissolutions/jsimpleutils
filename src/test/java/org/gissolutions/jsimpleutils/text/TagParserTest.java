@@ -27,6 +27,7 @@ public class TagParserTest {
 		assertEquals("quinceaño", tags.get(0));
 		assertEquals("Javy", tags.get(1));
 	}
+	
 	@Test
 	public void testParse_Null() {
 		String line = null;
