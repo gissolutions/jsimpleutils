@@ -31,10 +31,11 @@ public class QuickWriterTest {
 
 	@Test
 	public void testWriteln() {
-		File dir= new File("C:/Documents and Settings/luisberrocal/workspace/jsimpleutils/src/test/java/org/gissolutions/jsimpleutils");
+		File dir= new File("C:/ws_352/jsimpleutils2/src/test/java/org/gissolutions/jsimpleutils");
 		File[] files =dir.listFiles();
 		
 		String out = TestConfiguration.getOutputFilenameWithDate("quick_w.csv");
+		logger.info("Output file: " + out);
 		try {
 			QuickWriter qw = new QuickWriter(new File(out));
 			int c=1;
