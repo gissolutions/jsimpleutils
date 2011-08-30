@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
  * separated values.  By default the encoding is UTF-8, the value separator is
  * comma (',') and the end of file character is '\n'.
  * @author lberrocal
- *
  */
 public class QuickWriter {
 	
@@ -92,6 +91,11 @@ public class QuickWriter {
 		
 	}
 	
+	/**
+	 * The method writes a comment appending the commentChars at the begining of the line. 
+	 * @param comment String to comment
+	 * @throws IOException
+	 */
 	public void writeComment(String comment) throws IOException{
 		this.writer.write(this.commentChars + comment + this.eol);
 	}
@@ -114,4 +118,8 @@ public class QuickWriter {
 	public String getEncoding() {
 		return encoding;
 	}
+	public String getCommentChars() {
+		return commentChars;
+	}
+	
 }
