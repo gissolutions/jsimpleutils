@@ -22,8 +22,11 @@ public class StopWatchTest {
 		try {
 			Thread.sleep(15500);
 			sw.stop();
+			String res =sw.getElapsedFormatted();
+			
 			System.out.println(sw.getElapsedFormatted());
-			System.out.println(sw.getElapsedTime());
+			//System.out.println(sw.getElapsedTime());
+			assertTrue(res.startsWith("00:00:15.50"));
 		} catch (InterruptedException e) {			
 			fail(e.getMessage());
 		}
