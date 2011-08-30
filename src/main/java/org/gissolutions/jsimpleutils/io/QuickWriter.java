@@ -40,7 +40,11 @@ public class QuickWriter {
 	public QuickWriter(File file, String encoding, char separator) throws UnsupportedEncodingException, FileNotFoundException {
 		this(file, encoding,separator,'\n');
 	}
-
+	/**
+	 * The method write a line with the toString of the objects separated a separator.
+	 * @param objects Objects to write
+	 * @throws IOException
+	 */
 	public void writeln(Object...objects) throws IOException {
 		StringBuffer sb = new StringBuffer();
 		int count=0;

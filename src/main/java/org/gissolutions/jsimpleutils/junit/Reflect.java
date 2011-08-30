@@ -36,7 +36,7 @@ public class Reflect {
 	                    System.out.print(" ");
 	                }
 	                Type actual = actuals[i];
-	                if (actual instanceof Class) {
+	                if (actual instanceof Class<?>) {
 	                    System.out.print(((Class<?>)actual).getName());
 	                } else {
 	                    System.out.print(actuals[i]);
@@ -47,7 +47,7 @@ public class Reflect {
 	            // analyze all parameter type classes
 	            for (int i = 0; i < actuals.length; i++) {
 	                Type actual = actuals[i];
-	                if (actual instanceof Class) {
+	                if (actual instanceof Class<?>) {
 	                    analyze(lead, (Class<?>)actual);
 	                }
 	            }

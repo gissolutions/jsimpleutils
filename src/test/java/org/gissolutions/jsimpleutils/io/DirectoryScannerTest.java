@@ -22,7 +22,7 @@ public class DirectoryScannerTest {
 	private DirectoryScanner dp;
 	private int acceptedCount;
 	private int rejectedCount;
-	private List<File> ignored;
+	//private List<File> ignored;
 	private BufferedWriter writer;
 	
 	public DirectoryScannerTest() {
@@ -37,7 +37,7 @@ public class DirectoryScannerTest {
 		
 		
 		
-		ignored = new ArrayList<File>();
+		//ignored = new ArrayList<File>();
 		acceptedCount = 0;
 		rejectedCount = 0;
 		dp = new DirectoryScanner();

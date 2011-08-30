@@ -50,6 +50,7 @@ public class SlugifierTest {
 			assertEquals(entry.getValue(), slug);
 		}
 	}
+	
 	@Test
 	public void testBuildSlug_All_Attributes() throws Exception {
 		Slugifier slugbuilder = new Slugifier(SlugAttribute.CHANGE_ENCODING, SlugAttribute.REPLACE_MULTI_SPACES, SlugAttribute.REPLACE_SPECIAL_CHARS);
