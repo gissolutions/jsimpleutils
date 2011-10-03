@@ -4,70 +4,88 @@
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
               as the first entry and export the buildfile again. -->
-<project basedir="." default="build" name="jsimpleutils">
+<project basedir="." default="build" name="jsimpleutils3">
     <property environment="env"/>
-    <property name="webadftest2.location" value="../webadftest2"/>
-    <property name="ECLIPSE_HOME" value="../../Java/apps/eclipse3.4.2"/>
+    <property name="trackattire3.location" value="../../trackattire"/>
+    <property name="ECLIPSE_HOME" value="../../../../../Applications/Dev/eclipse-3.5-j2ee"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
-    <path id="Maven Classpath Container.libraryclasspath">
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/org/ibex/sqlitejdbc/v056/sqlitejdbc-v056.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/net/sf/apt-jelly/apt-jelly-freemarker/2.6/apt-jelly-freemarker-2.6.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/junit/junit/4.3.1/junit-4.3.1.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-beanutils/commons-beanutils/1.6/commons-beanutils-1.6.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-collections/commons-collections/3.1/commons-collections-3.1.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/org/apache/ant/ant/1.7.0/ant-1.7.0.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/relaxngDatatype/relaxngDatatype/20020414/relaxngDatatype-20020414.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-beanutils/commons-beanutils-core/1.7.0/commons-beanutils-core-1.7.0.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-configuration/commons-configuration/1.2/commons-configuration-1.2.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/xerces/xercesImpl/2.2.1/xercesImpl-2.2.1.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/xalan/xalan/2.7.0/xalan-2.7.0.jar"/>
-        <pathelement location="../../jdk1.6.0_05/lib/tools.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/msv/msv/20020414/msv-20020414.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/dom4j/dom4j/1.4/dom4j-1.4.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/org/jdom/jdom/1.1/jdom-1.1.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-digester/commons-digester/1.6/commons-digester-1.6.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/jaxen/jaxen/1.0-FCS/jaxen-1.0-FCS.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-logging/commons-logging-api/1.0.4/commons-logging-api-1.0.4.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-jexl/commons-jexl/1.0/commons-jexl-1.0.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-jelly/commons-jelly/1.0/commons-jelly-1.0.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/isorelax/isorelax/20020414/isorelax-20020414.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/net/sf/apt-jelly/apt-jelly-jelly/2.6/apt-jelly-jelly-2.6.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-discovery/commons-discovery/20030211.213356/commons-discovery-20030211.213356.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/forehead/forehead/1.0-beta-5/forehead-1.0-beta-5.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/net/sf/apt-jelly/apt-jelly-core/2.6/apt-jelly-core-2.6.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/org/freemarker/freemarker/2.3.15/freemarker-2.3.15.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/saxpath/saxpath/1.0-FCS/saxpath-1.0-FCS.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/javax/servlet/jstl/1.0.6/jstl-1.0.6.jar"/>
-        <pathelement location="../../Documents and Settings/lberrocal/.m2/repository/javax/servlet/servlet-api/2.3/servlet-api-2.3.jar"/>
+    <path id="Maven Dependencies.libraryclasspath">
+        <pathelement location="../../../.m2/repository/junit/junit/4.3.1/junit-4.3.1.jar"/>
+        <pathelement location="../../../.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar"/>
+        <pathelement location="../../../.m2/repository/javax/mail/mail/1.4/mail-1.4.jar"/>
+        <pathelement location="../../../.m2/repository/javax/activation/activation/1.1/activation-1.1.jar"/>
+        <pathelement location="../../../.m2/repository/org/jdom/jdom/1.1/jdom-1.1.jar"/>
+        <pathelement location="../../../.m2/repository/net/sf/apt-jelly/apt-jelly-jelly/2.6/apt-jelly-jelly-2.6.jar"/>
+        <pathelement location="../../../.m2/repository/net/sf/apt-jelly/apt-jelly-core/2.6/apt-jelly-core-2.6.jar"/>
+        <pathelement location="../../../.m2/repository/commons-beanutils/commons-beanutils/1.6/commons-beanutils-1.6.jar"/>
+        <pathelement location="../../../.m2/repository/commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar"/>
+        <pathelement location="../../../.m2/repository/commons-collections/commons-collections/2.1/commons-collections-2.1.jar"/>
+        <pathelement location="../../../.m2/repository/commons-jelly/commons-jelly/1.0/commons-jelly-1.0.jar"/>
+        <pathelement location="../../../.m2/repository/javax/servlet/servlet-api/2.3/servlet-api-2.3.jar"/>
+        <pathelement location="../../../.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar"/>
+        <pathelement location="../../../.m2/repository/commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
+        <pathelement location="../../../.m2/repository/commons-discovery/commons-discovery/20030211.213356/commons-discovery-20030211.213356.jar"/>
+        <pathelement location="../../../.m2/repository/forehead/forehead/1.0-beta-5/forehead-1.0-beta-5.jar"/>
+        <pathelement location="../../../.m2/repository/javax/servlet/jstl/1.0.6/jstl-1.0.6.jar"/>
+        <pathelement location="../../../.m2/repository/commons-jexl/commons-jexl/1.0/commons-jexl-1.0.jar"/>
+        <pathelement location="../../../.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
+        <pathelement location="../../../.m2/repository/dom4j/dom4j/1.5.2/dom4j-1.5.2.jar"/>
+        <pathelement location="../../../.m2/repository/jaxme/jaxme-api/0.3/jaxme-api-0.3.jar"/>
+        <pathelement location="../../../.m2/repository/jaxen/jaxen/1.1-beta-4/jaxen-1.1-beta-4.jar"/>
+        <pathelement location="../../../.m2/repository/msv/xsdlib/20030807/xsdlib-20030807.jar"/>
+        <pathelement location="../../../.m2/repository/msv/relaxngDatatype/20030807/relaxngDatatype-20030807.jar"/>
+        <pathelement location="../../../.m2/repository/pull-parser/pull-parser/2/pull-parser-2.jar"/>
+        <pathelement location="../../../.m2/repository/xpp3/xpp3/1.1.3.3/xpp3-1.1.3.3.jar"/>
+        <pathelement location="../../../.m2/repository/stax/stax-api/1.0/stax-api-1.0.jar"/>
+        <pathelement location="../../../.m2/repository/jdom/jdom/b10/jdom-b10.jar"/>
+        <pathelement location="../../../.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar"/>
+        <pathelement location="../../../.m2/repository/xerces/xercesImpl/2.2.1/xercesImpl-2.2.1.jar"/>
+        <pathelement location="../../../.m2/repository/xom/xom/1.0b3/xom-1.0b3.jar"/>
+        <pathelement location="../../../.m2/repository/com/ibm/icu/icu4j/2.6.1/icu4j-2.6.1.jar"/>
+        <pathelement location="../../../.m2/repository/xalan/xalan/2.6.0/xalan-2.6.0.jar"/>
+        <pathelement location="../../../.m2/repository/org/ccil/cowan/tagsoup/tagsoup/0.9.7/tagsoup-0.9.7.jar"/>
+        <pathelement location="../../../.m2/repository/org/freemarker/freemarker/2.3.15/freemarker-2.3.15.jar"/>
+        <pathelement location="../../../.m2/repository/net/sf/apt-jelly/apt-jelly-freemarker/2.6/apt-jelly-freemarker-2.6.jar"/>
+        <pathelement location="../../../.m2/repository/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar"/>
+        <pathelement location="../../../.m2/repository/org/apache/ant/ant/1.7.0/ant-1.7.0.jar"/>
+        <pathelement location="../../../.m2/repository/org/apache/ant/ant-launcher/1.7.0/ant-launcher-1.7.0.jar"/>
+        <pathelement location="../../../.m2/repository/org/dbunit/dbunit/2.2/dbunit-2.2.jar"/>
+        <pathelement location="../../../.m2/repository/junit-addons/junit-addons/1.4/junit-addons-1.4.jar"/>
+        <pathelement location="../../../.m2/repository/poi/poi/2.5.1-final-20040804/poi-2.5.1-final-20040804.jar"/>
+        <pathelement location="../../../.m2/repository/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar"/>
+        <pathelement location="../../../.m2/repository/commons-digester/commons-digester/1.8/commons-digester-1.8.jar"/>
+        <pathelement location="../../../.m2/repository/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar"/>
+        <pathelement location="../../../.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+        <pathelement location="../../../.m2/repository/com/martiansoftware/jsap/2.1/jsap-2.1.jar"/>
     </path>
-    <path id="EAR Libraries.libraryclasspath"/>
-    <path id="jsimpleutils.classpath">
+    <path id="jsimpleutils3.classpath">
         <pathelement location="target/classes"/>
         <pathelement location="target/test-classes"/>
-        <path refid="Maven Classpath Container.libraryclasspath"/>
-        <pathelement location="../../jdk1.6.0_05/lib/tools.jar"/>
-        <path refid="EAR Libraries.libraryclasspath"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+    </path>
+    <path id="run.org.gissolutions.jsimpleutils.text.classpath">
+        <path refid="jsimpleutils3.classpath"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
+    </path>
+    <path id="run.TagParserTest.classpath">
+        <path refid="jsimpleutils3.classpath"/>
+        <path refid="Maven Dependencies.libraryclasspath"/>
     </path>
     <target name="init">
         <mkdir dir="target/classes"/>
         <mkdir dir="target/test-classes"/>
         <copy includeemptydirs="false" todir="target/classes">
-            <fileset dir="src/main/java" excludes="**/*.launch, **/*.java"/>
+            <fileset dir="src/main/java">
+                <exclude name="**/*.java"/>
+            </fileset>
         </copy>
         <copy includeemptydirs="false" todir="target/test-classes">
-            <fileset dir="src/test/java" excludes="**/*.launch, **/*.java"/>
+            <fileset dir="src/test/java">
+                <exclude name="**/*.java"/>
+            </fileset>
         </copy>
     </target>
     <target name="clean">
@@ -81,18 +99,16 @@
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="target/classes" source="${source}" target="${target}">
             <src path="src/main/java"/>
-            <include name="**/*.java"/>
-            <classpath refid="jsimpleutils.classpath"/>
+            <classpath refid="jsimpleutils3.classpath"/>
         </javac>
         <javac debug="true" debuglevel="${debuglevel}" destdir="target/test-classes" source="${source}" target="${target}">
             <src path="src/test/java"/>
-            <include name="**/*.java"/>
-            <classpath refid="jsimpleutils.classpath"/>
+            <classpath refid="jsimpleutils3.classpath"/>
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
-        <ant antfile="${webadftest2.location}/build.xml" inheritAll="false" target="clean"/>
-        <ant antfile="${webadftest2.location}/build.xml" inheritAll="false" target="build">
+        <ant antfile="${trackattire3.location}/build.xml" dir="${trackattire3.location}" inheritAll="false" target="clean"/>
+        <ant antfile="${trackattire3.location}/build.xml" dir="${trackattire3.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
@@ -111,76 +127,22 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
-    <target name="ApplicationInfoTest">
+    <target name="org.gissolutions.jsimpleutils.text">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="org.gissolutions.jsimpleutils.ApplicationInfoTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
-        </junit>
-    </target>
-    <target name="ApplicationUserValidatorTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="org.gissolutions.jsimpleutils.admin.ApplicationUserValidatorTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
-        </junit>
-    </target>
-    <target name="CommonsConfigTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="org.gissolutions.jsimpleutils.CommonsConfigTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
-        </junit>
-    </target>
-    <target name="DirectoryScannerTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="org.gissolutions.jsimpleutils.io.DirectoryScannerTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
-        </junit>
-    </target>
-    <target name="ObjectSpyTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="org.gissolutions.jsimpleutils.junit.ObjectSpyTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
-        </junit>
-    </target>
-    <target name="PasswordGeneratorTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="org.gissolutions.jsimpleutils.admin.PasswordGeneratorTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
-        </junit>
-    </target>
-    <target name="SimpleValidatorTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="org.gissolutions.jsimpleutils.validation.SimpleValidatorTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
-        </junit>
-    </target>
-    <target name="SqlLiteDBTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="org.gissolutions.jsimpleutils.sql.SqlLiteDBTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
-        </junit>
-    </target>
-    <target name="WordStatsTest">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
+            <test name="org.gissolutions.jsimpleutils.text.SlugifierTest" todir="${junit.output.dir}"/>
+            <test name="org.gissolutions.jsimpleutils.text.TagParserTest" todir="${junit.output.dir}"/>
             <test name="org.gissolutions.jsimpleutils.text.WordStatsTest" todir="${junit.output.dir}"/>
-            <classpath refid="jsimpleutils.classpath"/>
+            <classpath refid="run.org.gissolutions.jsimpleutils.text.classpath"/>
+        </junit>
+    </target>
+    <target name="TagParserTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org.gissolutions.jsimpleutils.text.TagParserTest" todir="${junit.output.dir}"/>
+            <classpath refid="run.TagParserTest.classpath"/>
         </junit>
     </target>
     <target name="junitreport">

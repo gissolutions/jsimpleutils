@@ -18,12 +18,19 @@ public class Exploder<T> {
 	public Exploder() {
 		this(',');
 	}
-
 	public String explode(T[] array) {
+		return this.explode(array, null, null);
+	}
+	public String explode(T[] array, String prefix) {
+		return this.explode(array, prefix, null);
+	}
+	public String explode(T[] array, String prefix, String suffix) {
 		sb = new StringBuilder();
 		int c = 1;
 		for (T t : array) {
+			if(prefix != null) sb.append(prefix);
 			sb.append(t.toString());
+			if(suffix != null) sb.append(suffix);
 			if (c != array.length) {
 				sb.append(delimiter);
 				sb.append(padding);

@@ -28,7 +28,18 @@ public class ExploderTest {
 		String eres="_id, name, date, location, rating, comment, image_uri, rotation, created_on, updated_on";
 		assertEquals(eres, res);
 	}
-
+	
+	@Test
+	public void testExplodeStringArray_Prefix() {
+		System.out.println("*** testExplodeStringArray");
+		String[] colNames = TestData.EVENT_TABLE.getColumnNames();
+		Exploder<String> exp = new Exploder<String>();
+		String res = exp.explode(colNames, "ev.");
+		System.out.println("Res: " + res);
+		String eres="ev._id, ev.name, ev.date, ev.location, ev.rating, ev.comment, ev.image_uri, " +
+				"ev.rotation, ev.created_on, ev.updated_on";
+		assertEquals(eres, res);
+	}
 	@Test
 	public void testExplodeListOfColumn() {
 		System.out.println("*** testExplodeListOfColumn");

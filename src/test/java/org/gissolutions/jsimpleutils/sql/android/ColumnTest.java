@@ -122,6 +122,17 @@ public class ColumnTest {
 	}
 	
 	@Test
+	public void testSetNotNull_False() {
+		Column tgcol = new Column("_id", ColumnType.INTEGER);
+		tgcol.setNotNull(false);
+		assertFalse(tgcol.isNotNull()); //FIXME 110925 No funciona
+		assertFalse(tgcol.isAutoIncrement());
+		assertFalse(tgcol.isPrimary());
+		assertFalse(tgcol.isCheck());
+		assertFalse(tgcol.isUnique());
+	}
+	
+	@Test
 	public void testContructor_NotNull() {
 		Column tgcol = new Column("_id", ColumnType.INTEGER, ColumnAttribute.NOT_NULL);
 		//tgcol.setNotNull(true);
