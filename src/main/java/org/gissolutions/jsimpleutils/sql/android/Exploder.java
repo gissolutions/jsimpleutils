@@ -2,6 +2,7 @@ package org.gissolutions.jsimpleutils.sql.android;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.MessageFormat;
 import java.util.List;
 
 public class Exploder<T> {
@@ -18,19 +19,21 @@ public class Exploder<T> {
 	public Exploder() {
 		this(',');
 	}
+
 	public String explode(T[] array) {
-		return this.explode(array, null, null);
+		return this.explode(array, null);
 	}
-	public String explode(T[] array, String prefix) {
-		return this.explode(array, prefix, null);
-	}
-	public String explode(T[] array, String prefix, String suffix) {
+
+	public String explode(T[] array, String template) {
 		sb = new StringBuilder();
 		int c = 1;
 		for (T t : array) {
-			if(prefix != null) sb.append(prefix);
-			sb.append(t.toString());
-			if(suffix != null) sb.append(suffix);
+			if (template != null) {
+				sb.append(MessageFormat.format(template, t.toString()));
+			} else {
+
+				sb.append(t.toString());
+			}
 			if (c != array.length) {
 				sb.append(delimiter);
 				sb.append(padding);
