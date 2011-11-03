@@ -6,6 +6,7 @@ public abstract  class SQLObject {
 	}
 	protected final String name;
 	protected final SQLObjectType objectType;
+	private int position;
 	public static char STRING_QUOTE = '\'';
 		
 	public SQLObject(String name, SQLObjectType objectType) {
@@ -23,6 +24,12 @@ public abstract  class SQLObject {
 	}
 	public SQLObjectType getObjectType() {
 		return objectType;
+	}
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
 	}
 	
 }

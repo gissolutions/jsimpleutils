@@ -34,10 +34,11 @@ public class ExploderTest {
 		System.out.println("*** testExplodeStringArray");
 		String[] colNames = TestData.EVENT_TABLE.getColumnNames();
 		Exploder<String> exp = new Exploder<String>();
-		String res = exp.explode(colNames, "ev.");
+		String res = exp.explode(colNames, "ev.{0}");
 		System.out.println("Res: " + res);
 		String eres="ev._id, ev.name, ev.date, ev.location, ev.rating, ev.comment, ev.image_uri, " +
 				"ev.rotation, ev.created_on, ev.updated_on";
+		//String eres="";
 		assertEquals(eres, res);
 	}
 	@Test

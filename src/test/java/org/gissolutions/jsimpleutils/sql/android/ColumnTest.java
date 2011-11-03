@@ -2,6 +2,10 @@ package org.gissolutions.jsimpleutils.sql.android;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.gissolutions.jsimpleutils.sql.android.Column.ColumnType;
 import org.junit.After;
 import org.junit.Before;
@@ -125,11 +129,18 @@ public class ColumnTest {
 	public void testSetNotNull_False() {
 		Column tgcol = new Column("_id", ColumnType.INTEGER);
 		tgcol.setNotNull(false);
-		assertFalse(tgcol.isNotNull()); //FIXME 110925 No funciona
+		assertFalse(tgcol.isNotNull()); 
+
 		assertFalse(tgcol.isAutoIncrement());
 		assertFalse(tgcol.isPrimary());
 		assertFalse(tgcol.isCheck());
 		assertFalse(tgcol.isUnique());
+		tgcol.setNotNull(true);
+		assertTrue(tgcol.isNotNull()); 
+		
+		tgcol.setNotNull(false);
+		assertFalse(tgcol.isNotNull()); 
+		
 	}
 	
 	@Test
@@ -153,5 +164,26 @@ public class ColumnTest {
 		assertFalse(tgcol.isPrimary());
 		assertFalse(tgcol.isCheck());
 		assertFalse(tgcol.isNotNull());
+	}
+	@Test
+	public void testSetPosition() {
+		List<Column> cols = new ArrayList<Column>();
+		
+		Column col1 = new Column("id", ColumnType.INTEGER);
+		col1.setPosition(3);
+		cols.add(col1);
+		Column col2 = new Column("name", ColumnType.TEXT);
+		col2.setPosition(1);
+		cols.add(col2);
+		Column col3 = new Column("date", ColumnType.TEXT);
+		col3.setPosition(0);
+		cols.add(col3);
+		Column col4 = new Column("hour", ColumnType.TEXT);
+		col4.setPosition(2);
+		cols.add(col4);
+		
+		assertEquals(col1, cols.get(0));
+		Collections.sort(cols);
+		assertEquals(col3, cols.get(0));
 	}
 }

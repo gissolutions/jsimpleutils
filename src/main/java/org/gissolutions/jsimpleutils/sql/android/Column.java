@@ -10,7 +10,6 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 		NONE, TEXT, NUMERIC, INTEGER, REAL;
 	}
 	private final ColumnType columnType;
-	private int position;
 	private String alias;
 	private String tablePrefix;
 	
@@ -43,7 +42,9 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 		this.attributes = columnAttribute.getValue();// | this.attributes;
 	}
 	public void unSetAttribute(ColumnAttribute columnAttribute) {
-		this.attributes = this.attributes ^ columnAttribute.getValue();
+		if(this.attributes != 0) {
+			this.attributes = this.attributes ^ columnAttribute.getValue();
+		}
 	}
 	public void addAttribute(ColumnAttribute columnAttribute) {
 		this.attributes = columnAttribute.getValue() | this.attributes;
@@ -67,14 +68,6 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 			this.addAttribute(ColumnAttribute.CHECK);
 		}
 	}
-	public int getPosition() {
-		return position;
-	}
-
-	public void setPosition(int position) {
-		this.position = position;
-	}
-
 	public boolean isPrimary() {
 		return ColumnAttribute.PRIMARY_KEY.is(this.attributes);
 	}
