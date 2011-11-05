@@ -5,7 +5,8 @@ package org.gissolutions.jsimpleutils.sql.android;
  * @author LBerrocal
  *
  */
-public class Column extends SQLObject implements Comparable<Column>, Cloneable{
+public class Column extends SQLObject implements Cloneable{
+	
 	public enum ColumnType{
 		NONE, TEXT, NUMERIC, INTEGER, REAL;
 	}
@@ -186,11 +187,7 @@ public class Column extends SQLObject implements Comparable<Column>, Cloneable{
 		}
 		return qn;
 	}
-	@Override
-	public int compareTo(Column o) {
-		
-		return this.getPosition() - o.getPosition();
-	}
+	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {		
 		return super.clone();

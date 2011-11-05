@@ -1,6 +1,6 @@
 package org.gissolutions.jsimpleutils.sql.android;
 
-public abstract  class SQLObject {
+public abstract  class SQLObject implements Comparable<SQLObject> {
 	public enum SQLObjectType{
 		TABLE, INDEX, TRIGGER, VIEW, COLUMN
 	}
@@ -31,5 +31,9 @@ public abstract  class SQLObject {
 	public void setPosition(int position) {
 		this.position = position;
 	}
-	
+	@Override
+	public int compareTo(SQLObject o) {
+		
+		return this.getPosition() - o.getPosition();
+	}
 }
