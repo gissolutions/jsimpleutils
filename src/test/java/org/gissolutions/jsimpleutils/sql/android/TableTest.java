@@ -175,6 +175,6 @@ public class TableTest {
 	@Test
 	public void testGetPagingSQL() {
 		String sql = this.eventTable.getPaginSQL(1, 2,"ORDER BY _id");
-		assertEquals("", sql);
+		assertEquals("SELECT * FROM events ORDER BY _id LIMIT 1 OFFSET 2", sql);
 	}
 }
