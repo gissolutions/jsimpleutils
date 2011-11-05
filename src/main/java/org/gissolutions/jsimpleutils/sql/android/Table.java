@@ -109,7 +109,15 @@ public class Table extends SQLObject {
 	public String getAlias() {
 		return alias;
 	}
-
+	
+	public String getPaginSQL(int page,  int offset, String orderBy) {
+		String template ="SELECT %s FROM %s %s LIMIT %s OFFSET %s";
+		if(orderBy == null) {
+			orderBy ="";
+		}
+		String sql = String.format(template, "*", this.name, orderBy, page, offset);
+		return sql;
+	}
 	
 	
 	

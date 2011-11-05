@@ -171,4 +171,10 @@ public class TableTest {
 		assertEquals("DROP TABLE IF EXISTS events;", sql);
 				
 	}
+	
+	@Test
+	public void testGetPagingSQL() {
+		String sql = this.eventTable.getPaginSQL(1, 2,"ORDER BY _id");
+		assertEquals("", sql);
+	}
 }
