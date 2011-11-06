@@ -64,7 +64,7 @@ public class ApplicationUser<T> implements IApplicationUser<T>, Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ApplicationUser other = (ApplicationUser) obj;
+		ApplicationUser<T> other = (ApplicationUser<T>) obj;
 		if (password == null) {
 			if (other.password != null)
 				return false;

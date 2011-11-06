@@ -110,12 +110,12 @@ public class Table extends SQLObject {
 		return alias;
 	}
 	
-	public String getPaginSQL(int page,  int offset, String orderBy) {
+	public String getPagingSQL(int rows,  int offset, String orderBy) {
 		String template ="SELECT %s FROM %s %s LIMIT %s OFFSET %s";
 		if(orderBy == null) {
 			orderBy ="";
 		}
-		String sql = String.format(template, "*", this.name, orderBy, page, offset);
+		String sql = String.format(template, "*", this.name, orderBy, rows, offset);
 		return sql;
 	}
 	
