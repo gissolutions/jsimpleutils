@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.gissolutions.jsimpleutils.junit.TestConfiguration;
+import org.gissolutions.jsimpleutils.utils.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,7 +73,17 @@ public class DateTimeUtilityTest {
 	@Before
 	public void setUp() throws Exception {
 	}
-
+	@Test
+	public void testParseForMinutes(){
+		List<Pair<String, Double>> data = new ArrayList<Pair<String, Double>>();
+		data.add(new Pair<String, Double>("01:30", 1.5));
+		data.add(new Pair<String, Double>("18:45", 18.75));
+		for (Pair<String, Double> time : data) {
+			double minutes = DateTimeUtility.parseForMinutes(time.getKey());
+			assertEquals(time.getValue(), minutes);
+		}
+		
+	}
 	@Test
 	public void testDropTime() {
 		Calendar cal = new GregorianCalendar(2010, 6, 19, 19, 30, 45);
@@ -85,11 +96,17 @@ public class DateTimeUtilityTest {
 	}
 	@Test
 	public void testCalculateAge2() {
-		int[] res = DateTimeUtility.calculateAge(1966, 9, 8, 2010, 7, 22);
+		int[] res = DateTimeUtility.calculateAge(1966, 9, 8, 2011, 11, 11);
 		String msg = "%s years %s months %s days";
 		msg = String.format(msg, res[0], res[1], res[2]);
 		logger.debug("Age: " + msg);
-		assertEquals("43 years 9 months 11 days", msg);
+		assertEquals("45 years 2 months 3 days", msg);
+		
+		res = DateTimeUtility.calculateAge(1966, 9, 8, 2011, 9, 8);
+		 msg = "%s years %s months %s days";
+		msg = String.format(msg, res[0], res[1], res[2]);
+		logger.debug("Age: " + msg);
+		assertEquals("45 years 0 months 0 days", msg);
 	}
 	@Test
 	public void testCalculateAge() {

@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * The DateTmeUtility class contains various methods to make date calculations.
  * @author luisberrocal
@@ -92,5 +94,19 @@ public class DateTimeUtility {
 		results[1]= ageMonths;
 		results[2]= ageDays;
 		return results;
+	}
+	
+	public static double parseForMinutes(String minutes){
+		double min=0;
+		Pattern pattern = Pattern.compile("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$");
+		Matcher matcher = pattern.matcher(minutes);
+		if(matcher.matches()){
+			String strMin = matcher.group(1);
+			String strSecs = matcher.group(2);
+			min = Double.parseDouble(strMin);
+			double secs = Double.parseDouble(strSecs);
+			min += secs/60;			
+		}
+		return min;
 	}
 }
