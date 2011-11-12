@@ -78,9 +78,14 @@ public class DateTimeUtilityTest {
 		List<Pair<String, Double>> data = new ArrayList<Pair<String, Double>>();
 		data.add(new Pair<String, Double>("01:30", 1.5));
 		data.add(new Pair<String, Double>("18:45", 18.75));
+		data.add(new Pair<String, Double>("26:55", 26.916666666666668));
+		data.add(new Pair<String, Double>("01:26:55", 86.916666666666668));
 		for (Pair<String, Double> time : data) {
 			double minutes = DateTimeUtility.parseForMinutes(time.getKey());
-			assertEquals(time.getValue(), minutes);
+			logger.debug("Expeted minutes " + time.getValue());
+			//double exp = time.getValue().doubleValue();
+			assertEquals(time.getValue().toString(), new Double(minutes).toString());
+			//assertTrue(exp == minutes);
 		}
 		
 	}

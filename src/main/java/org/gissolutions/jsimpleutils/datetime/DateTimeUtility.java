@@ -98,12 +98,17 @@ public class DateTimeUtility {
 	
 	public static double parseForMinutes(String minutes){
 		double min=0;
-		Pattern pattern = Pattern.compile("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$");
+		Pattern pattern = Pattern.compile("^([0-1][0-9]|[2][0-4])?:?([0-5][0-9]):([0-5][0-9])$");
 		Matcher matcher = pattern.matcher(minutes);
 		if(matcher.matches()){
-			String strMin = matcher.group(1);
-			String strSecs = matcher.group(2);
-			min = Double.parseDouble(strMin);
+			String strHrs = matcher.group(1);
+			if(strHrs != null) {
+				double hrs = Double.parseDouble(strHrs);
+				min += hrs*60.0;
+			}
+			String strMin = matcher.group(2);
+			String strSecs = matcher.group(3);
+			min += Double.parseDouble(strMin);
 			double secs = Double.parseDouble(strSecs);
 			min += secs/60;			
 		}
