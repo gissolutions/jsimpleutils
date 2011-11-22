@@ -71,6 +71,15 @@ public class ForeignKey {
 	public void setOnUpdate(Behavior onUpdate) {
 		this.onUpdate = onUpdate;
 	}
+	public String getKeyColumnName() {
+		return keyColumnName;
+	}
+	public Table getReferenceTable() {
+		return referenceTable;
+	}
+	public String getReferenceColumnName() {
+		return referenceColumnName;
+	}
 	
 	
 }

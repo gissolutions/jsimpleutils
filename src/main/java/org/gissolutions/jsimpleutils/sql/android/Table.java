@@ -105,7 +105,15 @@ public class Table extends SQLObject {
 	public void addForeignKey(ForeignKey fk){
 		this.foreignKeys.add(fk);
 	}
-
+	
+	public ForeignKey getForeignKey(String columnName) {
+		for (ForeignKey fk : this.foreignKeys) {
+			if(fk.getKeyColumnName().equals(columnName)) {
+				return fk;
+			}
+		}
+		return null;
+	}
 	public String getAlias() {
 		return alias;
 	}
