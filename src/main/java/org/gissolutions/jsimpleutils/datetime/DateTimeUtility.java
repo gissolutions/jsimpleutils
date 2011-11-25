@@ -97,6 +97,9 @@ public class DateTimeUtility {
 	}
 	
 	public static double parseForMinutes(String minutes){
+		if(minutes == null) {
+			throw new IllegalArgumentException("Minutes cannot be parsed for minutes if minutes are null");
+		}
 		double min=0;
 		Pattern pattern = Pattern.compile("^([0-1][0-9]|[2][0-4])?:?([0-5][0-9]):([0-5][0-9])$");
 		Matcher matcher = pattern.matcher(minutes);
