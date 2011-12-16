@@ -22,9 +22,14 @@ public class OrderByStatement {
 	public void addColumn(Column column, Order order){
 		columns.add(new Pair<Column, Order>(column, order));
 	}
-	
+	public void addColumn(String columnName, Order order){
+		columns.add(new Pair<Column, Order>(new Column(columnName), order));
+	}
 	public void addColumn(Column column){
 		addColumn(column, null);
+	}
+	public void addColumn(String columnName){
+		addColumn(columnName, null);
 	}
 
 	@Override
